@@ -27,15 +27,14 @@ a {
 .site-wrapper {
     display: flex;
     flex-flow: column nowrap;
-
-    justify-content: center;
 }
 
 .navbar {
-    display: flex;
+    position: fixed;
     justify-content: center;
 
     height: var(--navbar-height);
+    width: 100vw;
 
     background-color: #003b3c;
 
@@ -130,7 +129,7 @@ a {
     
 
     background-color: white;
-    padding: 5rem;
+    padding: 4rem;
     border-radius: 2rem;
 
     height: auto;
@@ -143,7 +142,7 @@ a {
 
 .form-group {
     margin-bottom: 2rem;
-}
+} 
 
 .form-title {
     margin-bottom: 1.7rem;
@@ -171,9 +170,4 @@ a {
 
 .container {
     width: var(--standardised-container-width);
-}
-
-.form-check-label {
-    padding-left: 0.5rem;
-    margin-bottom: 1rem;
 }
