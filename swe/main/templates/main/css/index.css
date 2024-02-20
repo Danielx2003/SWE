@@ -1,7 +1,7 @@
 :root {
     /* Change to modify the height of the navbar and the */
     /* margin of the jumbotron */
-    --navbar-height: 7.5vh;
+    --navbar-height: 5rem;
     --standardised-container-width: 85%;
 }
 
@@ -55,12 +55,14 @@ a {
 
 .nav-group > * {
     display: flex;
+    flex-flow: row nowrap;
     align-items: center;
 
     color: white;
 
     margin: 0 4rem 0 0;
     height: 100%;
+    width: auto;
 }
 
 .nav-group:last-child > * {
@@ -133,7 +135,7 @@ a {
     border-radius: 2rem;
 
     height: auto;
-    width: 45rem;
+    width: 35rem;
 }
 
 .form-container > *:last-child {
