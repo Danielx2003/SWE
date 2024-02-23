@@ -24,7 +24,12 @@
         <div class="login-container">
             <div class="form-container">
                 <form class="" action="POST">
-                    <h4 class="form-title">LOGIN</h4>
+                    <div class="auth-button-controller d-flex w-100 flex-row" data-currently-selected="1">
+                        <a class="auth-button d-flex w-50 justify-content-center border-end"><h4 class="form-title mb-0">LOGIN</h4></a>
+                        <a class="auth-button d-flex w-50 justify-content-center"><h4 class="form-title mb-0">REGISTER</h4></a>
+                    </div>
+                    <div class="mt-0 mb-4"></div>
+
                     <div class="form-group">
                         <label for="uname">Email</label>
                         <input class="form-control" type="text" id="uname" value="" placeholder="Enter username here...">
@@ -40,8 +45,6 @@
                     <button class="btn btn-login" type="submit">LOGIN</button>
                     <small class="float-right mt-2"><a class="text-muted mt-3" href="">Forgotten your password?</a></small>
                 </form>
-                <hr>
-                <span class="text-center">Need an account? <strong><a class="text-capitalize">SIGN UP</a></strong></span>
             </div>
         </div>
     </div>
