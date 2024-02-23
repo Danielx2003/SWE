@@ -1,0 +1,200 @@
+:root {
+  /* Change to modify the height of the navbar and the */
+  /* margin of the jumbotron */
+  --navbar-height: 5rem;
+  --standardised-container-width: 85%;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url(./fonts/Outfit-VariableFont_wght.ttf);
+}
+
+#root {
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: #003b3c;
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+} a:hover {
+  text-decoration: none;
+  color: gainsboro;
+  cursor: pointer;
+}
+
+#a--nav {
+  text-decoration: inherit;
+  color: white;
+} #a--nav:hover {
+    text-decoration: none;
+    color: gainsboro;
+    cursor: pointer;
+}
+
+#a--login {
+  text-decoration: inherit;
+  color: inherit;
+} #a--login:hover {
+  text-decoration: none;
+  color: gainsboro;
+  cursor: pointer;
+}
+
+#label--login{
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.site-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+
+  justify-content: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+
+  height: var(--navbar-height);
+
+  background-color: #003b3c;
+
+  box-shadow: 0 0 15px black;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+
+  width: var(--standardised-container-width);
+}
+
+.nav-group {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.nav-group > * {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  color: white;
+
+  margin: 0 4rem 0 0;
+  
+  height: 100%;
+  width: auto;
+}
+
+.nav-group:last-child > * {
+  margin: 0 0 0 4rem;
+}
+
+.navbar-text-logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.jumbotron {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background: url(./res/plant.webp);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  object-fit: fill;
+
+  margin-top: var(--navbar-height);
+
+  padding: 100px 0 100px 0;
+} 
+
+.jumbotron-container {
+  width: var(--standardised-container-width);
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.jumbotron-container > #h1--override, #p--override {
+  padding: 15px;
+  border-radius: 2px;
+  background-color: #003b3c80;
+  color: white;
+
+  z-index: 2;
+}
+
+.jumbotron-bg-img {
+  position: absolute;
+  z-index: -1;
+}
+
+#btn--override {
+  background-color: #00dea5;
+  border-color: #00dea5;
+  transition: 0.5s background-color;
+} #btn:hover {
+  background-color: lightgreen;
+  border-color: lightgreen;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.form-container {
+  display: flex;
+  flex-flow: column nowrap;
+
+  justify-content: center;
+  margin-top: var(--navbar-height);
+  
+
+  background-color: white;
+  padding: 4rem;
+  border-radius: 2rem;
+
+  height: auto;
+  width: 35rem;
+}
+
+.form-container > *:last-child {
+  margin-bottom: 0;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+} 
+
+.form-title {
+  margin-bottom: 1.7rem;
+}
+
+.btn-login {
+  width: 100%;
+  box-shadow: 0 2px 3px gray;
+}
+
+.form-container > hr {
+  width: 100%;
+  margin: 30px 0 30px 0;
+  border-top-color: #003b3c40;
+}
+
+.container {
+  width: var(--standardised-container-width);
+}
