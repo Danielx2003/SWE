@@ -126,7 +126,7 @@ a {
     display: flex;
     flex-flow: column nowrap;
 
-    justify-content: center;
+    justify-content: space-between;
     margin-top: var(--navbar-height);
     
 
@@ -134,7 +134,7 @@ a {
     padding: 4rem;
     border-radius: 2rem;
 
-    height: auto;
+    height: 35rem;
     width: 35rem;
 }
 
