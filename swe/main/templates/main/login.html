@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>SWE</title>
+</head>
+<body>
+    <div class="site-wrapper">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-group">
+                    <a class="navbar-text-logo" href=".">Garden App</a>
+                </div>
+                <div class="nav-group">
+                    <a class="nav-group-element" href="login.html">Login</a>
+                    <a href="login.html">Register</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="login-container">
+            <div class="form-container">
+                <form class="" action="POST">
+                    <div class="auth-button-controller d-flex w-100 flex-row" data-currently-selected="1">
+                        <a class="auth-button d-flex w-50 justify-content-center border-end"><h4 class="form-title mb-0">LOGIN</h4></a>
+                        <a class="auth-button d-flex w-50 justify-content-center"><h4 class="form-title mb-0">REGISTER</h4></a>
+                    </div>
+                    <div class="mt-0 mb-4"></div>
+
+                    <div class="form-group">
+                        <label for="uname">Email</label>
+                        <input class="form-control" type="text" id="uname" value="" placeholder="Enter username here...">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" value="" placeholder="Enter password here...">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="remember" value="" placeholder="Enter password here...">
+                        <label class="form-check-label pl-2 mb-3" for="remember">Remember me?</label>
+                    </div>
+                    <button class="btn btn-login" type="submit">LOGIN</button>
+                    <small class="float-right mt-2"><a class="text-muted mt-3" href="">Forgotten your password?</a></small>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
