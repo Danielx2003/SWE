@@ -8,6 +8,20 @@ from .serializers import RegistrationSerializer, LoginSerializer
 
 
 class RegistrationView(APIView):
+    """
+    View for registering a new user.
+    url: /authentication/register/
+    method: POST
+    request body: {
+        "username": "username",
+        "password": "password"
+    }
+    successful response: {
+        email: "email",
+        username: "username"
+    }
+    code: 201
+    """
     permission_classes = (permissions.AllowAny,)
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
@@ -18,6 +32,17 @@ class RegistrationView(APIView):
 
 
 class LoginView(APIView):
+    """
+    View for logging in a user.
+    url: /authentication/login/
+    method: POST
+    request body: {
+        "username": "username",
+        "password": "password"
+    }
+    successful response: None
+    code: 200
+    """
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
     def post(self, request):
