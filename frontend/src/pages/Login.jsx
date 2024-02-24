@@ -14,11 +14,11 @@ export default function Login() {
         else display an error
         */
         const makeReq = async () => {
-            const response = await fetch('api/login/', {
+            const response = await fetch('authentication/login/', {
                 method: "POST",
                 body: JSON.stringify({
-                    username:"test",
-                    password:"paswrd test"
+                    username:"Hot_Plazma",
+                    password:"codepeople"
                 }),
                 headers: {
                   "Content-type": "application/json"
