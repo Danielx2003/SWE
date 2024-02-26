@@ -32,6 +32,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 ALLOWED_HOSTS = []
 
+FRONTEND_URL = "http://localhost:3000"
 
 # Application definition
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "authentication",
+    "qrCodes",
 ]
 
 MIDDLEWARE = [
