@@ -6,6 +6,7 @@ export default function LoginComp() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [btnPressed, setBtnPressed] = useState(false)
+    const [count, setCount] = useState(0)
     let navigate = useNavigate()
     useEffect(() => {
         /*
@@ -34,14 +35,16 @@ export default function LoginComp() {
                 alert("Incorrect Username or Password.")
             }
         }
-        makeReq()
+        if (count != 0) {
+            makeReq()
+        } else {
+            setCount(prev => prev+1);
+        }
     }, [btnPressed])    
 
     function handleClick(e) {
         e.preventDefault()
-        if (!btnPressed) {
-            setBtnPressed(prev => !prev)
-        }
+        setBtnPressed(prev => !prev)
     }
 
     function handleUsername(e) {
