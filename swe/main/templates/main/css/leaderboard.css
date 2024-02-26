@@ -82,14 +82,18 @@ a:hover {
     align-items: center;
 }
 
+.userRow {
+    background-color: #112A12
+}
+
 table {
     width: 50%;
     border-collapse: collapse;
-    margin-top: 20px;
+    background-color: #48691e;
 }
 
 th, td {
-    border: 2px solid white;
+    border: 2px solid black;
     padding: 10px;
     color: white;
     text-align: center;
