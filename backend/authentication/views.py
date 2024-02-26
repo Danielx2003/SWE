@@ -13,6 +13,7 @@ class RegistrationView(APIView):
     url: /authentication/register/
     method: POST
     request body: {
+        "email": "email",
         "username": "username",
         "password": "password"
     }
