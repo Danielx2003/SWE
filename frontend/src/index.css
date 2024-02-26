@@ -29,6 +29,10 @@ a {
   flex-flow: column nowrap;
 }
 
+.spacer {
+  height: var(--navbar-height);
+}
+
 .navbar {
   position: fixed !important;
   justify-content: center !important;
@@ -86,8 +90,6 @@ a {
   background-size: 100% auto;
   object-fit: fill;
 
-  margin-top: var(--navbar-height);
-
   padding: 100px 0 100px 0;
 
 } 
@@ -118,7 +120,7 @@ a {
   justify-content: center;
   align-items: center;
 
-  height: 100vh;
+  height: 90vh;
 }
 
 .form-container {
@@ -126,8 +128,6 @@ a {
   flex-flow: column nowrap;
 
   justify-content: space-between;
-  margin-top: var(--navbar-height);
-  
 
   background-color: white;
   padding: 4rem;

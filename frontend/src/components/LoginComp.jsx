@@ -30,7 +30,7 @@ export default function LoginComp() {
             })
             console.log(username, password)
             if (response.status == 200) {
-                navigate('main')
+                navigate('/')
             } else {
                 alert("Incorrect Username or Password.")
             }
@@ -91,7 +91,7 @@ export default function LoginComp() {
                     type="submit"
                     onClick={handleClick}>LOGIN</button>
             <small class="float-end mt-2">
-                <a class="text-muted mt-3" href="">
+                <a class="text-muted mt-3" href="/forgot">
                     Forgotten your password?
                 </a>
             </small>

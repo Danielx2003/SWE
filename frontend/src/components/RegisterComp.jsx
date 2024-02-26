@@ -30,7 +30,7 @@ export default function RegisterComp() {
                 const json = await response.json()
                 console.log(response)
                 if (response.status == 201) {
-                    navigate('main')
+                    navigate('/')
                 } else {
                     alert('Failed to register.')
                 }
