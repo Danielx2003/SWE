@@ -1,11 +1,12 @@
 import {React, useState} from 'react';
-import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterComp() {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [passwordChk, setpasswordChk] = useState("")
+    let navigate = useNavigate()
 
     function handleFormSubmit(e) {
         e.preventDefault()
@@ -15,7 +16,6 @@ export default function RegisterComp() {
         else {
             const makeReq = async () => {
                 // POST username and password
-                debugger;
                 const response = await fetch('http://localhost:8000/authentication/register/', {
                     method: "POST",
                     headers: {
@@ -27,9 +27,13 @@ export default function RegisterComp() {
                         email: email
                     })
                 })
-                console.log(username, password, email)
                 const json = await response.json()
-                console.log(json)
+                console.log(response)
+                if (response.status == 201) {
+                    navigate('main')
+                } else {
+                    alert('Failed to register.')
+                }
             }
     
             makeReq()        

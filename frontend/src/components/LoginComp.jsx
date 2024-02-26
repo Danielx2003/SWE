@@ -29,7 +29,6 @@ export default function LoginComp() {
             })
             console.log(username, password)
             if (response.status == 200) {
-                console.log("logged in")
                 navigate('main')
             } else {
                 alert("Incorrect Username or Password.")
