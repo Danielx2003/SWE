@@ -161,22 +161,10 @@ a {
   border-top-color: #003b3c40;
 }
 
-.auth-button-controller[data-currently-selected="1"] > .auth-button:first-child {
-  border-bottom: 1px solid lightgray;
-}
-
-.auth-button-controller[data-currently-selected="2"] > .auth-button:last-child {
-  border-bottom: 1px solid lightgray;
-}
-
-.auth-button-controller[data-currently-selected="2"] > .auth-button {
-  border-bottom: 1px solid white;
-  transition: border-bottom 0.3s;
-}
-
 .auth-button {
   height: 4rem;
   align-items: center;
+  cursor: pointer;
 } .auth-button:hover {
   color: black !important;
 

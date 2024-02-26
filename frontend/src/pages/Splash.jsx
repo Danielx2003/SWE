@@ -10,14 +10,13 @@ export default function Splash() {
     return (
         <div className="jumbotron">
             <div className="jumbotron-container">
-                <h1 id="h1--override">Welcome</h1>
-                <p id="p--override">Stuff</p>
-                <button
+                <h1>Welcome</h1>
+                <p>Stuff</p>
+                <div
                     type="button"
                     className="btn btn-success"
                     onClick={handleClick}
-                    id="btn--override"
-                >Sign in</button>
+                >Sign in</div>
 
             </div>
         </div>
