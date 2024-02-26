@@ -10,61 +10,33 @@
   src: url(./fonts/Outfit-VariableFont_wght.ttf);
 }
 
-#root {
-  height: 100vh;
-  overflow-x: hidden;
-  background-color: #003b3c;
-  font-family: 'Outfit', sans-serif;
+body {
+  background-color: #003b3c !important; 
+  font-family: 'Outfit', sans-serif !important;
   font-size: 18px;
 }
 
 a {
-  text-decoration: inherit;
-  color: inherit;
+  text-decoration: inherit !important;
+  color: inherit !important;
 } a:hover {
-  text-decoration: none;
-  color: gainsboro;
-  cursor: pointer;
-}
-
-#a--nav {
-  text-decoration: inherit;
-  color: white;
-} #a--nav:hover {
-    text-decoration: none;
-    color: gainsboro;
-    cursor: pointer;
-}
-
-#a--login {
-  text-decoration: inherit;
-  color: inherit;
-} #a--login:hover {
-  text-decoration: none;
-  color: gainsboro;
-  cursor: pointer;
-}
-
-#label--login{
-  margin-bottom: 0.3rem;
-  font-weight: 700;
-  font-size: 20px;
+  text-decoration: none !important;
+  color: gainsboro !important;
 }
 
 .site-wrapper {
   display: flex;
   flex-flow: column nowrap;
-
-  justify-content: center;
 }
 
 .navbar {
-  display: flex;
-  justify-content: center;
+  position: fixed !important;
+  justify-content: center !important;
 
   height: var(--navbar-height);
+  width: 100vw;
 
-  background-color: #003b3c;
+  background-color: #003b3c !important;
 
   box-shadow: 0 0 15px black;
 }
@@ -86,10 +58,9 @@ a {
   flex-flow: row nowrap;
   align-items: center;
 
-  color: white;
+  color: white !important;
 
   margin: 0 4rem 0 0;
-  
   height: 100%;
   width: auto;
 }
@@ -110,6 +81,7 @@ a {
   align-items: center;
 
   background: url(./res/plant.webp);
+
   background-repeat: no-repeat;
   background-size: 100% auto;
   object-fit: fill;
@@ -117,6 +89,8 @@ a {
   margin-top: var(--navbar-height);
 
   padding: 100px 0 100px 0;
+
+  z-index: -1;
 } 
 
 .jumbotron-container {
@@ -126,7 +100,7 @@ a {
   flex-flow: column nowrap;
 }
 
-.jumbotron-container > #h1--override, #p--override {
+.jumbotron-container > h1, p {
   padding: 15px;
   border-radius: 2px;
   background-color: #003b3c80;
@@ -140,27 +114,19 @@ a {
   z-index: -1;
 }
 
-#btn--override {
-  background-color: #00dea5;
-  border-color: #00dea5;
-  transition: 0.5s background-color;
-} #btn:hover {
-  background-color: lightgreen;
-  border-color: lightgreen;
-}
-
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
 
+  height: 100vh;
 }
 
 .form-container {
   display: flex;
   flex-flow: column nowrap;
 
-  justify-content: center;
+  justify-content: space-between;
   margin-top: var(--navbar-height);
   
 
@@ -168,7 +134,7 @@ a {
   padding: 4rem;
   border-radius: 2rem;
 
-  height: auto;
+  height: 35rem;
   width: 35rem;
 }
 
@@ -177,7 +143,7 @@ a {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 } 
 
 .form-title {
@@ -193,6 +159,38 @@ a {
   width: 100%;
   margin: 30px 0 30px 0;
   border-top-color: #003b3c40;
+}
+
+.auth-button-controller[data-currently-selected="1"] > .auth-button:first-child {
+  border-bottom: 1px solid lightgray;
+}
+
+.auth-button-controller[data-currently-selected="2"] > .auth-button:last-child {
+  border-bottom: 1px solid lightgray;
+}
+
+.auth-button-controller[data-currently-selected="2"] > .auth-button {
+  border-bottom: 1px solid white;
+  transition: border-bottom 0.3s;
+}
+
+.auth-button {
+  height: 4rem;
+  align-items: center;
+} .auth-button:hover {
+  color: black !important;
+
+  background-color: lightgray;
+  transition: background-color 0.5s;
+} 
+
+.btn {
+  background-color: #00dea5 !important;
+  border-color: #00dea5 !important;
+  transition: 0.5s background-color !important;
+} .btn:hover {
+  background-color: lightgreen !important;
+  border-color: lightgreen !important;
 }
 
 .container {
