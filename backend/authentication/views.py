@@ -15,7 +15,8 @@ class RegistrationView(APIView):
     request body: {
         "email": "email",
         "username": "username",
-        "password": "password"
+        "password": "password",
+        "email": "email"
     }
     successful response: {
         email: "email",

@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 export default function LoginComp() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [btnPressed, setBtnPressed] = useState(false)
-
+    const [count, setCount] = useState(0)
+    let navigate = useNavigate()
     useEffect(() => {
         /*
         on the login page
@@ -14,29 +17,34 @@ export default function LoginComp() {
         else display an error
         */
         const makeReq = async () => {
-            // POST username and password
-            const response = await fetch('authentication/login/', {
+            const response = await fetch('http://localhost:8000/authentication/login/', {
                 method: "POST",
-                body: JSON.stringify({
-                    username: {username},
-                    password: {password}
-                }),
                 headers: {
-                  "Content-type": "application/json"
-                }
+                  "Content-type": "application/json",
+                  'X-CSRFToken' : Cookies.get('csrftoken')
+                },
+                body: JSON.stringify({
+                    username:username,
+                    password:password
+                }),
             })
-            const json = await response.json()
-            console.log(json)
+            console.log(username, password)
+            if (response.status == 200) {
+                navigate('main')
+            } else {
+                alert("Incorrect Username or Password.")
+            }
         }
-
-        makeReq()
-    }, [btnPressed])   
+        if (count != 0) {
+            makeReq()
+        } else {
+            setCount(prev => prev+1);
+        }
+    }, [btnPressed])    
 
     function handleClick(e) {
         e.preventDefault()
-        if (!btnPressed) {
-            alert("will make the request now")
-        }
+        setBtnPressed(prev => !prev)
     }
 
     function handleUsername(e) {
