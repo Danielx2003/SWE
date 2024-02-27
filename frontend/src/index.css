@@ -222,3 +222,50 @@ a {
   align-items: center;
 
 }
+
+.main--container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.garden--form {  
+  align-items: center;
+  justify-content: center;
+  
+  background-color: white;
+
+  padding: 4rem;
+  padding-top: 0;
+
+  height: 35rem;
+  width: 25rem;
+  margin: 0;
+}
+
+
+.garden--img {
+  height: 16rem;
+  width: 35rem;
+  margin-top: var(--navbar-height);
+}
+
+.garden--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choice--container {
+  display: flex;
+  flex-flow: column nowrap;
+
+  background-color: white;
+  padding: 4rem;
+  padding-top: 0;
+
+  height: 35rem;
+  width: 35rem;
+}
