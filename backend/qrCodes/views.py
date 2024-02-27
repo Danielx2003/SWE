@@ -3,12 +3,13 @@ import io
 from django.http import HttpResponse
 from django.utils import timezone
 from rest_framework import generics
+from rest_framework import permissions
 from .qrCodeUtil import generate_qr_code_image
 from django.conf import settings
 
 from .models import QRCode
 from .serializers import QRCodeSerializer
-from .permisions import IsSuperUserOnly
+from .permisions import IsSuperUserOnly 
 
 
 class QRCodeListCreateView(generics.ListCreateAPIView):
@@ -54,7 +55,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
     code: 201
     """
     serializer_class = QRCodeSerializer
-    permission_classes = [IsSuperUserOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return QRCode.objects.filter(expiration_date__gt=timezone.now())

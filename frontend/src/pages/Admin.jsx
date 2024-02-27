@@ -4,7 +4,7 @@ import {Navigate} from 'react-router-dom'
 import AdminCMS from '../components/AdminCMS';
 
 export default function Admin() {
-    const isAdmin = false;
+    const isAdmin = true;
     
     return (
         <>
