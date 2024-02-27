@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+from .qrCodeUtil import generate_random_qr_string
+
 
 class QRCode(models.Model):
     QR_TYPES = (
@@ -17,6 +20,14 @@ class QRCode(models.Model):
     qr_type = models.IntegerField(choices=QR_TYPES)
     scanned_by_users = models.ManyToManyField(User, related_name='qrcodes', blank=True)
 
-    # TODO def save method, move functionality to save method from serializer
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            code = generate_random_qr_string()
+            while QRCode.objects.filter(code=code).exists():
+                code = generate_random_qr_string()
+            self.code = code
+            self.creation_date = timezone.now()
+        super(QRCode, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name

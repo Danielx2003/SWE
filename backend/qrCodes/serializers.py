@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import QRCode
 from django.utils import timezone
-from .qrCodeUtil import generate_random_qr_string
 
 
 class QRCodeSerializer(serializers.ModelSerializer):
@@ -40,10 +39,7 @@ class QRCodeSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Expiration date must be in the future")
         return value
 
-    # TODO make sure the code is unique, possibly move this logic into qrCode model
     def create(self, validated_data):
         # Generate remaining fields
-        validated_data['creation_date'] = timezone.now()
-        validated_data['code'] = generate_random_qr_string()
         validated_data['creator'] = self.context['request'].user  # Set the current user as the creator
         return QRCode.objects.create(**validated_data)
