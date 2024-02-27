@@ -15,6 +15,7 @@ class QRCode(models.Model):
     expiration_date = models.DateTimeField()
     creation_date = models.DateTimeField(auto_now_add=True)
     qr_type = models.IntegerField(choices=QR_TYPES)
+    scanned_by_users = models.ManyToManyField(User, related_name='qrcodes', blank=True)
 
     def __str__(self):
         return self.name
