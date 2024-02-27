@@ -85,6 +85,7 @@ class QRCodeImageView(generics.RetrieveAPIView):
         return HttpResponse(img_byte_arr.getvalue(), content_type="image/jpeg")
 
 
+# TODO make sure the user can scan the same qr code only once
 class QRCodeScannedView(APIView):
     """
     Api endpoint that allows QR codes to be scanned.

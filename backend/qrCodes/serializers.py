@@ -40,6 +40,7 @@ class QRCodeSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Expiration date must be in the future")
         return value
 
+    # TODO make sure the code is unique, possibly move this logic into qrCode model
     def create(self, validated_data):
         # Generate remaining fields
         validated_data['creation_date'] = timezone.now()
