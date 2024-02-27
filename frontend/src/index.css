@@ -184,3 +184,34 @@ a {
 .container {
   width: var(--standardised-container-width);
 }
+/* Leaderboard css */
+.leaderboard-wrapper {
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userRow {
+  background-color: #112A12
+}
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+  background-color: #48691e;
+}
+
+th, td {
+  border: 2px solid black;
+  padding: 10px;
+  color: white;
+  text-align: center;
+}
