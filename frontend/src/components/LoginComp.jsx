@@ -2,20 +2,18 @@ import React, {useState, useEffect} from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 
-export default function LoginComp() {
+export default function LoginComp(props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [btnPressed, setBtnPressed] = useState(false)
     const [count, setCount] = useState(0)
     let navigate = useNavigate()
+
+    if (Cookies.get('sessionid')) {
+        navigate('/main')
+    }
+
     useEffect(() => {
-        /*
-        on the login page
-        need to POST username and password 
-        see if the details match those in the db
-        if so login
-        else display an error
-        */
         const makeReq = async () => {
             const response = await fetch('http://localhost:8000/authentication/login/', {
                 method: "POST",
@@ -23,14 +21,18 @@ export default function LoginComp() {
                   "Content-type": "application/json",
                   'X-CSRFToken' : Cookies.get('csrftoken')
                 },
+                credentials: "include",
                 body: JSON.stringify({
                     username:username,
                     password:password
                 }),
             })
-            console.log(username, password)
             if (response.status == 200) {
-                navigate('main')
+                if (props.redirectQR.qr) {                    
+                    navigate(props.redirectQR.path)
+                } else {
+                    navigate('/main')
+                }
             } else {
                 alert("Incorrect Username or Password.")
             }
@@ -91,7 +93,7 @@ export default function LoginComp() {
                     type="submit"
                     onClick={handleClick}>LOGIN</button>
             <small class="float-end mt-2">
-                <a class="text-muted mt-3" href="">
+                <a class="text-muted mt-3" href="/forgot">
                     Forgotten your password?
                 </a>
             </small>

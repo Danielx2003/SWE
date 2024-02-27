@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 
 FRONTEND_URL = "http://localhost:3000"
 
-SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = False
 # Application definition
 
 INSTALLED_APPS = [

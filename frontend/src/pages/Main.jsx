@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import Cookies from 'js-cookie';
 
 export default function Main() {
     useEffect(() => {
@@ -7,14 +8,8 @@ export default function Main() {
         need to add the garden image
         need to request their data and dispaly (garden, level etc)
         */
-        const makeReq = async () => {
-            const response = await fetch('api/hello-world/')
-            const json = await response.json()
-            console.log(json)
-        }
-        makeReq()
     }, [])    
-
+    
     return (
         <div>
             <h1>ADD GARDEN HERE?</h1>

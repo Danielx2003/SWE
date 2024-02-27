@@ -183,3 +183,42 @@ a {
 .container {
   width: var(--standardised-container-width);
 }
+
+#congrats--img {
+  height: 16rem;
+  width: 16rem;
+  margin-bottom: 2rem;
+
+}
+
+#congrats--text {
+  margin: 0;
+}
+
+#prize--text {
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+#congrats--form {  align-items: center;
+  justify-content: center;
+
+  margin-top: var(--navbar-height);
+  
+
+  background-color: white;
+  padding: 4rem;
+  border-radius: 2rem;
+
+  height: 35rem;
+  width: 25rem;
+  margin-top: 8em;
+}
+
+#congrats--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

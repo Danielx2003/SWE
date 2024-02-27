@@ -2,8 +2,8 @@ import {React, useState} from 'react';
 import LoginComp from '../components/LoginComp';
 import RegisterComp from '../components/RegisterComp';
 
-export default function Login() {
-    const [authState, setAuthState] = useState(true);
+export default function Login(props) {
+    const [authState, setAuthState] = useState(false);
 
     function toggleAuthStateL() {
         setAuthState(false)
@@ -24,7 +24,7 @@ export default function Login() {
                 <hr class="mt-0 mb-4"></hr>
 
                 <section id="auth">
-                    {!authState ? <LoginComp/> : <RegisterComp/>}
+                    {!authState ? <LoginComp redirectQR={props.redirectQR}/> : <RegisterComp/>}
                 </section>
             </div>
         </div>
