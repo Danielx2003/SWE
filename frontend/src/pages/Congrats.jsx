@@ -40,8 +40,8 @@ export default function Congrats(props) {
     }
 
     return (
-        <div id="congrats--container">
-            <div id="congrats--form">
+        <div className="congrats--container">
+            <div className="congrats--form">
                 <form className="">
                     <h4 className="form-title">Congratulations!</h4>
                     <div className="form-group">
