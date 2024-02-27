@@ -86,21 +86,33 @@ class QRCodeImageView(generics.RetrieveAPIView):
         return HttpResponse(img_byte_arr.getvalue(), content_type="image/jpeg")
 
 
-# TODO make sure the user can scan the same qr code only once
 class QRCodeScannedView(APIView):
     """
     Api endpoint that allows QR codes to be scanned.
-    url: /qrCodes/find/{code}/
+    url: /qrcodes/find/{code}/
     method: PUT
     request body: None
     returns: updated GardenData of the user
     code: 200
     successful response: {
-        "id": "id",
-        "user": "user",
-        "points": "points",
-        "xp": "xp",
-        "num_plants": "num_plants"
+        "garden": {
+            "id": "id",
+            "user": "user",
+            "points": "points",
+            "xp": "xp",
+            "num_plants": "num_plants"
+        },
+        qrcode: {
+            "id": "id",
+            "name": "name",
+            "xp": "xp",
+            "points": "points",
+            "qr_type": "qr_type",
+            "expiration_date": "expiration_date",
+            "creation_date": "creation_date",
+            "code": "code",
+            "creator": "creator"
+        }
     }
     """
     permission_classes = [permissions.IsAuthenticated]
