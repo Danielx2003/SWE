@@ -1,14 +1,20 @@
 import io
 
-from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse, Http404
 from django.utils import timezone
-from rest_framework import generics
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .qrCodeUtil import generate_qr_code_image
 from django.conf import settings
 
 from .models import QRCode
 from .serializers import QRCodeSerializer
 from .permisions import IsSuperUserOnly
+from garden.models import GardenData
+from garden.serializers import GardenDataSerializer
 
 
 class QRCodeListCreateView(generics.ListCreateAPIView):
@@ -77,3 +83,37 @@ class QRCodeImageView(generics.RetrieveAPIView):
         qr_code_image = generate_qr_code_image(settings.FRONTEND_URL + "/qr?code=" + qr_code.code)
         qr_code_image.save(img_byte_arr, format='JPEG')
         return HttpResponse(img_byte_arr.getvalue(), content_type="image/jpeg")
+
+
+# TODO make sure the user can scan the same qr code only once
+class QRCodeScannedView(APIView):
+    """
+    Api endpoint that allows QR codes to be scanned.
+    url: /qrCodes/find/{code}/
+    method: PUT
+    request body: None
+    returns: updated GardenData of the user
+    code: 200
+    successful response: {
+        "id": "id",
+        "user": "user",
+        "points": "points",
+        "xp": "xp",
+        "num_plants": "num_plants"
+    }
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def put(self, request, code, *args, **kwargs):
+        try:
+            qr_code = QRCode.objects.all().get(code=code)
+            user_id = request.user.id
+            garden = GardenData.objects.get(user__id=user_id)
+            garden.points += qr_code.points
+            garden.xp += qr_code.xp
+            if qr_code.qr_type == 1:
+                garden.num_plants += 1
+            garden.save()
+            return Response(GardenDataSerializer(garden).data, status=200)
+        except ObjectDoesNotExist:
+            return Response({"detail": "QR code or user's garden not found"}, status=404)
