@@ -1,29 +1,22 @@
 import React, {useState} from 'react';
+import ChallengeDetails from "./ChallengeDetails"
 
+export default function Challenges(props) {
+    const [visible, setVisible] = useState(false)
 
-export default function Challenges() {
-    const [text, setText] = useState("")
+    function showDetails(e) {
+        e.preventDefault()
+        setVisible(true)
+    }
 
     return (
-        <div className="challenges">
-            <div class="form-group">
-                <button class="btn btn-login" 
-                        type="submit"
-                        >CHALLENGE 1
-                </button>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-login" 
-                            type="submit"
-                            >CHALLENGE 2
-                </button>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-login" 
-                            type="submit"
-                            >CHALLENGE 3
-                </button>
-            </div>
+        <div class="form-group">
+            <button class="btn btn-login" 
+                    onClick={showDetails}
+                    >CHALLENGE 1
+            </button>
+            {visible ? <ChallengeDetails key={props.id} visible={visible} setVisible={setVisible}/> : null}
+
         </div>
     )
 
