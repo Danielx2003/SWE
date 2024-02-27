@@ -1,5 +1,6 @@
 import {React, useState, useEffect, useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import axios from 'axios'
 
 export default function QRCreate() {
@@ -13,19 +14,21 @@ export default function QRCreate() {
   const [count, setCount] = useState(0)
   let navigate = useNavigate()
 
-  const instance = axios.create({
-    withCredentials: true
-  })
-
   useEffect(() => {
     const postQRCode = async () => {
-      const response = await instance.post(
+      const response = await axios.post(
         'http://localhost:8000/qrcodes/', {
           'name': name,
           'xp': xp,
           'points': points,
           'qr_type': type,
-          'expiration_date': date
+          'expiration_date': date + ":00Z"
+        },
+        {
+          'withCredentials': true,
+          headers: {
+            'X-CSRFToken': Cookies.get('csrftoken')
+          }
         }
       )
       .then((res) => {
@@ -96,19 +99,14 @@ export default function QRCreate() {
           value={points}
           onChange={handlePointsChange} />
         </div>
-        {
-          (type == '1') ? 
-            <></>
-          :
-          <div class="form-group">
-            <label for="xp">XP Gained</label>
-            <input 
-              class="form-control" 
-              type="text" 
-              value={xp}
-              onChange={handleXPChange} />
-          </div>
-        }
+        <div class="form-group">
+          <label for="xp">XP Gained</label>
+          <input 
+            class="form-control" 
+            type="text" 
+            value={xp}
+            onChange={handleXPChange} />
+        </div>
         <div class="form-group">
           <label for="type">QR Type</label>
           <select class="form-control" value={type} onChange={handleTypeChange}>
