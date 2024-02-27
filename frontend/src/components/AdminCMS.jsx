@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export default function AdminCMS() {
-  var count = 0
-  var qrcodes = null
+  const [data, setData] = useState([])
 
   useEffect(() => {
     const getQRCodes = async () => {
@@ -11,35 +10,21 @@ export default function AdminCMS() {
         'http://localhost:8000/qrcodes/',
         {'withCredentials': true}
       )
-      .then((res) => res.data);
-
-      return response
+      .then((res) => res.data)
+      .then((data) => setData(data));
     }
 
-    /* const response = await fetch('http://localhost:8000/qrcodes/', 
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          "X-CSRFToken" : Cookies.get('csrftoken')
-        },
-      })
-      .then((res) => {
-        console.log(res)
-      })
-    } */
-
-    if (count === 0) {
-      qrcodes = getQRCodes()
-      count++
-    }
-
-    console.log(qrcodes)
-  })
+    getQRCodes()
+  }, ["http://localhost:8000/qrcodes/"])
 
   return (
     <>
-      <div className="w-100 pt-3 pb-2 ps-2 bg-white text-center"><strong>QR Codes</strong></div>
+      <div className="d-flex flex-row w-100 justify-content-between pt-3 pb-2 ps-2 bg-white">
+        <strong className="ms-4">QR Codes</strong>
+        <a href="/admin/create">
+          <button className="me-4 btn text-light">+</button>
+        </a>
+      </div>
       <table className="table">
         <thead>
           <tr>
@@ -54,22 +39,26 @@ export default function AdminCMS() {
           </tr>
         </thead>
         <tbody>
-          {
-            qrcodes.array.map((data, i) => {
-              return (
-                <tr>
-                  <th scope="row">data.id</th>
-                  <td>data.name</td>
-                  <td>data.qr_type</td>
-                  <td>data.points</td>
-                  <td>data.xp</td>
-                  <td>data.code</td>
-                  <td>data.creation_date</td>
-                  <td>data.expiration_date</td>
-                </tr>
-              );
-            })
-          }
+        {
+          data.map((val, i) => {
+            return (
+              <tr>
+                <th scope="row">{val.id}</th>
+                <td>{val.name}</td>
+                <td>{val.qr_type}</td>
+                <td>{val.points}</td>
+                <td>{val.xp}</td>
+                <td>
+                  <a href={'http://localhost:8000/qrcodes/'+val.id+'/image/'} download>
+                    <button className="btn btn-info p-3"></button>
+                  </a>
+                </td>
+                <td>{val.creation_date}</td>
+                <td>{val.expiration_date}</td>
+              </tr>
+            )
+          })
+        }
         </tbody>
       </table>
     </>
