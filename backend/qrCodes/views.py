@@ -1,6 +1,7 @@
 import io
 
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import transaction
 from django.http import HttpResponse, Http404
 from django.utils import timezone
 from rest_framework import generics, permissions
@@ -103,10 +104,12 @@ class QRCodeScannedView(APIView):
     }
     """
     permission_classes = [permissions.IsAuthenticated]
-
-    def put(self, request, code, *args, **kwargs):
+    @transaction.atomic()
+    def put(self, request, code):
         try:
-            qr_code = QRCode.objects.all().get(code=code)
+            qr_code = QRCode.objects.all().filter(expiration_date__gt=timezone.now()).get(code=code)
+            if request.user in qr_code.scanned_by_users.all():
+                return Response({"detail": "User already scanned this QR code"}, status=400)
             user_id = request.user.id
             garden = GardenData.objects.get(user__id=user_id)
             garden.points += qr_code.points
@@ -114,6 +117,7 @@ class QRCodeScannedView(APIView):
             if qr_code.qr_type == 1:
                 garden.num_plants += 1
             garden.save()
-            return Response(GardenDataSerializer(garden).data, status=200)
+            qr_code.scanned_by_users.add(request.user)
+            return Response({"garden": GardenDataSerializer(garden).data, "qrcode": QRCodeSerializer(qr_code).data}, status=200)
         except ObjectDoesNotExist:
             return Response({"detail": "QR code or user's garden not found"}, status=404)
