@@ -63,6 +63,18 @@ class LoginView(APIView):
 
 
 class UserDetailsView(generics.RetrieveAPIView):
+    """
+    View for getting details of the current user.
+    url: /authentication/user/
+    method: GET
+    successful response: {
+        "username": "username",
+        "email": "email",
+        "permissions": ["permission1", "permission2", ...],
+        "groups": ["group1", "group2", ...]
+    }
+    code: 200
+    """
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
 
