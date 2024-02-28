@@ -1,5 +1,6 @@
 import {React, useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export default function RegisterComp() {
     const [username, setUsername] = useState("")
@@ -30,12 +31,32 @@ export default function RegisterComp() {
                 const json = await response.json()
                 console.log(response)
                 if (response.status == 201) {
-                    navigate('/')
+                    loginReq()                
                 } else {
                     alert('Failed to register.')
                 }
             }
-    
+            const loginReq = async () => {
+                const response = await fetch('http://localhost:8000/authentication/login/', {
+                    method: "POST",
+                    headers: {
+                      "Content-type": "application/json",
+                      'X-CSRFToken' : Cookies.get('csrftoken')
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        username:username,
+                        password:password
+                    }),
+                })
+                console.log(username, password)
+                if (response.status == 200) {
+                    navigate('/main')
+                } else {
+                    alert("Incorrect Username or Password.")
+                }
+            }
+           
             makeReq()        
         }
 

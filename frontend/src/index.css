@@ -183,3 +183,101 @@ a {
 .container {
   width: var(--standardised-container-width);
 }
+
+#congrats--img {
+  height: 16rem;
+  width: 16rem;
+  margin-bottom: 2rem;
+
+}
+
+#congrats--text {
+  margin: 0;
+}
+
+#prize--text {
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.congrats--form {  
+  align-items: center;
+  justify-content: center;
+
+  margin-top: var(--navbar-height);
+  
+
+  background-color: white;
+  padding: 4rem;
+  border-radius: 2rem;
+
+  height: 35rem;
+  width: 25rem;
+  margin-top: 8em;
+}
+
+.congrats--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.main--container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.garden--form {  
+  align-items: center;
+  justify-content: center;
+  
+  background-color: white;
+
+  padding: 4rem;
+  padding-top: 0;
+
+  height: 35rem;
+  width: 25rem;
+  margin: 0;
+}
+
+
+.garden--img {
+  height: 16rem;
+  width: 35rem;
+  margin-top: var(--navbar-height);
+}
+
+.garden--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choice--container {
+  display: flex;
+  flex-flow: column nowrap;
+
+  background-color: white;
+  padding: 4rem;
+  padding-top: 0;
+
+  height: 35rem;
+  width: 35rem;
+}
+
+.detail--form {
+  background-color: rgb(226, 218, 218);
+  padding: 4rem;
+  border-radius: 2rem;
+
+  height: 20rem;
+  width: 25rem;
+
+  box-shadow: black 2px 2px 4px;
+}

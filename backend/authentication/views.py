@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -5,6 +6,7 @@ from rest_framework import status, permissions
 from django.contrib.auth import login
 
 from .serializers import RegistrationSerializer, LoginSerializer
+from garden.models import GardenData
 
 
 class RegistrationView(APIView):
@@ -24,11 +26,14 @@ class RegistrationView(APIView):
     }
     code: 201
     """
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = [permissions.AllowAny]
+
+    @transaction.atomic()
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            user = serializer.save()
+            GardenData.objects.create(user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

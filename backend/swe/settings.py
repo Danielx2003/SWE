@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 
 FRONTEND_URL = "http://localhost:3000"
 
+SESSION_COOKIE_HTTPONLY = False
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "authentication",
     "qrCodes",
+    "garden"
 ]
 
 MIDDLEWARE = [

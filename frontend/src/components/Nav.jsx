@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Cookies from 'js-cookie';
 
 export default function Nav() {
+    const [text, setText] = useState("")
+
     return (
         <nav class="navbar navbar-fixed-top">
             <div class="nav-container">
