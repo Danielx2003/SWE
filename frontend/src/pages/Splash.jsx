@@ -11,7 +11,6 @@ export default function Splash() {
         <div className="jumbotron">
             <div className="jumbotron-container">
                 <h1>Welcome</h1>
-                <p>Stuff</p>
                 <div
                     type="button"
                     className="btn btn-success"
