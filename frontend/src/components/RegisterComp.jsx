@@ -43,6 +43,7 @@ export default function RegisterComp() {
                       "Content-type": "application/json",
                       'X-CSRFToken' : Cookies.get('csrftoken')
                     },
+                    credentials: "include",
                     body: JSON.stringify({
                         username:username,
                         password:password
