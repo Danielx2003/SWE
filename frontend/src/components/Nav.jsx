@@ -20,7 +20,7 @@ export default function Nav() {
     useEffect(() => {
         const getUsername = async () => {
             const response = await axios.get(
-                'http://localhost:8000/authentication/details/',
+                'http://localhost:8000/authentication/user/',
                 {'withCredentials': true}
             )
             .then((res) => res.data)
