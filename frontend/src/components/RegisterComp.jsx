@@ -2,7 +2,7 @@ import {React, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
-export default function RegisterComp() {
+export default function RegisterComp(props) {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -22,6 +22,7 @@ export default function RegisterComp() {
                     headers: {
                         "Content-type": "application/json"
                     },
+                    credentials: "include",
                     body: JSON.stringify({
                         username: username,
                         password: password,
@@ -31,7 +32,7 @@ export default function RegisterComp() {
                 const json = await response.json()
                 console.log(response)
                 if (response.status == 201) {
-                    loginReq()                    
+                    loginReq()                
                 } else {
                     alert('Failed to register.')
                 }
@@ -49,9 +50,12 @@ export default function RegisterComp() {
                         password:password
                     }),
                 })
-                console.log(username, password)
                 if (response.status == 200) {
-                    navigate('/main')
+                    if (props.redirectQR.qr) {                    
+                        navigate(props.redirectQR.path)
+                    } else {
+                        navigate('/main')
+                    }
                 } else {
                     alert("Incorrect Username or Password.")
                 }

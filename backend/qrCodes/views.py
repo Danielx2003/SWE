@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponse, Http404
 from django.utils import timezone
+
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -13,6 +14,7 @@ from django.conf import settings
 
 from .models import QRCode
 from .serializers import QRCodeSerializer
+
 from .permisions import IsSuperUserOnly
 from garden.models import GardenData
 from garden.serializers import GardenDataSerializer
@@ -47,6 +49,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
         "qr_type": "qr_type",
         "expiration_date": "expiration_date"
     }
+    
     successful response: {
         "id": "id",
         "name": "name",
@@ -61,7 +64,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
     code: 201
     """
     serializer_class = QRCodeSerializer
-    permission_classes = [IsSuperUserOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return QRCode.objects.filter(expiration_date__gt=timezone.now())

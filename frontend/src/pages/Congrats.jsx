@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 
 
 export default function Congrats(props) {
-    const [prize, setPrize] = useState("200XP")
+    const [prize, setPrize] = useState("")
     const [image, setImage] = useState("https://img.freepik.com/premium-vector/plant-pixel-art-style_475147-1478.jpg?w=996")
     
     const navigate = useNavigate();
@@ -25,10 +25,24 @@ export default function Congrats(props) {
             //then can display what the user has won
             //are we going to store all the qr codes the user has scanned?
             //do i need to pass the username to check this?
-            console.log("the code is",code)
             if (!code) {
                 alert('Invalid code used!')
                 navigate('/main')
+            }
+            const response = await fetch(`http://localhost:8000/qrcodes/find/${code}/`, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json",
+                    'X-CSRFToken' : Cookies.get('csrftoken')
+
+                },
+                credentials: "include",
+            })
+            const json = await response.json()
+            if (response.ok) {
+                setPrize(json.qrcode.points)
+            } else {
+                console.log("Error")
             }
         }
         getDetails()
@@ -47,7 +61,7 @@ export default function Congrats(props) {
                     <div className="form-group">
                     </div>
                     <img id="congrats--img" src={image} alt="plant"></img>
-                    <h4 className="form-title">You have won {prize}!</h4>
+                    <h4 className="form-title">You have won {prize} point!</h4>
                     <button
                         className="btn btn-login"
                         id="btn--override"

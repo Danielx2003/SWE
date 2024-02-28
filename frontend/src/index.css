@@ -38,7 +38,7 @@ a {
   justify-content: center !important;
 
   height: var(--navbar-height);
-  width: 100vw;
+  width: 100%;
 
   background-color: #003b3c !important;
 
@@ -142,8 +142,8 @@ a {
 }
 
 .form-group {
-  margin-bottom: 2rem;
-} 
+  margin-bottom: 5%;
+}
 
 .form-title {
   margin-bottom: 1.7rem;
