@@ -48,6 +48,7 @@ function App() {
           <Route
               path="/admin/create"
               element={< QRCreate />}
+              />
           <Route 
             path="/qr"
             element={<Congrats
