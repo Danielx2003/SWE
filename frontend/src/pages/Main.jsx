@@ -33,7 +33,7 @@ export default function Main() {
                 <div className="choice--container">
                     <div id="auth-buttons" class="auth-button-controller d-flex w-100 flex-row">
                         <a id="left-auth" onClick={() => setAuthState("Challenges")} class="auth-button d-flex w-50 justify-content-center border-end"><h4 class="form-title mb-0">Challenges</h4></a>
-                        <a id="right-auth" onClick={() => setAuthState("Completed")} class="auth-button d-flex w-50 justify-content-center"><h4 class="form-title mb-0">Completed</h4></a>
+                        <a id="right-auth" onClick={() => setAuthState("Completed")} class="auth-button d-flex w-50 justify-content-center border-end"><h4 class="form-title mb-0">Completed</h4></a>
                         <a id="right-auth" onClick={() => setAuthState("Profile")} class="auth-button d-flex w-50 justify-content-center"><h4 class="form-title mb-0">Profile</h4></a>
                         <label type="hidden"></label>
                     </div>
