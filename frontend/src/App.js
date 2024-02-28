@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx"
 import Logout from "./pages/Logout.jsx"
 import Main from "./pages/Main.jsx"
 import Forgot from "./pages/Forgot.jsx"
+import Leaderboard from "./pages/Leaderboard.jsx"
 import Admin from './pages/Admin.jsx'
 import QRCreate from './pages/QRCreate.jsx'
 import Congrats from "./pages/Congrats.jsx"
@@ -45,8 +46,12 @@ function App() {
             element={<Forgot />}
           />
           <Route
-            path="/admin"
-            element={< Admin />}
+            path="/leaderboard"
+            element={<Leaderboard />}
+          />
+          <Route
+              path="/admin"
+              element={< Admin />}
           />
           <Route
             path="/admin/create"
