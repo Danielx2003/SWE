@@ -38,3 +38,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
         )
         return user
 
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    groups = serializers.StringRelatedField(many=True)
+    user_permissions = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'groups', 'user_permissions')
+        fields = ('username', 'email', 'groups', 'user_permissions')
