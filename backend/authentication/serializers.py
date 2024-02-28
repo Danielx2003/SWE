@@ -38,3 +38,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
         )
         return user
 
+
+class UserSerializer(serializers.ModelSerializer):
+    is_superuser = serializers.BooleanField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'is_superuser']
