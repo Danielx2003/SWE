@@ -83,9 +83,25 @@ class UserDetails(APIView):
         
 
 class LogoutView(APIView):
-    def post(request):
+    """
+    View for recieving user details.
+    url: /authentication/details/
+    method: POST
+    request body: N/A
+    response body: {
+        'username': username,
+        'is_superuser': true / false 
+    }
+    successful response: {
+        'message': 'Logout successful'
+    } => code: 200
+    failure: {
+        'error': 'User is not authenticated'
+    } => code: 400
+    """
+    def post(self, request):
         if request.user.is_authenticated:
             logout(request)
-            return JsonResponse({'message': 'Logout successful'})
+            return Response({'message': 'Logout successful'})
         else:
-            return JsonResponse({'error': 'User is not authenticated'}, status=400)
+            return Response({'error': 'User is not authenticated'}, status=400)
