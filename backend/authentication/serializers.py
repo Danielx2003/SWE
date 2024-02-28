@@ -39,9 +39,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserSerializer(serializers.ModelSerializer):
-    is_superuser = serializers.BooleanField(read_only=True)
+class UserDetailSerializer(serializers.ModelSerializer):
+    groups = serializers.StringRelatedField(many=True)
+    user_permissions = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = User
-        fields = ['username', 'is_superuser']
+        fields = ('username', 'email', 'groups', 'user_permissions')

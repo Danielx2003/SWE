@@ -1,11 +1,12 @@
+from django.contrib.auth.models import User
 from django.db import transaction
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from django.contrib.auth import login, logout
 
-from .serializers import RegistrationSerializer, LoginSerializer, UserSerializer
+from .serializers import RegistrationSerializer, LoginSerializer, UserDetailSerializer
 from garden.models import GardenData
 
 
@@ -61,27 +62,6 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-class UserDetails(APIView):
-    """
-    View for recieving user details.
-    url: /authentication/details/
-    method: POST
-    request body: N/A
-    response body: {
-        'username': username,
-        'is_superuser': true / false 
-    }
-    successful response: None
-    code: 200
-    """
-    def get(self, request):
-        if request.user.is_authenticated:
-            serializer = UserSerializer(request.user)
-            return Response(serializer.data)
-        else:
-            return Response({'message': 'User not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
-        
-
 class LogoutView(APIView):
     """
     View for recieving user details.
@@ -105,3 +85,12 @@ class LogoutView(APIView):
             return Response({'message': 'Logout successful'})
         else:
             return Response({'error': 'User is not authenticated'}, status=400)
+        
+
+class UserDetailsView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+
+    def get_object(self):
+        return self.request.user
+
