@@ -43,3 +43,9 @@ class QRCodeSerializer(serializers.ModelSerializer):
         # Generate remaining fields
         validated_data['creator'] = self.context['request'].user  # Set the current user as the creator
         return QRCode.objects.create(**validated_data)
+
+
+class ChallengeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QRCode
+        fields = ['name', 'xp', 'points', 'qr_type']
