@@ -22,12 +22,14 @@ export default function QRCreate() {
           'xp': xp,
           'points': points,
           'qr_type': type,
-          'expiration_date': date + ":00Z"
-        },
+          'expiration_date': date + ":00Z",
+         },
         {
           'withCredentials': true,
+          credentials: "include",
           headers: {
-            'X-CSRFToken': Cookies.get('csrftoken')
+            "Content-Type": "multipart/form-data",
+            "X-CSRFToken": Cookies.get('csrftoken')
           }
         }
       )
