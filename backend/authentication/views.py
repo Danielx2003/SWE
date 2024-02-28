@@ -4,7 +4,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, generics
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 from .serializers import RegistrationSerializer, LoginSerializer, UserDetailSerializer
 from garden.models import GardenData
@@ -60,7 +60,36 @@ class LoginView(APIView):
             login(request, user)
             return Response(None, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
+class LogoutView(APIView):
+    """
+    View for recieving user details.
+    url: /authentication/details/
+    method: POST
+    request body: N/A
+    response body: {
+        'username': username,
+        'is_superuser': true / false 
+    }
+    successful response: {
+        'message': 'Logout successful'
+    } => code: 200
+    failure: {
+        'error': 'User is not authenticated'
+    } => code: 400
+    """
+    def post(self, request):
+        if request.user.is_authenticated:
+            logout(request)
+            return Response({'message': 'Logout successful'})
+        else:
+            return Response({'error': 'User is not authenticated'}, status=400)
+        
+
+class UserDetailsView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
 
 class UserDetailsView(generics.RetrieveAPIView):
     """
@@ -77,7 +106,7 @@ class UserDetailsView(generics.RetrieveAPIView):
     """
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
-
+    
     def get_object(self):
         return self.request.user
 

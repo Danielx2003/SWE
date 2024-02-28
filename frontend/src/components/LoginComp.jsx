@@ -27,7 +27,10 @@ export default function LoginComp(props) {
                     password:password
                 }),
             })
+            .catch((err) => alert("Something went wrong, please try again."))
+
             if (response.status == 200) {
+                Cookies.set('username', username)
                 if (props.redirectQR.qr) {                    
                     navigate(props.redirectQR.path)
                 } else {
