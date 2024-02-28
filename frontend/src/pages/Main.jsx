@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Completed from "../components/Completed"
 import Challenges from "../components/Challenges"
@@ -9,21 +10,43 @@ export default function Main() {
     axios.defaults.withCredentials = true;
 
     const [authState, setAuthState] = useState(false);
-    const [challenges, setChallenges] = useState([{id: 1, name:"test1",reward:"200 xp"}])
+    const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
 
+    const navigate = useNavigate();
+
     useEffect(() => {
+        if (!Cookies.get('sessionid')) {
+            console.log("no session id")
+            navigate('/login')
+        } else {
+            console.log("session id")
+        }
+
         const getUserData = async() => {
             axios.get("http://localhost:8000/garden/garden-data/")
             .then(response => {
                 setUserData(response.data)
               })
             .catch(error => {
-                alert("Error getting user data");
+                console.log("Errror getting user data.")
               });
 
         }
+        const getChallengeData = async() => {
+            axios.get('http://localhost:8000/qrcodes/')
+            .then(response => {
+                console.log(response)
+                setChallenges(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        }
         getUserData()
+        //getChallengeData()
+
+        console.log(userData)
     }, [])
     
     return (
@@ -39,7 +62,7 @@ export default function Main() {
                     </div>
                     <hr class="mt-0 mb-4"></hr>
                     <section id="auth">
-                        {authState=="Challenges" ? challenges.map((challenge) => <Challenges key={challenge.id}/>) : authState=="Completed" ? <Completed/> : <Profile/>}
+                        {authState=="Challenges" ? challenges.map((challenge) => <Challenges key={challenge.id}/>) : authState=="Completed" ? <Completed/> : <Profile userData={userData}/>}
                     </section>
                 </div>
             </div>
