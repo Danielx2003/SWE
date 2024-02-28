@@ -29,6 +29,10 @@ a {
   flex-flow: column nowrap;
 }
 
+.spacer {
+  height: var(--navbar-height);
+}
+
 .navbar {
   position: fixed !important;
   justify-content: center !important;
@@ -86,8 +90,6 @@ a {
   background-size: 100% auto;
   object-fit: fill;
 
-  margin-top: var(--navbar-height);
-
   padding: 100px 0 100px 0;
 
   z-index: -1;
@@ -119,16 +121,14 @@ a {
   justify-content: center;
   align-items: center;
 
-  height: 100vh;
+  height: 90vh;
 }
 
 .form-container {
   display: flex;
   flex-flow: column nowrap;
 
-  justify-content: space-between;
-  margin-top: var(--navbar-height);
-  
+  justify-content: space-between;  
 
   background-color: white;
   padding: 4rem;
@@ -186,7 +186,8 @@ a {
 }
 /* Leaderboard css */
 .leaderboard-wrapper {
-  width: 75%;
+  width: 100%;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -209,7 +210,7 @@ table {
   background-color: #48691e;
 }
 
-th, td {
+.headerTable, .tableRowText {
   border: 2px solid black;
   padding: 10px;
   color: white;
