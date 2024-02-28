@@ -8,7 +8,6 @@ export default function Login(props) {
     function toggleAuthStateL() {
         setAuthState(false)
     }
-
     function toggleAuthStateR() {
         setAuthState(true)
     }

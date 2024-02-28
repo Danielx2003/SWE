@@ -31,7 +31,7 @@ export default function RegisterComp() {
                 const json = await response.json()
                 console.log(response)
                 if (response.status == 201) {
-                    loginReq()                    
+                    loginReq()                
                 } else {
                     alert('Failed to register.')
                 }

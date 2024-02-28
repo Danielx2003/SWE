@@ -6,6 +6,9 @@ import Splash from "./pages/Splash.jsx"
 import Login from "./pages/Login.jsx"
 import Main from "./pages/Main.jsx"
 import Forgot from "./pages/Forgot.jsx"
+
+import Admin from './pages/Admin.jsx'
+import QRCreate from './pages/QRCreate.jsx'
 import Congrats from "./pages/Congrats.jsx"
 
 //components
@@ -16,6 +19,7 @@ function App() {
 
   return (
     <div className="site-wrapper">
+      <div className="spacer"></div>
       <BrowserRouter>
         <Nav />
         <Routes>
@@ -37,6 +41,13 @@ function App() {
             path="/forgot"
             element={<Forgot />}
           />
+          <Route
+              path="/admin"
+              element={< Admin />}
+          />
+          <Route
+              path="/admin/create"
+              element={< QRCreate />}
           <Route 
             path="/qr"
             element={<Congrats
