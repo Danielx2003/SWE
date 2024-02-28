@@ -47,6 +47,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
         "qr_type": "qr_type",
         "expiration_date": "expiration_date"
     }
+    
     successful response: {
         "id": "id",
         "name": "name",

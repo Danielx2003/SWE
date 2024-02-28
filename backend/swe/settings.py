@@ -30,6 +30,9 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+
+
 ALLOWED_HOSTS = []
 
 FRONTEND_URL = "http://localhost:3000"

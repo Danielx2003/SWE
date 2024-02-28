@@ -22,6 +22,7 @@ export default function RegisterComp() {
                     headers: {
                         "Content-type": "application/json"
                     },
+                    credentials: "include",
                     body: JSON.stringify({
                         username: username,
                         password: password,
