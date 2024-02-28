@@ -38,7 +38,7 @@ a {
   justify-content: center !important;
 
   height: var(--navbar-height);
-  width: 100vw;
+  width: 100%;
 
   background-color: #003b3c !important;
 
