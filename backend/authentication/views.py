@@ -1,11 +1,12 @@
+from django.contrib.auth.models import User
 from django.db import transaction
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from django.contrib.auth import login
 
-from .serializers import RegistrationSerializer, LoginSerializer
+from .serializers import RegistrationSerializer, LoginSerializer, UserDetailSerializer
 from garden.models import GardenData
 
 
@@ -61,4 +62,10 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class UserDetailsView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+
+    def get_object(self):
+        return self.request.user
 
