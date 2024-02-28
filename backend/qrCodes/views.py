@@ -13,7 +13,7 @@ from .qrCodeUtil import generate_qr_code_image
 from django.conf import settings
 
 from .models import QRCode
-from .serializers import QRCodeSerializer
+from .serializers import QRCodeSerializer, ChallengeSerializer
 
 from .permisions import IsSuperUserOnly
 from garden.models import GardenData
@@ -88,6 +88,28 @@ class QRCodeImageView(generics.RetrieveAPIView):
         qr_code_image.save(img_byte_arr, format='JPEG')
         return HttpResponse(img_byte_arr.getvalue(), content_type="image/jpeg")
 
+
+class ChallengeListView(generics.ListAPIView):
+    """
+    API endpoint that allows challenges to be viewed or created.
+    GET: List all challenges that have not expired
+    url: /qrCodes/challenges/
+    successful response: [
+        {
+            "name": "name",
+            "xp": "xp",
+            "points": "points",
+            "qr_type": "qr_type"
+        },
+        ...
+    ]
+    code: 200
+    """
+    serializer_class = ChallengeSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return QRCode.objects.filter(expiration_date__gt=timezone.now())
 
 class QRCodeScannedView(APIView):
     """
