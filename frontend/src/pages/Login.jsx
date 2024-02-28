@@ -24,7 +24,7 @@ export default function Login(props) {
                 <hr class="mt-0 mb-4"></hr>
 
                 <section id="auth">
-                    {!authState ? <LoginComp redirectQR={props.redirectQR}/> : <RegisterComp/>}
+                    {!authState ? <LoginComp redirectQR={props.redirectQR}/> : <RegisterComp redirectQR={props.redirectQR}/>}
                 </section>
             </div>
         </div>
