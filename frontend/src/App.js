@@ -1,12 +1,13 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
+
 import "./../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 //pages
 import Splash from "./pages/Splash.jsx"
 import Login from "./pages/Login.jsx"
+import Logout from "./pages/Logout.jsx"
 import Main from "./pages/Main.jsx"
 import Forgot from "./pages/Forgot.jsx"
-
 import Admin from './pages/Admin.jsx'
 import QRCreate from './pages/QRCreate.jsx'
 import Congrats from "./pages/Congrats.jsx"
@@ -21,44 +22,43 @@ function App() {
     <div className="site-wrapper">
       <div className="spacer"></div>
       <BrowserRouter>
-        <Nav />
+      <Nav/>
         <Routes>
           <Route
             path="/"
             element={<Splash />}
           />
           <Route
-            path="/login"
-            element={<Login 
-              redirectQR={redirectQR}
-            />}
-          />
-          <Route
             path="/main"
             element={<Main />}
+          />
+          <Route
+            path="/login"
+            element={<Login redirectQR={redirectQR} />}
+          />
+          <Route
+            path="/logout"
+            element={<Logout/>}
           />
           <Route
             path="/forgot"
             element={<Forgot />}
           />
           <Route
-              path="/admin"
-              element={< Admin />}
+            path="/admin"
+            element={< Admin />}
           />
           <Route
-              path="/admin/create"
-              element={< QRCreate />}
-              />
+            path="/admin/create"
+            element={< QRCreate />}
+          />
           <Route 
             path="/qr"
-            element={<Congrats
-              setRedirectQR={setRedirectQR}
-            />}
+            element={<Congrats setRedirectQR={setRedirectQR}/>}
           />
         </Routes>
       </BrowserRouter>
     </div>
-
   )
 }
 

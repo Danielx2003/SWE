@@ -51,6 +51,7 @@ export default function RegisterComp(props) {
                     }),
                 })
                 if (response.status == 200) {
+                    Cookies.set('username', username)
                     if (props.redirectQR.qr) {                    
                         navigate(props.redirectQR.path)
                     } else {
