@@ -183,11 +183,7 @@ a {
 .container {
   width: var(--standardised-container-width);
 }
-/* Leaderboard css */
-.leaderboard-wrapper {
-  width: 100%;
-  height: 90vh;
-}
+
 
 #congrats--img {
   height: 16rem;
@@ -259,6 +255,15 @@ a {
 }
 
 .garden--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Leaderboard css */
+.leaderboard-wrapper {
+  width: 100%;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;

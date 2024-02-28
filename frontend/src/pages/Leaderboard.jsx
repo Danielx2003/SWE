@@ -1,55 +1,49 @@
-export default function Leaderboard() {
-    var data = [
-        ['John', 100],
-        ['Alice', 150],
-        ['Bob', 120],
-        ['Eva', 90],
-        ['Chris', 200],
-        ['Sophie', 180],
-        ['Alex', 130],
-        ['Emma', 110],
-        ['David', 160],
-        ['Olivia', 140]
-    ]; //leaderboard that will be taken from backend
-    
-    var userdata = [['Benji', 176]] //user stats to be taken from backend
-    
-    data.sort(function(a, b) {
-        return b[1] - a[1];
-    }); //
-    
-    var tableBody = document.getElementById('tableBody');
-        for (var i = 0; i < data.length; i++) {
-            var row = tableBody.insertRow(i);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = i + 1;
-            cell2.innerHTML = data[i][0];
-            cell3.innerHTML = data[i][1];
-        } //populating the table
-    
-    
-    return (
-        <div class="leaderboard-wrapper">
-            <div class="leaderboard">
-                <table>
-                    <thead id="header">
-                    <tr>
-                        <th class="headerTable">Place</th>
-                        <th class="headerTable">Username</th>
-                        <th class="headerTable">Points</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <tr class="userRow">
-                            <td class="tableRowText">Place</td>
-                            <td class="tableRowText">User</td>
-                            <td class="tableRowText">Point</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    )
-}
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const Leaderboard = () => {
+  const [leaderboardData, setLeaderboardData] = useState([]);
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/garden/leaderboard/?page=1&page_size=10');
+        const data = response.data.results;
+        debugger;
+        setLeaderboardData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div className="leaderboard-wrapper">
+      <div className="leaderboard">
+        <table>
+          <thead id="header">
+            <tr>
+              <th className="headerTable">Place</th>
+              <th className="headerTable">Username</th>
+              <th className="headerTable">Points</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            {leaderboardData.map((item, index) => (
+              <tr key={index}>
+                <td class="tableRowText">{index + 1}</td>
+                <td class="tableRowText">{item.username}</td>
+                <td class="tableRowText">{item.points}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default Leaderboard;
