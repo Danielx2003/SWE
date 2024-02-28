@@ -42,7 +42,7 @@ export default function Congrats(props) {
             if (response.ok) {
                 setPrize(json.qrcode.points)
             } else {
-                console.log("Error")
+                navigate('/main')
             }
         }
         getDetails()

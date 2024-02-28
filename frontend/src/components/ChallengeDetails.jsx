@@ -17,7 +17,7 @@ export default function ChallengeDetails(props) {
                         <h4 className="form-title">Challenge:</h4>
                         <div className="form-group">
                         </div>
-                        <h4 className="form-title">Reward: 200XP</h4>
+                        <h4 className="form-title">Reward: {props.info.xp} point</h4>
                         <button
                             className="btn btn-login"
                             id="btn--override"

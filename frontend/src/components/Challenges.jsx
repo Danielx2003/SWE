@@ -13,9 +13,9 @@ export default function Challenges(props) {
         <div class="form-group">
             <button class="btn btn-login" 
                     onClick={showDetails}
-                    >CHALLENGE 1
+                    >{props.info.name}
             </button>
-            {visible ? <ChallengeDetails key={props.id} visible={visible} setVisible={setVisible}/> : null}
+            {visible ? <ChallengeDetails key={props.id} info={props.info} visible={visible} setVisible={setVisible}/> : null}
 
         </div>
     )

@@ -250,7 +250,6 @@ a {
 .garden--img {
   height: 16rem;
   width: 35rem;
-  margin-top: var(--navbar-height);
 }
 
 .garden--container {
