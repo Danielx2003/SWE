@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
+import CheckForAdmin from '../components/CheckForAdmin'
 
 import { IPContext } from "../App.js"
 
@@ -15,7 +16,8 @@ export default function Admin() {
         {'withCredentials': true}
       )
       .then((res) => res.data)
-      .then((data) => setData(data));
+      .then((data) => setData(data))
+      .catch(() => {})
     }
 
     getQRCodes()
@@ -23,6 +25,7 @@ export default function Admin() {
 
   return (
     <>
+      <CheckForAdmin />
       <div className="d-flex flex-row w-100 justify-content-between pt-3 pb-2 ps-2 bg-white">
         <strong className="ms-4">QR Codes</strong>
         <a href="/admin/create">
