@@ -49,8 +49,9 @@ export default function RegisterComp() {
                         password:password
                     }),
                 })
-                console.log(username, password)
+
                 if (response.status == 200) {
+                    Cookies.set('username', username)
                     navigate('/main')
                 } else {
                     alert("Incorrect Username or Password.")
