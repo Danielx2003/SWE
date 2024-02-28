@@ -30,6 +30,22 @@ export default function Congrats(props) {
                 alert('Invalid code used!')
                 navigate('/main')
             }
+            const response = await fetch(`http://localhost:8000/qrcodes/find/${code}/`, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json",
+                    'X-CSRFToken' : Cookies.get('csrftoken')
+
+                },
+                credentials: "include",
+            })
+            const json = await response.json()
+            console.log(response, "is the reponse")
+            if (response.status == 201) {
+                console.log(json)
+            } else {
+                console.log("Error")
+            }
         }
         getDetails()
     },[])
