@@ -64,14 +64,10 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     """
-    View for recieving user details.
-    url: /authentication/details/
+    View for logging out.
+    url: /authentication/logout/
     method: POST
     request body: N/A
-    response body: {
-        'username': username,
-        'is_superuser': true / false 
-    }
     successful response: {
         'message': 'Logout successful'
     } => code: 200
@@ -86,10 +82,6 @@ class LogoutView(APIView):
         else:
             return Response({'error': 'User is not authenticated'}, status=400)
         
-
-class UserDetailsView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserDetailSerializer
 
 class UserDetailsView(generics.RetrieveAPIView):
     """
