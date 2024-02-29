@@ -12,12 +12,16 @@ export default function CheckForAdmin() {
             )
             .then((res) => res.data)
             .then((data) => {
+                console.log(data)
+                
                 if (!data.groups.includes("admin")) {
                     alert("You do not have permission to access this page.")
                     navigate("/")
                 }
             })
         }
+
+        checkAdmin()
     }, [])
 
     return (
