@@ -25,7 +25,7 @@ function App() {
     <div className="site-wrapper">
       <div className="spacer"></div>
       <BrowserRouter>
-      <IPContext.Provider value={'localhost'}>
+      <IPContext.Provider value={'192.168.0.172'}>
       <Nav/>
         <Routes>
           <Route
