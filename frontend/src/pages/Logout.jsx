@@ -15,7 +15,7 @@ export default function Logout() {
     useEffect(() => {
         const logout = async () => {
             const response = await axios.post(
-                `http://${IPContext}:8000/authentication/logout/`,
+                `http://${IP}:8000/authentication/logout/`,
                 {},
                 {
                     'withCredentials': true,
