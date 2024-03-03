@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
+
+import { IPContext } from "../App.js"
+
 
 export default function Admin() {
   const [data, setData] = useState([])
+  const IP = useContext(IPContext)
 
   useEffect(() => {
     const getQRCodes = async () => {
       const response = await axios.get(
-        'http://localhost:8000/qrcodes/',
+        `http://${IPContext}:8000/qrcodes/`,
         {'withCredentials': true}
       )
       .then((res) => res.data)
@@ -15,7 +19,7 @@ export default function Admin() {
     }
 
     getQRCodes()
-  }, ["http://localhost:8000/qrcodes/"])
+  }, [`http://${IPContext}:8000/qrcodes/`])
 
   return (
     <>
@@ -49,7 +53,7 @@ export default function Admin() {
                 <td>{val.points}</td>
                 <td>{val.xp}</td>
                 <td>
-                  <a href={'http://localhost:8000/qrcodes/'+val.id+'/image/'} download>
+                  <a href={`http://${IPContext}:8000/qrcodes/`+val.id+'/image/'} download>
                     <button className="btn btn-info p-3"></button>
                   </a>
                 </td>

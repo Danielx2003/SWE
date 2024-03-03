@@ -1,6 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
+
+import { IPContext } from "../App.js"
+
 
 export default function LoginComp(props) {
     const [username, setUsername] = useState("")
@@ -8,6 +11,7 @@ export default function LoginComp(props) {
     const [btnPressed, setBtnPressed] = useState(false)
     const [count, setCount] = useState(0)
     let navigate = useNavigate()
+    const IP = useContext(IPContext)
 
     if (Cookies.get('sessionid')) {
         navigate('/main')
@@ -15,7 +19,7 @@ export default function LoginComp(props) {
 
     useEffect(() => {
         const makeReq = async () => {
-            const response = await fetch('http://localhost:8000/authentication/login/', {
+            const response = await fetch(`http://${IPContext}:8000/authentication/login/`, {
                 method: "POST",
                 headers: {
                   "Content-type": "application/json",
