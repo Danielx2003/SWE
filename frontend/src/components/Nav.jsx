@@ -24,7 +24,7 @@ export default function Nav() {
     useEffect(() => {
         const getUsername = async () => {
             const response = await axios.get(
-                `http://${IPContext}:8000/authentication/user/`,
+                `http://${IP}:8000/authentication/user/`,
                 {'withCredentials': true}
             )
             .then((res) => res.data)

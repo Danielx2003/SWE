@@ -25,7 +25,7 @@ export default function Main() {
         }
 
         const getUserData = async() => {
-            axios.get(`http://${IPContext}:8000/garden/garden-data/`)
+            axios.get(`http://${IP}:8000/garden/garden-data/`)
             .then(response => {
                 setUserData(response.data)
               })
@@ -35,7 +35,7 @@ export default function Main() {
 
         }
         const getChallengeData = async() => {
-            axios.get(`http://${IPContext}:8000/qrcodes/challenges`)
+            axios.get(`http://${IP}:8000/qrcodes/challenges`)
             .then(response => {
                 setChallenges(response.data)
             })

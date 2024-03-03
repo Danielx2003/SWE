@@ -33,7 +33,7 @@ export default function Congrats(props) {
                 alert('Invalid code used!')
                 navigate('/main')
             }
-            const response = await fetch(`http://${IPContext}:8000/qrcodes/find/${code}/`, {
+            const response = await fetch(`http://${IP}:8000/qrcodes/find/${code}/`, {
                 method: "PUT",
                 headers: {
                     "Content-type": "application/json",

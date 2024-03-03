@@ -11,7 +11,7 @@ export default function Admin() {
   useEffect(() => {
     const getQRCodes = async () => {
       const response = await axios.get(
-        `http://${IPContext}:8000/qrcodes/`,
+        `http://${IP}:8000/qrcodes/`,
         {'withCredentials': true}
       )
       .then((res) => res.data)
@@ -19,7 +19,7 @@ export default function Admin() {
     }
 
     getQRCodes()
-  }, [`http://${IPContext}:8000/qrcodes/`])
+  }, [`http://${IP}:8000/qrcodes/`])
 
   return (
     <>

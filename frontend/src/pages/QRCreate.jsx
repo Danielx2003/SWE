@@ -21,7 +21,7 @@ export default function QRCreate() {
   useEffect(() => {
     const postQRCode = async () => {
       const response = await axios.post(
-        `http://${IPContext}:8000/qrcodes/`, {
+        `http://${IP}:8000/qrcodes/`, {
           'name': name,
           'xp': xp,
           'points': points,

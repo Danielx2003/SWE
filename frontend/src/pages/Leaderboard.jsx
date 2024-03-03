@@ -12,7 +12,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://${IPContext}:8000/garden/leaderboard/?page=1&page_size=10`);
+        const response = await axios.get(`http://${IP}:8000/garden/leaderboard/?page=1&page_size=10`);
         const data = response.data.results;
         debugger;
         setLeaderboardData(data);
