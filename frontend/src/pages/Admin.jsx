@@ -53,7 +53,7 @@ export default function Admin() {
                 <td>{val.points}</td>
                 <td>{val.xp}</td>
                 <td>
-                  <a href={`http://${IPContext}:8000/qrcodes/`+val.id+'/image/'} download>
+                  <a href={`http://${IP}:8000/qrcodes/${val.id}/image/`} download>
                     <button className="btn btn-info p-3"></button>
                   </a>
                 </td>
