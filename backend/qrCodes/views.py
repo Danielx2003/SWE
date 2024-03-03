@@ -15,7 +15,7 @@ from django.conf import settings
 from .models import QRCode
 from .serializers import QRCodeSerializer, ChallengeSerializer
 
-from .permisions import IsSuperUserOnly
+from .permisions import IsGamemasterOrAdmin
 from garden.models import GardenData
 from garden.serializers import GardenDataSerializer
 
@@ -64,7 +64,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
     code: 201
     """
     serializer_class = QRCodeSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsGamemasterOrAdmin]
 
     def get_queryset(self):
         return QRCode.objects.filter(expiration_date__gt=timezone.now())
@@ -79,7 +79,7 @@ class QRCodeImageView(generics.RetrieveAPIView):
     code: 200
     """
     queryset = QRCode.objects.all()
-    permission_classes = [IsSuperUserOnly]
+    permission_classes = [IsGamemasterOrAdmin]
 
     def retrieve(self, request, *args, **kwargs):
         qr_code = self.get_object()

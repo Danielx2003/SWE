@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-class IsSuperUserOnly(permissions.BasePermission):
+class IsGamemasterOrAdmin(permissions.BasePermission):
     """
     Custom permission to only allow superusers to perform certain actions.
     """
