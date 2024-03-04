@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .validators import validate_unique_username, validate_unique_email
 
 
 class LoginSerializer(serializers.Serializer):
@@ -23,11 +22,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         fields = ['username', 'password', 'email']
 
     def validate_username(self, value):
-        validate_unique_username(value)
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError('Username already exists.')
         return value
 
     def validate_email(self, value):
-        validate_unique_email(value)
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError('Email already exists.')
         return value
 
     def create(self, validated_data):
@@ -45,5 +46,4 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'groups', 'user_permissions')
         fields = ('username', 'email', 'groups', 'user_permissions')

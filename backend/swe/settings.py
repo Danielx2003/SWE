@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "authentication",
     "qrCodes",
-    "garden"
+    "garden",
+    "friendship"
 ]
 
 MIDDLEWARE = [
