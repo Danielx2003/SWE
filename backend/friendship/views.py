@@ -10,6 +10,44 @@ from .serializers import UsernameIDUserSerializer, FriendshipSerializer
 
 
 class FriendshipListView(generics.ListCreateAPIView):
+    """
+    List all friendships or create a new friendship.
+    methods: GET, POST
+    url: friendship/friends/
+    status parameter is an enum: 100 for pending, 200 for accepted, 300 for rejected
+
+    GET response: [
+        {
+            "id": "id",
+            "from_user": {
+                "id": "id",
+                "username": "username"
+            }
+            "to_user": {
+                "id": "id",
+                "username": "username"
+            },
+            "status": status
+            "date_created": date_created
+        },
+        ...
+    ]
+    POST request: {
+        "to_user_id": id
+    }
+    POST response: {
+        "id": id,
+        "from_user": {
+            "id": id,
+            "username": username
+        }
+        "to_user": {
+            "id": id,
+            "username": username
+        },
+        "status": status
+        "date_created": date_created
+    """
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -33,6 +71,19 @@ class UserSearchPagination(PageNumberPagination):
 
 
 class UserSearchView(generics.ListAPIView):
+    """
+    List all users or search for a user.
+    method: GET
+    url: friendship/user-search/?query=query
+    query parameter is the string to search for
+    successful response: [
+        {
+            "id": "id",
+            "username": "username"
+        },
+        ...
+    ]
+    """
     serializer_class = UsernameIDUserSerializer
     pagination_class = UserSearchPagination
     permission_classes = [permissions.IsAuthenticated]
@@ -46,6 +97,25 @@ class UserSearchView(generics.ListAPIView):
 
 
 class FriendshipAcceptView(generics.UpdateAPIView):
+    """
+    Accept a friendship request.
+    method: PATCH
+    url: friendship/accept/id/
+    where id is the id of the friendship to be accepted
+    successful response: {
+        "id": "id",
+        "from_user": {
+            "id": "id",
+            "username": "username"
+        }
+        "to_user": {
+            "id": "id",
+            "username": "username"
+        },
+        "status": 200
+        "date_created": "date_created"
+    }
+    """
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated, IsToUser]
@@ -58,6 +128,13 @@ class FriendshipAcceptView(generics.UpdateAPIView):
 
 
 class FriendshipRejectView(generics.DestroyAPIView):
+    """
+    Reject a friendship request.
+    method: DELETE
+    url: friendship/reject/id/
+    where id is the id of the friendship to be rejected
+    successful response: 204 No Content
+    """
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated, IsToUser]
