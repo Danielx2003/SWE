@@ -313,3 +313,35 @@ table {
 
   box-shadow: black 2px 2px 4px;
 }
+
+.modal--wrapper {
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.friend-container {
+  display: flex;
+  flex-flow: column nowrap;
+
+  justify-content: space-between;  
+
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+
+  width: 35rem;
+}
+
+.friend-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.friend-group > h4 {
+  margin: 0;
+}

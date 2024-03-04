@@ -65,42 +65,42 @@ export default function LoginComp(props) {
     }
 
     return (
-        <form class="" action="POST">
-            <div class="form-group">
+        <form className="" action="POST">
+            <div className="form-group">
                 <label for="uname">Username</label>
                 <input
-                    class="form-control"
+                    className="form-control"
                     type="text"
                     id="uname"
                     value={username}
                     onChange={handleUsername}
                     placeholder="Enter username or email here..." />
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label for="password">Password</label>
                 <input
-                    class="form-control"
+                    className="form-control"
                     type="password"
                     id="password"
                     value={password}
                     onChange={handlePassword}
                     placeholder="Enter password here..." />
             </div>
-            <div class="form-check">
+            <div className="form-check">
                 <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     id="remember"
                     value="" />
-                <label class="form-check-label pl-2 mb-3" for="remember">
+                <label className="form-check-label pl-2 mb-3" for="remember">
                     Remember me?
                 </label>
             </div>
-            <button class="btn btn-login" 
+            <button className="btn btn-login" 
                     type="submit"
                     onClick={handleClick}>LOGIN</button>
-            <small class="float-end mt-2">
-                <a class="text-muted mt-3" href="/forgot">
+            <small className="float-end mt-2">
+                <a className="text-muted mt-3" href="/forgot">
                     Forgotten your password?
                 </a>
             </small>

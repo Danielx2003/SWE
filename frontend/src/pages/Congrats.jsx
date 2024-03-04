@@ -65,7 +65,7 @@ export default function Congrats(props) {
                     <div className="form-group">
                     </div>
                     <img id="congrats--img" src={image} alt="plant"></img>
-                    <h4 className="form-title">You have won {prize} point!</h4>
+                    <h4 className="form-title">You have won {prize} point{prize>1 ? "s" : ""}!</h4>
                     <button
                         className="btn btn-login"
                         id="btn--override"

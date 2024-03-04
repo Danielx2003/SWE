@@ -4,8 +4,9 @@ export default function ChallengeDetails(props) {
     function closeModal(e) {
         e.preventDefault()
         props.setVisible(false)
+        props.setOpen(false)
     }
-
+    props.setOpen(true)
     //change challenge to be a state, could be event etc
     //add state next to reward, plant, xp etc
 
