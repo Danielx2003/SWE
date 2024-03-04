@@ -111,6 +111,7 @@ class ChallengeListView(generics.ListAPIView):
     def get_queryset(self):
         return QRCode.objects.filter(expiration_date__gt=timezone.now())
 
+
 class QRCodeScannedView(APIView):
     """
     Api endpoint that allows QR codes to be scanned.
@@ -142,6 +143,7 @@ class QRCodeScannedView(APIView):
     """
     permission_classes = [permissions.IsAuthenticated]
     @transaction.atomic()
+    # TODO should be a post request
     def put(self, request, code):
         try:
             qr_code = QRCode.objects.all().filter(expiration_date__gt=timezone.now()).get(code=code)
