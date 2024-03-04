@@ -1,7 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useLocation  } from 'react-router-dom';
 import Cookies from 'js-cookie';
+
+import { IPContext } from "../App.js"
+
 
 
 export default function Congrats(props) {
@@ -10,6 +13,7 @@ export default function Congrats(props) {
     
     const navigate = useNavigate();
     let location = useLocation();
+    const IP = useContext(IPContext)
 
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
@@ -29,7 +33,7 @@ export default function Congrats(props) {
                 alert('Invalid code used!')
                 navigate('/main')
             }
-            const response = await fetch(`http://localhost:8000/qrcodes/find/${code}/`, {
+            const response = await fetch(`http://${IP}:8000/qrcodes/find/${code}/`, {
                 method: "PUT",
                 headers: {
                     "Content-type": "application/json",

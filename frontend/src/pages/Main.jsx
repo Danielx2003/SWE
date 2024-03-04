@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Challenges from "../components/Challenges"
 import Profile from "../components/Profile"
 import axios from 'axios';
+
+import { IPContext } from "../App.js"
+
 
 export default function Main() {
     axios.defaults.withCredentials = true;
@@ -13,6 +16,8 @@ export default function Main() {
     const [userData, setUserData] = useState({})
 
     const navigate = useNavigate();
+    const IP = useContext(IPContext)
+
 
     useEffect(() => {
         if (!Cookies.get('sessionid')) {
@@ -20,7 +25,7 @@ export default function Main() {
         }
 
         const getUserData = async() => {
-            axios.get("http://localhost:8000/garden/garden-data/")
+            axios.get(`http://${IP}:8000/garden/garden-data/`)
             .then(response => {
                 setUserData(response.data)
               })
@@ -30,7 +35,7 @@ export default function Main() {
 
         }
         const getChallengeData = async() => {
-            axios.get('http://localhost:8000/qrcodes/challenges')
+            axios.get(`http://${IP}:8000/qrcodes/challenges`)
             .then(response => {
                 setChallenges(response.data)
             })

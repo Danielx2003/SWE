@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState, createContext} from "react"
 
 import "./../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -16,6 +16,8 @@ import Congrats from "./pages/Congrats.jsx"
 //components
 import Nav from "./components/Nav.jsx"
 
+export const IPContext = createContext()
+
 function App() {
   const [redirectQR, setRedirectQR] = useState({qr:false, route:"/main"})
 
@@ -23,6 +25,7 @@ function App() {
     <div className="site-wrapper">
       <div className="spacer"></div>
       <BrowserRouter>
+      <IPContext.Provider value={'192.168.0.172'}>
       <Nav/>
         <Routes>
           <Route
@@ -62,6 +65,7 @@ function App() {
             element={<Congrats setRedirectQR={setRedirectQR}/>}
           />
         </Routes>
+        </IPContext.Provider>
       </BrowserRouter>
     </div>
   )

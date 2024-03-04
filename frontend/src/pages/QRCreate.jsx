@@ -1,7 +1,9 @@
-import {React, useState, useEffect, useRef} from 'react'
+import {React, useState, useEffect, useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+
+import { IPContext } from "../App.js"
 
 export default function QRCreate() {
   const [name, setName] = useState("")
@@ -14,10 +16,12 @@ export default function QRCreate() {
   const [count, setCount] = useState(0)
   let navigate = useNavigate()
 
+  const IP = useContext(IPContext)
+
   useEffect(() => {
     const postQRCode = async () => {
       const response = await axios.post(
-        'http://localhost:8000/qrcodes/', {
+        `http://${IP}:8000/qrcodes/`, {
           'name': name,
           'xp': xp,
           'points': points,

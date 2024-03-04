@@ -1,6 +1,9 @@
-import {React, useState} from 'react';
+import {React, useState, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+
+import { IPContext } from "../App.js"
+
 
 export default function RegisterComp(props) {
     const [username, setUsername] = useState("")
@@ -8,6 +11,7 @@ export default function RegisterComp(props) {
     const [password, setPassword] = useState("")
     const [passwordChk, setpasswordChk] = useState("")
     let navigate = useNavigate()
+    const IP = useContext(IPContext)
 
     function handleFormSubmit(e) {
         e.preventDefault()
@@ -17,7 +21,7 @@ export default function RegisterComp(props) {
         else {
             const makeReq = async () => {
                 // POST username and password
-                const response = await fetch('http://localhost:8000/authentication/register/', {
+                const response = await fetch(`http://${IP}:8000/authentication/register/`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -38,7 +42,7 @@ export default function RegisterComp(props) {
                 }
             }
             const loginReq = async () => {
-                const response = await fetch('http://localhost:8000/authentication/login/', {
+                const response = await fetch(`http://${IP}:8000/authentication/login/`, {
                     method: "POST",
                     headers: {
                       "Content-type": "application/json",
