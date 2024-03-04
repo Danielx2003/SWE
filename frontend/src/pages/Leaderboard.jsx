@@ -14,7 +14,6 @@ const Leaderboard = () => {
       try {
         const response = await axios.get(`http://${IP}:8000/garden/leaderboard/?page=1&page_size=10`);
         const data = response.data.results;
-        debugger;
         setLeaderboardData(data);
       } catch (error) {
         console.error('Error fetching data:', error);
