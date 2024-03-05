@@ -5,13 +5,10 @@ export default function Challenges(props) {
     const [visible, setVisible] = useState(false)
 
     function showDetails(e) {
-        console.log("showing details")
         e.preventDefault()
         if (!props.open) {
             setVisible(true)
             props.setOpen(true)
-        } else {
-            console.log("too many open")
         }
     }
 

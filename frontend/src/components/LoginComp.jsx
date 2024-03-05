@@ -33,7 +33,7 @@ export default function LoginComp(props) {
             })
             .catch((err) => alert("Something went wrong, please try again."))
 
-            if (response.status == 200) {
+            if (response.ok) {
                 Cookies.set('username', username)
                 if (props.redirectQR.qr) {                    
                     navigate(props.redirectQR.path)

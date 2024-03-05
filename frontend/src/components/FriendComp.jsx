@@ -1,11 +1,11 @@
 import React from 'react';
-export default function FriendComp(props) {
-    return (
-        <div className="friend-group">
-            <div className="friend-container">
-                    <h4 className="">{props.username}</h4>
-            </div>
-        </div>
-    )
 
+export default function FriendComp(props) {
+    console.log(props.username)
+
+    return (
+        <div className="congrats--container">
+            <h1>{props.username}</h1>
+        </div>
+)
 }

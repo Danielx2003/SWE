@@ -315,19 +315,13 @@ table {
 }
 
 .modal--wrapper {
-  position: absolute;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
-.friend-container {
+.friend-element {
   display: flex;
-  flex-flow: column nowrap;
-
-  justify-content: space-between;  
+  justify-content: space-evenly;  
 
   background-color: white;
   padding: 2rem;
@@ -338,10 +332,20 @@ table {
 
 .friend-group {
   display: flex;
-  justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
+  flex-flow: row nowrap;
+
 }
 
-.friend-group > h4 {
-  margin: 0;
+.friend-group > *{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 0 4rem 0 0;
+}
+
+.friend-container {
+  display: flex;
+  justify-content: center;
 }
