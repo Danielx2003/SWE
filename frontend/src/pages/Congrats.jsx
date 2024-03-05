@@ -8,7 +8,7 @@ import { IPContext } from "../App.js"
 
 
 export default function Congrats(props) {
-    const [prize, setPrize] = useState("")
+    const [prize, setPrize] = useState(0)
     const [image, setImage] = useState("https://img.freepik.com/premium-vector/plant-pixel-art-style_475147-1478.jpg?w=996")
     
     const navigate = useNavigate();
@@ -46,6 +46,7 @@ export default function Congrats(props) {
             if (response.ok) {
                 setPrize(json.qrcode.points)
             } else {
+                alert(json.detail)
                 navigate('/main')
             }
         }
@@ -65,7 +66,7 @@ export default function Congrats(props) {
                     <div className="form-group">
                     </div>
                     <img id="congrats--img" src={image} alt="plant"></img>
-                    <h4 className="form-title">You have won {prize} point{prize>1 ? "s" : ""}!</h4>
+                    <h4 className="form-title">You have won {prize} point{prize!=1 ? "s" : ""}!</h4>
                     <button
                         className="btn btn-login"
                         id="btn--override"
