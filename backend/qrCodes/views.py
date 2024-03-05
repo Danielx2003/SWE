@@ -118,7 +118,7 @@ class QRCodeScannedView(APIView):
     """
     Api endpoint that allows QR codes to be scanned.
     url: /qrcodes/find/{code}/
-    method: PUT
+    method: POST
     request body: None
     returns: updated GardenData of the user
     code: 200
@@ -146,7 +146,7 @@ class QRCodeScannedView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     @transaction.atomic()
     # TODO should be a post request
-    def put(self, request, code):
+    def post(self, request, code):
         try:
             qr_code = QRCode.objects.all().filter(expiration_date__gt=timezone.now()).get(code=code)
             if request.user in qr_code.scanned_by_users.all():

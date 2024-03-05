@@ -34,7 +34,7 @@ export default function Congrats(props) {
                 navigate('/main')
             }
             const response = await fetch(`http://${IP}:8000/qrcodes/find/${code}/`, {
-                method: "PUT",
+                method: "POST",
                 headers: {
                     "Content-type": "application/json",
                     'X-CSRFToken' : Cookies.get('csrftoken')
