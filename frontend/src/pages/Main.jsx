@@ -14,6 +14,7 @@ export default function Main() {
     const [authState, setAuthState] = useState(false);
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
+    const [open, setOpen] = useState(false)
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
@@ -53,14 +54,19 @@ export default function Main() {
             <img className="garden--img" src="https://i0.wp.com/fuentespens.ink/wp-content/uploads/2020/04/IMG_5412.jpeg?w=828&ssl=1"></img>
             <div className="garden--container">
                 <div className="choice--container">
-                    <div id="auth-buttons" class="auth-button-controller d-flex w-100 flex-row">
-                        <a id="left-auth" onClick={() => setAuthState("Challenges")} class="auth-button d-flex w-50 justify-content-center border-end"><h4 class="form-title mb-0">Challenges</h4></a>
-                        <a id="right-auth" onClick={() => setAuthState("Profile")} class="auth-button d-flex w-50 justify-content-center"><h4 class="form-title mb-0">Profile</h4></a>
+                    <div id="auth-buttons" className="auth-button-controller d-flex w-100 flex-row">
+                        <a id="left-auth" onClick={() => setAuthState("Challenges")} className="auth-button d-flex w-50 justify-content-center border-end"><h4 className="form-title mb-0">Challenges</h4></a>
+                        <a id="right-auth" onClick={() => setAuthState("Profile")} className="auth-button d-flex w-50 justify-content-center"><h4 className="form-title mb-0">Profile</h4></a>
                         <label type="hidden"></label>
                     </div>
-                    <hr class="mt-0 mb-4"></hr>
+                    <hr className="mt-0 mb-4"></hr>
                     <section id="auth">
-                        {authState=="Challenges" ? challenges.map((challenge) => <Challenges key={challenge.id} info={challenge}/>) : <Profile userData={userData}/>}
+                        {authState=="Challenges" ? challenges.map((challenge) => <Challenges key={challenge.id} 
+                                                                                            info={challenge}
+                                                                                            open={open}
+                                                                                            setOpen={setOpen}
+                                                                                            />)
+                                                                                             : <Profile userData={userData}/>}
                     </section>
                 </div>
             </div>

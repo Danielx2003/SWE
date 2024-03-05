@@ -34,10 +34,13 @@ export default function RegisterComp(props) {
                     })
                 })
                 const json = await response.json()
-                console.log(response)
-                if (response.status == 201) {
+                console.log(json)
+                if (response.ok) {
                     loginReq()                
                 } else {
+                    if (username in json) {
+                        
+                    }
                     alert('Failed to register.')
                 }
             }

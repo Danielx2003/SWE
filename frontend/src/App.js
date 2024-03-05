@@ -12,6 +12,8 @@ import Leaderboard from "./pages/Leaderboard.jsx"
 import Admin from './pages/Admin.jsx'
 import QRCreate from './pages/QRCreate.jsx'
 import Congrats from "./pages/Congrats.jsx"
+import Friends from "./pages/Friends.jsx"
+
 
 //components
 import Nav from "./components/Nav.jsx"
@@ -25,7 +27,7 @@ function App() {
     <div className="site-wrapper">
       <div className="spacer"></div>
       <BrowserRouter>
-      <IPContext.Provider value={'192.168.0.172'}>
+      <IPContext.Provider value={'localhost'}>
       <Nav/>
         <Routes>
           <Route
@@ -63,6 +65,10 @@ function App() {
           <Route 
             path="/qr"
             element={<Congrats setRedirectQR={setRedirectQR}/>}
+          />
+          <Route
+            path="friends"
+            element={<Friends/>}
           />
         </Routes>
         </IPContext.Provider>

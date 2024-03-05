@@ -51,24 +51,24 @@ export default function Nav() {
     } 
 
     return (
-        <nav class="navbar navbar-fixed-top">
-            <div class="nav-container">
-                <div class="nav-group">
-                    <a class="navbar-text-logo" href="/">Garden App</a>
+        <nav className="navbar navbar-fixed-top">
+            <div className="nav-container">
+                <div className="nav-group">
+                    <a className="navbar-text-logo" href="/">Garden App</a>
                 </div>
                 {
                     // Wait until name has been loaded before rendering this
                     (Cookies.get('username') === undefined) ?
                     // If user is not logged in
                     <>
-                        <div class="nav-group">
-                            <a class="nav-group-element" href="/login">Login</a>
+                        <div className="nav-group">
+                            <a className="nav-group-element" href="/login">Login</a>
                         </div>
                     </>
                     :
                     <>
-                        <div class="nav-group">
-                            <a class="nav-group-element" href="/main">Welcome, {Cookies.get('username')}!</a>
+                        <div className="nav-group">
+                            <a className="nav-group-element" href="/main">Welcome, {Cookies.get('username')}!</a>
                             <Logout/>
                         </div>
                     </>

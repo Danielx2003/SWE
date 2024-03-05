@@ -6,16 +6,24 @@ export default function Challenges(props) {
 
     function showDetails(e) {
         e.preventDefault()
-        setVisible(true)
+        if (!props.open) {
+            setVisible(true)
+            props.setOpen(true)
+        }
     }
 
     return (
-        <div class="form-group">
+        <div className="form-group">
             <button class="btn btn-login" 
                     onClick={showDetails}
                     >{props.info.name}
             </button>
-            {visible ? <ChallengeDetails key={props.id} info={props.info} visible={visible} setVisible={setVisible}/> : null}
+            {visible ? <ChallengeDetails key={props.id} 
+                                            info={props.info} 
+                                            visible={visible} 
+                                            setVisible={setVisible} 
+                                            setOpen={props.setOpen}
+                                            /> : null}
 
         </div>
     )

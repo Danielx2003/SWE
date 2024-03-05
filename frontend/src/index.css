@@ -313,3 +313,39 @@ table {
 
   box-shadow: black 2px 2px 4px;
 }
+
+.modal--wrapper {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.friend-element {
+  display: flex;
+  justify-content: space-evenly;  
+
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+
+  width: 35rem;
+}
+
+.friend-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-flow: row nowrap;
+
+}
+
+.friend-group > *{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 0 4rem 0 0;
+}
+
+.friend-container {
+  display: flex;
+  justify-content: center;
+}
