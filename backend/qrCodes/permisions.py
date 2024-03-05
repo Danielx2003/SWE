@@ -1,6 +1,5 @@
 from rest_framework import permissions
 
-
 class IsAdminOrGameMaster(permissions.BasePermission):
     """
     Custom permission to only allow admins and game_masters.

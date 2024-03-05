@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+
+import { IPContext } from "../App.js"
+
 
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
   axios.defaults.withCredentials = true;
+  const IP = useContext(IPContext)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/garden/leaderboard/?page=1&page_size=10');
+        const response = await axios.get(`http://${IP}:8000/garden/leaderboard/?page=1&page_size=10`);
         const data = response.data.results;
-        debugger;
         setLeaderboardData(data);
       } catch (error) {
         console.error('Error fetching data:', error);

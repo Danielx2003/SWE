@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+IP = '192.168.8.236'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,23 +27,13 @@ SECRET_KEY = "django-insecure-3q%-9t+q2f7s)i%7-_!^9st0)rqmake7*th+e*h8%v15)=ff@+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
-]
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000'
-]
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_HTTPONLY = False
+ALLOWED_HOSTS = ["*"]
+FRONTEND_URL = f"http://{IP}:3000"
+CSRF_TRUSTED_ORIGINS = [FRONTEND_URL]
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
-
-
-ALLOWED_HOSTS = []
-
-FRONTEND_URL = "http://localhost:3000"
-
-SESSION_COOKIE_HTTPONLY = False
 # Application definition
 
 INSTALLED_APPS = [

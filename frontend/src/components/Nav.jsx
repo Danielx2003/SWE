@@ -1,13 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import Logout from '../pages/Logout';
 
+import { IPContext } from "../App.js"
+
+
 export default function Nav() {
     const [loggedIn, setLoggedIn] = useState(false)
     const location = useLocation()
+    const IP = useContext(IPContext)
 
     // All pages that require superuser access.
     // Any page included in here will redirect to the root if unauthenticated.
@@ -20,7 +24,7 @@ export default function Nav() {
     useEffect(() => {
         const getUsername = async () => {
             const response = await axios.get(
-                'http://localhost:8000/authentication/user/',
+                `http://${IP}:8000/authentication/user/`,
                 {'withCredentials': true}
             )
             .then((res) => res.data)
