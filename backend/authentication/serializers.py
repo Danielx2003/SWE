@@ -31,6 +31,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Email already exists.')
         return value
 
+    # TODO add password validation before releasing to production
+
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],

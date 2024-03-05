@@ -32,11 +32,10 @@ class RegistrationView(APIView):
     @transaction.atomic()
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            user = serializer.save()
-            GardenData.objects.create(user=user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        GardenData.objects.create(user=user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class LoginView(APIView):
@@ -55,29 +54,21 @@ class LoginView(APIView):
     authentication_classes = (SessionAuthentication,)
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            user = serializer.check_user(request.data)
-            login(request, user)
-            return Response(None, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.check_user(request.data)
+        login(request, user)
+        return Response(None, status=status.HTTP_200_OK)
 
 
 class LogoutView(APIView):
     """
-    View for recieving user details.
-    url: /authentication/details/
+    View for logging user out.
+    url: /authentication/logout/
     method: POST
     request body: N/A
-    response body: {
-        'username': username,
-        'is_superuser': true / false 
-    }
     successful response: {
         'message': 'Logout successful'
     } => code: 200
-    failure: {
-        'error': 'User is not authenticated'
-    } => code: 400
     """
     def post(self, request):
         if request.user.is_authenticated:
