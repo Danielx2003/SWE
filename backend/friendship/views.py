@@ -193,3 +193,17 @@ class FriendshipRejectView(generics.DestroyAPIView):
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated, IsToUser]
+
+class FriendshipUnfriendView(generics.DestroyAPIView):
+    """
+    Unfriend a user.
+    method: DELETE
+    url: friendship/unfriend/id/
+    where id is the id of the friendship to be rejected
+    successful response: 204 No Content
+    """
+    serializer_class = FriendshipSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Friendship.objects.filter(Q(status=Friendship.StatusEnum.ACCEPTED) & Q(Q(from_user=self.request.user) | Q(to_user=self.request.user)))
