@@ -76,6 +76,7 @@ class LogoutView(APIView):
             return Response({'message': 'Logout successful'})
         else:
             return Response({'error': 'User is not authenticated'}, status=400)
+        
 
 class UserDetailsView(generics.RetrieveAPIView):
     """
