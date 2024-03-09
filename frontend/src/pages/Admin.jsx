@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import CheckForAdmin from '../components/CheckForAdmin'
+import { IPContext } from "../App.js"
 
 export default function Admin() {
   const [data, setData] = useState([])
