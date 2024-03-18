@@ -7,8 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from django.contrib.auth import login, logout
 
-from .permisions import IsAdmin
-from .serializers import RegistrationSerializer, LoginSerializer, UserDetailSerializer, UserGeneralSerializer
+from .permissions import IsAdmin
+from .serializers import RegistrationSerializer, LoginSerializer, UserGeneralSerializer, UserDetailSerializer, AddUserToGroupSerializer
 from garden.models import GardenData
 
 
@@ -65,7 +65,7 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     """
-    View for logging user out.
+    View for logging out.
     url: /authentication/logout/
     method: POST
     request body: N/A
@@ -129,3 +129,28 @@ class UserSearchView(generics.ListAPIView):
     pagination_class = UserSearchPagination
     queryset = User.objects.all().order_by('username')
     permission_classes = [IsAdmin]
+
+
+class ChangeUserGroupsView(APIView):
+    """
+    View for adding a user to a group.
+    url: /authentication/add-to-group/
+    method: PATCH
+    request body: {
+        "id": "id",
+        "groups": ["group1id", "group2id", ...]
+    }
+    successful response: None
+    code: 204
+    """
+    permission_classes = [IsAdmin]
+    def patch(self, request):
+        if "id" not in request.data:
+            return Response({"message": "User id not provided"}, status=status.HTTP_400_BAD_REQUEST)
+        user = User.objects.filter(id=request.data["id"]).first()
+        if not user:
+            return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = AddUserToGroupSerializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)

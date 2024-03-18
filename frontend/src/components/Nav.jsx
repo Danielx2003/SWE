@@ -10,15 +10,9 @@ import { IPContext } from "../App.js"
 
 export default function Nav() {
     const [loggedIn, setLoggedIn] = useState(false)
+    const [group, setGroup] = useState([])
     const location = useLocation()
     const IP = useContext(IPContext)
-
-    // All pages that require superuser access.
-    // Any page included in here will redirect to the root if unauthenticated.
-    const AUTHENTICATED_PAGES = [
-        '/admin',
-        '/admin/create'
-    ]
 
     // When app is rendered, if username cookie does not exist, fetch it
     useEffect(() => {
@@ -29,22 +23,21 @@ export default function Nav() {
             )
             .then((res) => res.data)
             .then((data) => {
-                if (data.username) {
-                    Cookies.set('username', data.username)
-                    flipLoggedIn(true)
-                }
+                console.log(data)
+                
+                Cookies.set('username', data.username)
+                flipLoggedIn(true)
+
+                setGroup(data.groups)
+                console.log(data.groups)
             })
-            .catch (
-                () => console.log("User not logged in.")
-            )
+            .catch((e) => console.log("User not authenticated."))
         }
 
-        console.log(location)
-        const USERNAME_COOKIE_EXISTS = Cookies.get('username') != undefined
-        if (!USERNAME_COOKIE_EXISTS) {
-            getUsername()
-        }
-    }, [loggedIn])
+        // const USERNAME_COOKIE_EXISTS = Cookies.get('username') != undefined
+        getUsername()
+        
+    }, [])
 
     function flipLoggedIn(e) {
         setLoggedIn(prev => !prev)
@@ -69,6 +62,16 @@ export default function Nav() {
                     <>
                         <div className="nav-group">
                             <a className="nav-group-element" href="/main">Welcome, {Cookies.get('username')}!</a>
+                            {
+                                (group.includes('admin') || group.includes('game_master')) ?
+                                <>
+                                    <a className="nav-group-element" href="/admin">Admin</a>
+                                </>
+                                :
+                                <>
+                                
+                                </>
+                            }
                             <Logout/>
                         </div>
                     </>

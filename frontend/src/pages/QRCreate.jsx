@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 
 import { IPContext } from "../App.js"
+import CheckForAdmin from '../components/CheckForAdmin.jsx'
 
 export default function QRCreate() {
   const [name, setName] = useState("")
@@ -87,7 +88,9 @@ export default function QRCreate() {
   }
 
   return (
-    <div class="login-container">
+    <>
+      <div class="login-container">
+      <CheckForAdmin />
       <div class="form-container">
         <div class="form-group">
           <label for="name">Event Name</label>
@@ -137,5 +140,6 @@ export default function QRCreate() {
         </button>
       </div>
     </div>
+    </>
   )
 }
