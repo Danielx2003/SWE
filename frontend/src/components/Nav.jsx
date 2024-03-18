@@ -72,6 +72,8 @@ export default function Nav() {
                                 
                                 </>
                             }
+                            <a className="nav-group-element" href="/friends" style={{fontWeight : location.pathname == "/friends" ? "bold" : "normal"}} >Friends</a>
+                            <a className="nav-group-element" href="/leaderboard" style={{fontWeight : location.pathname == "/leaderboard" ? "bold" : "normal"}}>Leaderboard</a>
                             <Logout/>
                         </div>
                     </>
