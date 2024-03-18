@@ -31,6 +31,7 @@ export default function Nav() {
                 setGroup(data.groups)
                 console.log(data.groups)
             })
+            .catch((e) => console.log("User not authenticated."))
         }
 
         // const USERNAME_COOKIE_EXISTS = Cookies.get('username') != undefined
