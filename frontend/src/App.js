@@ -13,6 +13,8 @@ import Admin from './pages/Admin.jsx'
 import QRCreate from './pages/QRCreate.jsx'
 import Congrats from "./pages/Congrats.jsx"
 import Friends from "./pages/Friends.jsx"
+import FriendRequests from "./pages/FriendRequests.jsx"
+import FriendSearch from "./pages/FriendSearch.jsx"
 
 
 //components
@@ -70,11 +72,18 @@ function App() {
             path="friends"
             element={<Friends/>}
           />
+          <Route
+            path="pending-friend-reqeusts"
+            element={<FriendRequests/>} FriendSearch
+          />
+          <Route
+            path="friend-search"
+            element={<FriendSearch/>}
+          />
         </Routes>
         </IPContext.Provider>
       </BrowserRouter>
     </div>
   )
 }
-
 export default App;
