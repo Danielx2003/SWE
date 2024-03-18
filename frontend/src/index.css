@@ -11,7 +11,8 @@
 }
 
 body {
-  background-color: #003b3c !important; 
+  background: linear-gradient(137.28deg, #438285 -5.33%, #003b3c 33.62%);
+  background-attachment: fixed;
   font-family: 'Outfit', sans-serif !important;
   font-size: 18px;
 }
@@ -34,6 +35,8 @@ a {
 }
 
 .navbar {
+  background: linear-gradient(137.28deg, #438285 -5.33%, #003b3c 33.62%);
+  background-attachment: fixed;
   position: fixed !important;
   justify-content: center !important;
 
@@ -206,16 +209,13 @@ a {
   align-items: center;
   justify-content: center;
 
-  margin-top: var(--navbar-height);
-  
-
   background-color: white;
   padding: 4rem;
   border-radius: 2rem;
 
   height: 35rem;
   width: 25rem;
-  margin-top: 8em;
+  margin-top: 3em;
 }
 
 .congrats--container {
@@ -319,33 +319,33 @@ table {
   margin-top: 1rem;
 }
 
-.friend-element {
+#friends--element {  
   display: flex;
-  justify-content: space-evenly;  
-
+  align-items: center;
+  justify-content: space-between;
   background-color: white;
-  padding: 2rem;
-  border-radius: 2rem;
-
-  width: 35rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  height: 4rem;
+  width: 30rem;
+  margin-top: 1em;
 }
 
-.friend-group {
+#friends--element > h1 {
+  margin: 0 0 0 0.8rem;
+}
+#friends--element > button {
+  margin: 0 0.8rem 0 0;
+}
+
+#friends--container {
   display: flex;
+  flex-flow: column nowrap;
   align-items: center;
+}
+
+#friend-search-box {
+  margin-top: 1rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
-  flex-flow: row nowrap;
-
-}
-
-.friend-group > *{
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  margin: 0 4rem 0 0;
-}
-
-.friend-container {
-  display: flex;
-  justify-content: center;
 }
