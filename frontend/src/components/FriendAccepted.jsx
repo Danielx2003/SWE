@@ -30,9 +30,9 @@ export default function FriendComp(props) {
         {visible ?         
             <div id="friends--element">
             <h1>{props.username}</h1>
-            <button className="btn"
-                onClick={handleUnfriend}
-            >Remove</button>
+            <button type="button" class="btn"
+            onClick={handleUnfriend}
+            >REMOVE</button>
         </div>
         :
         ""
