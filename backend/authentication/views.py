@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from django.contrib.auth import login, logout
 
-from .serializers import RegistrationSerializer, LoginSerializer, UserDetailSerializer
+from .permissions import IsAdmin
+from .serializers import RegistrationSerializer, LoginSerializer, UserDetailSerializer, AddUserToGroupSerializer
 from garden.models import GardenData
 
 
@@ -98,3 +99,27 @@ class UserDetailsView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
+
+class ChangeUserGroupsView(APIView):
+    """
+    View for adding a user to a group.
+    url: /authentication/add-to-group/
+    method: PATCH
+    request body: {
+        "id": "id",
+        "groups": ["group1id", "group2id", ...]
+    }
+    successful response: None
+    code: 204
+    """
+    permission_classes = [IsAdmin]
+    def patch(self, request):
+        if "id" not in request.data:
+            return Response({"message": "User id not provided"}, status=status.HTTP_400_BAD_REQUEST)
+        user = User.objects.filter(id=request.data["id"]).first()
+        if not user:
+            return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = AddUserToGroupSerializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
