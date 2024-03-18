@@ -66,7 +66,7 @@ export default function FriendPending(props) {
             >REJECT</button>
         </div>
         :
-        "NO FRIENDS!"
+        ""
         }
         </>
 )

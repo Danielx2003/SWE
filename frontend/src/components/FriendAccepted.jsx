@@ -35,7 +35,7 @@ export default function FriendComp(props) {
             >Remove</button>
         </div>
         :
-        "NO FRIENDS!"
+        ""
         }
         </>
 )
