@@ -51,6 +51,13 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'groups', 'user_permissions')
 
 
+class UserGeneralSerializer(serializers.ModelSerializer):
+    groups = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'groups']
+
+
 class AddUserToGroupSerializer(serializers.ModelSerializer):
     groups = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all(), many=True)
 
