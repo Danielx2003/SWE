@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
@@ -65,7 +65,9 @@ export default function Nav() {
                             {
                                 (group.includes('admin') || group.includes('game_master')) ?
                                 <>
-                                    <a className="nav-group-element" href="/admin">Admin</a>
+                                    <Link to={{
+                                        pathname: '/admin/'
+                                    }}>Admin</Link>
                                 </>
                                 :
                                 <>

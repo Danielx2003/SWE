@@ -15,7 +15,7 @@ export default function CheckForAdmin() {
             )
             .then((res) => res.data)
             .then((data) => {
-                if (!data.groups.includes("admin")) {
+                if (!data.groups.includes("admin") && !data.groups.includes("game_master")) {
                     navigate("/")
                 }
             })

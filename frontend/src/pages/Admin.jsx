@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react'
+import {useLocation} from 'react-router-dom'
 import axios from 'axios'
 import CheckForAdmin from '../components/CheckForAdmin'
+import AdminUserGroups from '../components/AdminUserGroups.jsx'
 import { IPContext } from "../App.js"
 
 export default function Admin() {
   const [data, setData] = useState([])
+  const [group, setGroup] = useState([])
   const IP = useContext(IPContext)
+  const loc = useLocation()
 
   useEffect(() => {
     const getQRCodes = async () => {
@@ -21,9 +25,38 @@ export default function Admin() {
     getQRCodes()
   }, [`http://${IP}:8000/qrcodes/`])
 
+  useEffect(() => {
+    const getUserAdmin = async () => {
+      const response = await axios.get(
+        `http://${IP}:8000/authentication/user/`,
+        {'withCredentials': true}
+      )
+      .then((res) => res.data)
+      .then((data) => {
+          setGroup(data.groups)
+          console.log(data.groups)
+      })
+      .catch(() => {})
+    }
+
+    getUserAdmin()
+  }, [])
+
   return (
     <>
       <CheckForAdmin />
+
+      {
+        (group.includes('admin')) ?
+        <>
+          <AdminUserGroups />
+        </>
+        :
+        <>
+        
+        </>
+      }
+      
       <div className="d-flex flex-row w-100 justify-content-between pt-3 pb-2 ps-2 bg-white">
         <strong className="ms-4">QR Codes</strong>
         <a href="/admin/create">
@@ -45,6 +78,11 @@ export default function Admin() {
         </thead>
         <tbody>
         {
+          (!data) ? 
+            <tr>
+              <th scope="row">Loading...</th>
+            </tr>
+          :
           data.map((val, i) => {
             return (
               <tr>
