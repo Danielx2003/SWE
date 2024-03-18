@@ -2,10 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useLocation  } from 'react-router-dom';
 import Cookies from 'js-cookie';
-
 import { IPContext } from "../App.js"
-
-
 
 export default function Congrats(props) {
     const [prize, setPrize] = useState(0)

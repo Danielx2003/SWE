@@ -63,7 +63,7 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     """
-    View for logging user out.
+    View for logging out.
     url: /authentication/logout/
     method: POST
     request body: N/A
@@ -77,7 +77,7 @@ class LogoutView(APIView):
             return Response({'message': 'Logout successful'})
         else:
             return Response({'error': 'User is not authenticated'}, status=400)
-
+        
 
 class UserDetailsView(generics.RetrieveAPIView):
     """
