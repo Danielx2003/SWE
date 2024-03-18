@@ -97,9 +97,9 @@ class FriendshipListView(generics.ListCreateAPIView):
             if i['status'] == Friendship.StatusEnum.ACCEPTED:
                 grouped_data['accepted'].append(i)
             elif i['from_user']['id'] == request.user.id:
-                grouped_data['pending'].append(i)
-            else:
                 grouped_data['requested'].append(i)
+            else:
+                grouped_data['pending'].append(i)
         return Response(grouped_data)
 
     def create(self, request, *args, **kwargs):
