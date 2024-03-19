@@ -2,6 +2,10 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.pagination import PageNumberPagination
 
+from django.http import JsonResponse
+from django.views import View
+import requests
+
 from .models import GardenData
 from .serializers import GardenDataSerializer, GardenLeaderboardSerializer
 
@@ -52,3 +56,16 @@ class GardenLeaderboardView(generics.ListAPIView):
     pagination_class = CustomPagination
     permission_classes = [permissions.IsAuthenticated]
     queryset = GardenData.objects.all().order_by('-points')
+
+
+class WeatherView(View):
+    def get(self, request, lat, lon):
+        api_key = '147e93e240e81ea392ddd8bc7e833012'
+        url = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}'
+
+        try:
+            response = requests.get(url)
+            data = response.json()
+            return JsonResponse(data)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
