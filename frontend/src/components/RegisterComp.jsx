@@ -15,62 +15,60 @@ export default function RegisterComp(props) {
 
     function handleFormSubmit(e) {
         e.preventDefault()
-        if (password != passwordChk) {
-            alert("Invalid password.")
-        }
-        else {
-            const makeReq = async () => {
-                // POST username and password
-                const response = await fetch(`http://${IP}:8000/authentication/register/`, {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        username: username,
-                        password: password,
-                        email: email
-                    })
+        const makeReq = async () => {
+            // POST username and password
+            const response = await fetch(`http://${IP}:8000/authentication/register/`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                    email: email
                 })
-                const json = await response.json()
-                console.log(json)
-                if (response.ok) {
-                    loginReq()                
-                } else {
-                    if (username in json) {
-                        
+            })
+            const json = await response.json()
+            if (response.ok) {
+                loginReq()                
+            } else {
+                let errorMsg = ""
+                for (const [key, value] of Object.entries(json)) {
+                    errorMsg += value + "\n"
                     }
-                    alert('Failed to register.')
+                if (password != passwordChk) {
+                    errorMsg += "Passwords must match. \n"
                 }
+                alert(errorMsg)
             }
-            const loginReq = async () => {
-                const response = await fetch(`http://${IP}:8000/authentication/login/`, {
-                    method: "POST",
-                    headers: {
-                      "Content-type": "application/json",
-                      'X-CSRFToken' : Cookies.get('csrftoken')
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        username:username,
-                        password:password
-                    }),
-                })
-                if (response.status == 200) {
-                    Cookies.set('username', username)
-                    if (props.redirectQR.qr) {                    
-                        navigate(props.redirectQR.path)
-                    } else {
-                        navigate('/main')
-                    }
-                } else {
-                    alert("Incorrect Username or Password.")
-                }
-            }
-           
-            makeReq()        
         }
+        const loginReq = async () => {
+            const response = await fetch(`http://${IP}:8000/authentication/login/`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    'X-CSRFToken' : Cookies.get('csrftoken')
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    username:username,
+                    password:password
+                }),
+            })
+            if (response.status == 200) {
+                Cookies.set('username', username)
+                if (props.redirectQR.qr) {                    
+                    navigate(props.redirectQR.path)
+                } else {
+                    navigate('/main')
+                }
+            } else {
+                alert("Incorrect Username or Password.")
+            }
+        }
+        
+        makeReq()        
 
     }
     function handleUsername(e) {

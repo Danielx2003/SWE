@@ -322,7 +322,6 @@ table {
 #friends--element {  
   display: flex;
   align-items: center;
-  justify-content: space-between;
   background-color: white;
   padding: 0.4rem;
   border-radius: 0.5rem;
@@ -331,11 +330,22 @@ table {
   margin-top: 1em;
 }
 
+#friends--element > button {
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+
 #friends--element > h1 {
   margin: 0 0 0 0.8rem;
+
 }
-#friends--element > button {
-  margin: 0 0.8rem 0 0;
+#friend-btn-container {
+    margin: 0 0.8rem 0 0;
+    margin-left: auto;
+}
+#friend-btn-container > button{
+  margin-left: 0.5rem;
 }
 
 #friends--container {
@@ -348,4 +358,42 @@ table {
   margin-top: 1rem;
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+#no-friends-txt {
+  font-size: 1.5rem;
+}
+
+#add-friends-txt {
+  background-color: transparent;
+  align-items: center;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+#add-friends-btn {
+  align-items: center;
+  margin: 0;
+}
+
+#add-friends-container {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile{
+  width: 400px;
+  display: block;
+}
+
+.profile-info {
+  display: flex;
+}
+
+.profile-info >h2{ 
+  margin-left: auto;
 }
