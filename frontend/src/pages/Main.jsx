@@ -5,6 +5,7 @@ import Challenges from "../components/Challenges"
 import Profile from "../components/Profile"
 import axios from 'axios';
 
+import GetWeatherBackground from '../components/GetWeatherBackground';
 import { IPContext } from "../App.js"
 
 
@@ -51,7 +52,7 @@ export default function Main() {
 
     return (
         <div className="main--container">
-            <img className="garden--img" src="https://i0.wp.com/fuentespens.ink/wp-content/uploads/2020/04/IMG_5412.jpeg?w=828&ssl=1"></img>
+        <GetWeatherBackground />
             <div className="garden--container">
                 <div className="choice--container">
                     <div id="auth-buttons" className="auth-button-controller d-flex w-100 flex-row">
