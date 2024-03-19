@@ -1,14 +1,27 @@
+
 from rest_framework import generics
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.views import APIView
 
 from django.http import JsonResponse
 from django.views import View
 import requests
 
 from .models import GardenData
-from .serializers import GardenDataSerializer, GardenLeaderboardSerializer
+from .serializers import GardenDataSerializer, GardenLeaderboardSerializer, GardenRankSerializer
 
+class WeatherView(View):
+    def get(self, request, lat, lon):
+        api_key = '147e93e240e81ea392ddd8bc7e833012'
+        url = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}'
+
+        try:
+            response = requests.get(url)
+            data = response.json()
+            return JsonResponse(data)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
 class GardenDataDetail(generics.RetrieveAPIView):
     """
@@ -46,6 +59,7 @@ class GardenLeaderboardView(generics.ListAPIView):
     ordered by points in descending order
     successful response: [
         {
+            "rank": "rank_number",
             "username": "username",
             "points": "points"
         },
@@ -55,17 +69,32 @@ class GardenLeaderboardView(generics.ListAPIView):
     serializer_class = GardenLeaderboardSerializer
     pagination_class = CustomPagination
     permission_classes = [permissions.IsAuthenticated]
-    queryset = GardenData.objects.all().order_by('-points')
+    def get_queryset(self):
+        return GardenData.objects.order_by('-points')
 
+        
+class GardenRankView(APIView):
+    """
+    API endpoint that returns the points and rank for a given username.
+    method: GET
+    url: garden/garden-rank/<str:username>/
+    successful response: {
+        "username": "username",
+        "points": "points",
+        "rank": "rank"
+    }
+    """
+    permission_classes = [permissions.AllowAny]  # You may restrict this if needed
 
-class WeatherView(View):
-    def get(self, request, lat, lon):
-        api_key = '147e93e240e81ea392ddd8bc7e833012'
-        url = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}'
-
+    def get(self, request, username):
         try:
-            response = requests.get(url)
-            data = response.json()
-            return JsonResponse(data)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+            garden_data = GardenData.objects.get(user__username=username)
+            rank = GardenData.objects.filter(points__gt=garden_data.points).count() + 1
+            serializer = GardenRankSerializer({
+                'username': username,
+                'points': garden_data.points,
+                'rank': rank
+            })
+            return JsonResponse(serializer.data)
+        except GardenData.DoesNotExist:
+            return JsonResponse({'error': f'User {username} not found'}, status=404)
