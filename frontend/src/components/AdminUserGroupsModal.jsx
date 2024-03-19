@@ -16,8 +16,10 @@ export default function AdminUserGroupsModal({ row, id=1 }) {
     <div>
       <Button onClick={handleOpen} className='admin-table-btn'>
         <div>
-            <span>{id}</span>
-            <span>{row.name}</span>
+          <span>{row.username}</span>
+        </div>
+        <div>
+          
         </div>
       </Button>
       
