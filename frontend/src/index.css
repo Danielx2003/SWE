@@ -252,6 +252,7 @@ a {
   position:relative;
   height: 16rem;
   width: 35rem;
+  z-index: -1
 }
 
 .garden--img{
@@ -411,4 +412,8 @@ table {
 
 .profile-info >h2{ 
   margin-left: auto;
+}
+
+#loading-text {
+  background-color: transparent;
 }
