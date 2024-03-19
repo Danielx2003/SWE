@@ -52,7 +52,7 @@ export default function GetWeatherBackground(props) {
 
   if (!weatherData) {
     // Render loading state
-    return <p>Loading...</p>;
+    return <p id="loading-text">Loading...</p>;
   }
 
   const weatherIconCode = weatherData.weather[0].icon;
