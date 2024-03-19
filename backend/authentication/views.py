@@ -1,13 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import transaction
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from django.contrib.auth import login, logout
 
 from .permissions import IsAdmin
-from .serializers import RegistrationSerializer, LoginSerializer, UserDetailSerializer, AddUserToGroupSerializer
+from .serializers import RegistrationSerializer, LoginSerializer, UserGeneralSerializer, UserDetailSerializer, AddUserToGroupSerializer
 from garden.models import GardenData
 
 
@@ -53,6 +54,7 @@ class LoginView(APIView):
     """
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
+
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -71,13 +73,14 @@ class LogoutView(APIView):
         'message': 'Logout successful'
     } => code: 200
     """
+
     def post(self, request):
         if request.user.is_authenticated:
             logout(request)
             return Response({'message': 'Logout successful'})
         else:
             return Response({'error': 'User is not authenticated'}, status=400)
-        
+
 
 class UserDetailsView(generics.RetrieveAPIView):
     """
@@ -95,9 +98,37 @@ class UserDetailsView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
-    
+
     def get_object(self):
         return self.request.user
+
+
+class UserSearchPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+class UserSearchView(generics.ListAPIView):
+    """
+    List all users or search for a user.
+    method: GET
+    url: authentication/user-search/?query=query
+    query parameter is the string to search for
+    successful response: [
+        {
+            "id": "id",
+            "username": "username",
+            "groups": ["1", "2", ...]
+        },
+        ...
+    ]
+    groups: 1=player, 2=admin, 3=game_master
+    """
+    serializer_class = UserGeneralSerializer
+    pagination_class = UserSearchPagination
+    queryset = User.objects.all().order_by('username')
+    permission_classes = [IsAdmin]
 
 
 class ChangeUserGroupsView(APIView):

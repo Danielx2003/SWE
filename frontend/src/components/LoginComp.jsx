@@ -31,7 +31,10 @@ export default function LoginComp(props) {
                     password:password
                 }),
             })
-            .catch((err) => alert("Something went wrong, please try again."))
+            .catch((err) => {
+                alert("Something went wrong, please try again.")
+                console.log(response.json())
+            })
 
             if (response.ok) {
                 Cookies.set('username', username)

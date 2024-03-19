@@ -2,22 +2,24 @@ import React, {useState} from 'react';
 import Cookies from 'js-cookie';
 
 export default function Profile(props) {
-    console.log(props.userData)
     const [text, setText] = useState("")
 
     return (
-        <div className="challenges">
-            <div class="form-title">
-                <h1>Name: {Cookies.get('username')}</h1>
+        <div className="profile">
+            <div className="profile-info">
+                <h1>Name:</h1> <h2>{Cookies.get('username')}</h2>
             </div>
-            <div class="form-title">
-                <h1>XP: {props.userData.xp}</h1>
+            <div className="profile-info">
+                <h1>XP:</h1>
+                <h2>{props.userData.xp}</h2>
             </div>
-            <div class="form-title">
-                <h1>Points: {props.userData.points}</h1>
+            <div className="profile-info">
+                <h1>Points: </h1>
+                <h2>{props.userData.points}</h2>
             </div>
-            <div class="form-title">
-                <h1>Plants: {props.userData.num_plants}</h1>
+            <div className="profile-info">
+                <h1>Plants: </h1>
+                <h2>{props.userData.num_plants}</h2>
             </div>
         </div>
     )
