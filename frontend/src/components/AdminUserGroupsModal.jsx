@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-export default function AdminUserGroupsModal(row, id = 1) {
+export default function AdminUserGroupsModal({ row, id=1 }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

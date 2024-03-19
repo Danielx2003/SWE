@@ -83,7 +83,7 @@ TablePaginationActions.propTypes = {
 };
 
 function createData(name, calories, fat) {
-  return { name, calories, fat };
+  return { name: name, calories: calories, fat: fat };
 }
 
 const rows = [
@@ -105,6 +105,14 @@ const rows = [
 export default function AdminUserGroups() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  useEffect(() => {
+    const getUserRows = async () => {
+        const response = await axios.get(
+            
+        )
+    }
+  }, [])
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -130,7 +138,7 @@ export default function AdminUserGroups() {
             <>
                 <TableRow key={row.name} className='admin-table-row'>
                     <div>
-                        {AdminUserGroupsModal(row)}
+                        <AdminUserGroupsModal row={row} id={1} />
                     </div>
                 </TableRow>
             </>
