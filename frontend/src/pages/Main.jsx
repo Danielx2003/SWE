@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Challenges from "../components/Challenges"
 import Profile from "../components/Profile"
+import PlantSelector from "../components/PlantSelector"
+
 import axios from 'axios';
 
 import { IPContext } from "../App.js"
@@ -55,8 +57,9 @@ export default function Main() {
             <div className="garden--container">
                 <div className="choice--container">
                     <div id="auth-buttons" className="auth-button-controller d-flex w-100 flex-row">
-                        <a id="left-auth" onClick={() => setAuthState("Challenges")} className="auth-button d-flex w-50 justify-content-center border-end"><h4 className="form-title mb-0">Challenges</h4></a>
-                        <a id="right-auth" onClick={() => setAuthState("Profile")} className="auth-button d-flex w-50 justify-content-center"><h4 className="form-title mb-0">Profile</h4></a>
+                        <a id="left-auth" onClick={() => setAuthState("Challenges")} className="auth-button d-flex w-50 justify-content-center border-end"><h4 className="form-title mb-0" style={{fontWeight : authState=="Challenges" ? 'bold' : ""}}>Challenges</h4></a>
+                        <a id="right-auth" onClick={() => setAuthState("Profile")} className="auth-button d-flex w-50 justify-content-center border-end"><h4 className="form-title mb-0" style={{fontWeight : authState=="Profile" ? 'bold' : ''}}>Profile</h4></a>
+                        <a id="right-auth" onClick={() => setAuthState("Plants")} className="auth-button d-flex w-50 justify-content-center"><h4 className="form-title mb-0" style={{fontWeight : authState=="Plants" ? 'bold' : ''}}>Garden</h4></a>
                         <label type="hidden"></label>
                     </div>
                     <hr className="mt-0 mb-4"></hr>
@@ -66,7 +69,7 @@ export default function Main() {
                                                                                             open={open}
                                                                                             setOpen={setOpen}
                                                                                             />)
-                                                                                             : <Profile userData={userData}/>}
+                        : authState=="Profile" ? <Profile userData={userData}/> : <PlantSelector/>}
                     </section>
                 </div>
             </div>
