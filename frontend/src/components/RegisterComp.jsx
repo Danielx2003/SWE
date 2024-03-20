@@ -2,6 +2,9 @@ import {React, useState, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
+import TermsModal from '../components/TermsModal.jsx'
+import PrivacyModal from '../components/PrivacyModal.jsx'
+
 import { IPContext } from "../App.js"
 
 
@@ -10,8 +13,12 @@ export default function RegisterComp(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [passwordChk, setpasswordChk] = useState("")
+    const [accepted, setAccepted] = useState(false)
+
     let navigate = useNavigate()
     const IP = useContext(IPContext)
+
+    const flipAccepted = () => setAccepted(!accepted)
 
     function handleFormSubmit(e) {
         e.preventDefault()
@@ -131,11 +138,26 @@ export default function RegisterComp(props) {
                 onChange={handlePasswordChk}
                 />
             </div>
+
+            <div className="form-check">
+                <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="remember"
+                    value={accepted}
+                    onChange={flipAccepted} />
+                <label className="d-flex flex-row flex-wrap form-check-label pl-2 mb-3" for="remember">
+                    I certify that I have both read and accept the&nbsp;<TermsModal />&nbsp;and&nbsp;<PrivacyModal />.
+                </label>
+            </div>
+
             <button 
-            className="btn btn-login" 
-            type="submit"
-            onClick={handleFormSubmit}
-            >REGISTER</button>
+                className="btn btn-login" 
+                type="submit"
+                onClick={handleFormSubmit}
+                disabled={!accepted}>
+                REGISTER
+            </button>
         </form>
     )
 }
