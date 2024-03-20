@@ -29,44 +29,85 @@ const Leaderboard = () => {
         })
       .catch(error => {
           console.log("Errror getting user data.")
-        });
-
-  }
+        });}
 
     getUserData();        
     fetchData();
-  }, []);
+  }, [])
+  
+  function isObjectInArray(array, obj) {
+    for (var i = 0; i < array.length; i++) {
+        console.log(array[i].username)
+        console.log(obj.username)
+        if (array[i].username === obj.username) {
+            return true;
+        }
+    }
+    return false;}
 
-  return (
-    <div className="leaderboard-wrapper">
-      <div className="leaderboard">
-        <table>
-          <thead id="header">
-            <tr>
-              <th className="headerTable">Place</th>
-              <th className="headerTable">Username</th>
-              <th className="headerTable">Points</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            {leaderboardData.map((item, index) => (
-              <tr key={index}>
-                <td class="tableRowText">{item.rank}</td>
-                <td class="tableRowText">{item.username}</td>
-                <td class="tableRowText">{item.points}</td>
-              </tr>
-            ))}
-            <tr class='userRow'>
-                <td class="tableRowText">{userData.rank}</td>
-                <td class="tableRowText">{userData.username}</td>
-                <td class="tableRowText">{userData.points}</td>
-              </tr>
+    let top10 = isObjectInArray(leaderboardData, userData)
+    console.log(top10);
+    ;
 
-          </tbody>
-        </table>
+
+  if(top10){
+    return (
+      <div className="leaderboard-wrapper">
+        <div className="leaderboard">
+          <table>
+            <thead id="header">
+              <tr>
+                <th className="headerTable">Place</th>
+                <th className="headerTable">Username</th>
+                <th className="headerTable">Points</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              {leaderboardData.map((item, index) => (
+                <tr key={index} className={item.username === userData.username ? 'userRow' : ''}>
+                  <td className="tableRowText">{item.rank}</td>
+                  <td className="tableRowText">{item.username}</td>
+                  <td className="tableRowText">{item.points}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+  else{
+    return (
+      <div className="leaderboard-wrapper">
+        <div className="leaderboard">
+          <table>
+            <thead id="header">
+              <tr>
+                <th className="headerTable">Place</th>
+                <th className="headerTable">Username</th>
+                <th className="headerTable">Points</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              {leaderboardData.map((item, index) => (
+                <tr key={index}>
+                  <td className="tableRowText">{item.rank}</td>
+                  <td className="tableRowText">{item.username}</td>
+                  <td className="tableRowText">{item.points}</td>
+                </tr>
+              ))}
+              <tr className='userRow'>
+                  <td className="tableRowText">{userData.rank}</td>
+                  <td className="tableRowText">{userData.username}</td>
+                  <td className="tableRowText">{userData.points}</td>
+                </tr>
+  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+  };
 
 export default Leaderboard;

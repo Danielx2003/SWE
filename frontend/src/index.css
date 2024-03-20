@@ -3,6 +3,7 @@
   /* margin of the jumbotron */
   --navbar-height: 5rem;
   --standardised-container-width: 85%;
+  --the-green: #003b3c80;
 }
 
 @font-face {
@@ -47,6 +48,7 @@ a {
   background-color: #003b3c !important;
 
   box-shadow: 0 0 15px black;
+  z-index: 8;
 }
 
 .nav-container {
@@ -129,9 +131,7 @@ a {
 
 .form-container {
   display: flex;
-  flex-flow: column nowrap;
-
-  justify-content: space-between;  
+  flex-flow: column nowrap; 
 
   background-color: white;
   padding: 4rem;
@@ -322,12 +322,17 @@ table {
 }
 
 .detail--form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+
   background-color: rgb(226, 218, 218);
   padding: 4rem;
   border-radius: 2rem;
 
   height: 20rem;
-  width: 25rem;
 
   box-shadow: black 2px 2px 4px;
 }
@@ -416,6 +421,129 @@ table {
   margin-left: auto;
 }
 
+.modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  background-color: white;
+  border: 2px solid #000;
+  box-shadow: 24;
+  padding: 2rem;
+}
+
+.admin-navbar {
+  height: 5rem;
+  justify-self: center;
+
+  box-shadow: 0 2px 5px black;
+
+  background-color: white;
+  z-index: 0;
+}
+
+.admin-navbar-buttons {
+  color: black !important;
+  font-size: 200% !important;
+}
+
+.terms-container {
+  width: 50vh;
+  height: 40vh;
+
+  overflow: scroll;
+}
+
+.user-dropdown-link:hover {
+  color: black !important;
+}
+
+.settings-box {
+  display: flex;
+  position: absolute;
+
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: auto;
+  height: auto;
+  
+  min-height: 30vh;
+  background-color: white;
+
+  box-shadow: 24;
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
+.settings-box > * {
+  margin-bottom: 1rem;
+}
+
+.settings-box > button {
+  width: 50%;
+}
+
+.settings-button-delete {
+  background-color: #d11a2a !important;
+  border: #d11a2a !important;
+
+  color: white !important;
+}
+
+.settings-button-delete:hover {
+  background-color: #a3101d !important;
+  border: #a3101d !important;
+}
+
+/* 
+Some hacky workarounds for the admin table. Basically reverting all
+of the warcrimes Mui has committed on this table
+*/
+.admin-table-container {
+  background-color: white !important;
+}
+
+.admin-table-header > th {
+  padding-left: 1.25rem !important;
+}
+
+.admin-table-btn {
+  justify-content: space-between !important;
+
+  font-family: inherit !important;
+  font-size: 1rem !important;
+
+  padding: 0.75rem !important;
+  width: 100%;
+
+  text-decoration: none !important;
+  text-transform: none !important;
+  color: black !important;
+}
+
+.admin-table-btn:after {
+  position: absolute;
+  bottom: 0 !important;
+  left: 0 !important;
+  
+  height: 1px;
+  width: 100%;
+
+  content: "";
+  background: grey;
+}
+
+.admin-table-btn > div:first-child > span {
+  padding-right: 2rem !important;
+}
+  
 #loading-text {
   background-color: transparent;
 }
@@ -483,3 +611,42 @@ table {
   width: 13rem;
   z-index: 10;
 }
+
+/* Termly imports */
+[data-custom-class='body'],[data-custom-class='body'] *{background: transparent !important;
+}[data-custom-class='title'],[data-custom-class='title'] *{font-family: Arial !important;
+font-size: 26px !important;
+color: #000000 !important;
+}[data-custom-class='subtitle'],[data-custom-class='subtitle'] *{font-family: Arial !important;
+color: #595959 !important;
+font-size: 14px !important;
+}[data-custom-class='heading_1'],[data-custom-class='heading_1'] *{font-family: Arial !important;
+font-size: 19px !important;
+color: #000000 !important;
+}[data-custom-class='heading_2'],[data-custom-class='heading_2'] *{font-family: Arial !important;
+font-size: 17px !important;
+color: #000000 !important;
+}[data-custom-class='body_text'],[data-custom-class='body_text'] *{color: #595959 !important;
+font-size: 14px !important;
+font-family: Arial !important;
+}[data-custom-class='link'],[data-custom-class='link'] *{color: #3030F1 !important;
+font-size: 14px !important;
+font-family: Arial !important;
+word-break: break-word !important;
+}
+
+ul {
+  list-style-type: square;
+  }
+
+  ul>li>ul {
+  list-style-type: circle;
+  }
+
+  ul>li>ul>li>ul {
+  list-style-type: square;
+  }
+
+  ol li {
+  font-family: Arial;
+  }

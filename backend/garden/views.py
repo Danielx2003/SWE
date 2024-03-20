@@ -1,15 +1,16 @@
-
-from rest_framework import generics
-from rest_framework import permissions, status
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.views import APIView
-
+import requests
 from django.http import JsonResponse
 from django.views import View
-import requests
+from rest_framework import generics
+from rest_framework import permissions
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
-from .models import GardenData
-from .serializers import GardenDataSerializer, GardenLeaderboardSerializer, GardenRankSerializer
+from .models import GardenData, UserInventory
+from .serializers import GardenDataSerializer, GardenLeaderboardSerializer, GardenRankSerializer, \
+    UserInventorySerializer
+
 
 class WeatherView(View):
     def get(self, request, lat, lon):
@@ -22,6 +23,7 @@ class WeatherView(View):
             return JsonResponse(data)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+
 
 class GardenDataDetail(generics.RetrieveAPIView):
     """
@@ -69,10 +71,11 @@ class GardenLeaderboardView(generics.ListAPIView):
     serializer_class = GardenLeaderboardSerializer
     pagination_class = CustomPagination
     permission_classes = [permissions.IsAuthenticated]
+
     def get_queryset(self):
         return GardenData.objects.order_by('-points')
 
-        
+
 class GardenRankView(APIView):
     """
     API endpoint that returns the points and rank for a given username.
@@ -98,3 +101,25 @@ class GardenRankView(APIView):
             return JsonResponse(serializer.data)
         except GardenData.DoesNotExist:
             return JsonResponse({'error': f'User {username} not found'}, status=404)
+
+
+class UserEquipmentAPIView(generics.ListAPIView):
+    """
+    Endpoint to get user equipment
+    method: GET
+    url: garden/equipment/
+    successful response: [
+        {
+            "item": "item",
+            "quantity": "quantity"
+        },
+        ...
+    ]
+    response code: 200
+    """
+    serializer_class = UserInventorySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return UserInventory.objects.filter(user=user)

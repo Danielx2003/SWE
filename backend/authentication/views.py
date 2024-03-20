@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .permissions import IsAdmin
 from .serializers import RegistrationSerializer, LoginSerializer, UserGeneralSerializer, UserDetailSerializer, AddUserToGroupSerializer
@@ -54,7 +55,6 @@ class LoginView(APIView):
     """
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
-
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -73,14 +73,13 @@ class LogoutView(APIView):
         'message': 'Logout successful'
     } => code: 200
     """
-
     def post(self, request):
         if request.user.is_authenticated:
             logout(request)
             return Response({'message': 'Logout successful'})
         else:
             return Response({'error': 'User is not authenticated'}, status=400)
-
+        
 
 class UserDetailsView(generics.RetrieveAPIView):
     """
@@ -98,7 +97,7 @@ class UserDetailsView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
-
+    
     def get_object(self):
         return self.request.user
 
@@ -113,7 +112,7 @@ class UserSearchView(generics.ListAPIView):
     """
     List all users or search for a user.
     method: GET
-    url: authentication/user-search/?query=query
+    url: authentication/user-search/?query=query&page=pagenumber&page_size=pagesize
     query parameter is the string to search for
     successful response: [
         {
@@ -138,10 +137,11 @@ class ChangeUserGroupsView(APIView):
     method: PATCH
     request body: {
         "id": "id",
-        "groups": ["group1id", "group2id", ...]
+        "groups": ["1", "2", ...]
     }
     successful response: None
     code: 204
+    groups: 1=player, 2=admin, 3=game_master
     """
     permission_classes = [IsAdmin]
     def patch(self, request):
@@ -154,3 +154,24 @@ class ChangeUserGroupsView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class DeleteAccountView(LoginRequiredMixin, APIView):
+    """
+    View to delete the current user's account.
+
+    Requires the user to be authenticated.
+    method: POST
+    request body: None
+    successful response: None
+    code: 200
+    """
+
+    def post(self, request):
+        """
+        Handle POST request to delete the current user's account.
+        """
+        user = request.user
+        # Delete user account
+        user.delete()
+        return Response({'message': 'Account deleted successfully'})

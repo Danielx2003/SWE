@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
-import Challenges from "../components/Challenges"
 import Profile from "../components/Profile"
 import PlantSelector from "../components/PlantSelector"
 
@@ -21,6 +20,7 @@ import axios from 'axios';
 
 import GetWeatherBackground from '../components/GetWeatherBackground';
 import { IPContext } from "../App.js"
+import ChallengeModal from '../components/ChallengeModal.jsx';
 
 
 export default function Main() {
@@ -29,7 +29,6 @@ export default function Main() {
     const [authState, setAuthState] = useState("Profile");
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
-    const [open, setOpen] = useState(false)
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
