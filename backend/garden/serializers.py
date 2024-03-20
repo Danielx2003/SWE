@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import GardenData
+from .models import GardenData, UserInventory
 
 
 class GardenDataSerializer(serializers.ModelSerializer):
@@ -26,3 +26,11 @@ class GardenRankSerializer(serializers.Serializer):
     username = serializers.CharField()
     points = serializers.IntegerField()
     rank = serializers.IntegerField()
+
+
+class UserInventorySerializer(serializers.ModelSerializer):
+    item = serializers.CharField(source='item.item_type')
+
+    class Meta:
+        model = UserInventory
+        fields = ['item', 'quantity']

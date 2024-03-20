@@ -23,4 +23,5 @@ urlpatterns = [
     path("qrcodes/", include("qrCodes.urls")),
     path("garden/", include("garden.urls")),
     path("friendship/", include("friendship.urls")),
+    path("store/", include("store.urls")),
 ]
