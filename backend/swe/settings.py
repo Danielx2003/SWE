@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "authentication",
     "qrCodes",
     "garden",
-    "friendship"
+    "friendship",
+    "store"
 ]
 
 MIDDLEWARE = [
