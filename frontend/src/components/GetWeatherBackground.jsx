@@ -95,7 +95,6 @@ export default function GetWeatherBackground(props) {
   }
   const weatherLocationName = weatherData.name;
   const weatherLocationCountry = weatherData.sys.country;
-  console.log(weatherLocationCountry);
 
   return (
     <div className="garden--imgdiv">
