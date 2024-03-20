@@ -9,6 +9,9 @@ class QRCodeSerializer(serializers.ModelSerializer):
         fields = ['id', 'code', 'creator', 'creation_date', 'name', 'xp', 'points', 'qr_type', 'expiration_date']
         read_only_fields = ['id', 'code', 'creator', 'creation_date']
 
+    POINTS_CAP = 50
+    XP_CAP = 50
+
     def validate_name(self, value):
         # Check that the name is not empty
         if len(value) == 0:
@@ -16,15 +19,19 @@ class QRCodeSerializer(serializers.ModelSerializer):
         return value
 
     def validate_xp(self, value):
-        # Check that the xp is not negative
+        # Check that the xp is not negative or above XP_CAP
         if value < 0:
             raise serializers.ValidationError("XP cannot be negative")
+        elif value > self.XP_CAP:
+            raise serializers.ValidationError("XP cannot be above " + self.XP_CAP)
         return value
 
     def validate_points(self, value):
-        # Check that the points is not negative
+        # Check that the points is not negative or above POINTS_CAP
         if value < 0:
             raise serializers.ValidationError("Points cannot be negative")
+        elif value > self.POINTS_CAP:
+            raise serializers.ValidationError("XP cannot be above " + self.POINTS_CAP)
         return value
 
     def validate_qr_type(self, value):
