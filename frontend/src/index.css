@@ -250,7 +250,14 @@ a {
 }
 
 
-.garden--img {
+.garden--imgdiv {
+  position:relative;
+  height: 16rem;
+  width: 35rem;
+  z-index: -1
+}
+
+.garden--img{
   height: 16rem;
   width: 35rem;
 }
@@ -259,6 +266,15 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.garden--locdiv{
+  position: absolute;
+  top: 50%; /* Align the text to the vertical center */
+  left: 30%; /* Align the text to the horizontal center */
+  transform: translate(-50%, -50%); /* Center the text exactly in the middle */
+  text-align: center; /* Center-align the text */
+  color: white; /* Set the text color */
 }
 
 /* Leaderboard css */
@@ -467,4 +483,7 @@ of the warcrimes Mui has committed on this table
 
 .admin-table-btn > div:first-child > span {
   padding-right: 2rem !important;
+  
+#loading-text {
+  background-color: transparent;
 }
