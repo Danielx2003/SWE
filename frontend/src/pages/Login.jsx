@@ -23,7 +23,7 @@ export default function Login(props) {
                 </div>
                 <hr className="mt-0 mb-4"></hr>
 
-                <section id="auth">
+                <section id="auth" className='d-flex h-100 align-items-center'>
                     {!authState ? <LoginComp redirectQR={props.redirectQR}/> : <RegisterComp redirectQR={props.redirectQR}/>}
                 </section>
             </div>

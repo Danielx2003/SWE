@@ -68,7 +68,7 @@ export default function LoginComp(props) {
     }
 
     return (
-        <form className="" action="POST">
+        <form className="d-flex justify-content-center w-100 flex-column" action="POST">
             <div className="form-group">
                 <label for="uname">Username</label>
                 <input
@@ -89,24 +89,9 @@ export default function LoginComp(props) {
                     onChange={handlePassword}
                     placeholder="Enter password here..." />
             </div>
-            <div className="form-check">
-                <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="remember"
-                    value="" />
-                <label className="form-check-label pl-2 mb-3" for="remember">
-                    Remember me?
-                </label>
-            </div>
             <button className="btn btn-login" 
                     type="submit"
                     onClick={handleClick}>LOGIN</button>
-            <small className="float-end mt-2">
-                <a className="text-muted mt-3" href="/forgot">
-                    Forgotten your password?
-                </a>
-            </small>
         </form>
     )
 }

@@ -130,9 +130,7 @@ a {
 
 .form-container {
   display: flex;
-  flex-flow: column nowrap;
-
-  justify-content: space-between;  
+  flex-flow: column nowrap; 
 
   background-color: white;
   padding: 4rem;
@@ -448,6 +446,60 @@ table {
   font-size: 200% !important;
 }
 
+.terms-container {
+  width: 50vh;
+  height: 40vh;
+
+  overflow: scroll;
+}
+
+.user-dropdown-link:hover {
+  color: black !important;
+}
+
+.settings-box {
+  display: flex;
+  position: absolute;
+
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: auto;
+  height: auto;
+  
+  min-height: 30vh;
+  background-color: white;
+
+  box-shadow: 24;
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
+.settings-box > * {
+  margin-bottom: 1rem;
+}
+
+.settings-box > button {
+  width: 50%;
+}
+
+.settings-button-delete {
+  background-color: #d11a2a !important;
+  border: #d11a2a !important;
+
+  color: white !important;
+}
+
+.settings-button-delete:hover {
+  background-color: #a3101d !important;
+  border: #a3101d !important;
+}
+
 /* 
 Some hacky workarounds for the admin table. Basically reverting all
 of the warcrimes Mui has committed on this table
@@ -493,3 +545,42 @@ of the warcrimes Mui has committed on this table
 #loading-text {
   background-color: transparent;
 }
+
+/* Termly imports */
+[data-custom-class='body'],[data-custom-class='body'] *{background: transparent !important;
+}[data-custom-class='title'],[data-custom-class='title'] *{font-family: Arial !important;
+font-size: 26px !important;
+color: #000000 !important;
+}[data-custom-class='subtitle'],[data-custom-class='subtitle'] *{font-family: Arial !important;
+color: #595959 !important;
+font-size: 14px !important;
+}[data-custom-class='heading_1'],[data-custom-class='heading_1'] *{font-family: Arial !important;
+font-size: 19px !important;
+color: #000000 !important;
+}[data-custom-class='heading_2'],[data-custom-class='heading_2'] *{font-family: Arial !important;
+font-size: 17px !important;
+color: #000000 !important;
+}[data-custom-class='body_text'],[data-custom-class='body_text'] *{color: #595959 !important;
+font-size: 14px !important;
+font-family: Arial !important;
+}[data-custom-class='link'],[data-custom-class='link'] *{color: #3030F1 !important;
+font-size: 14px !important;
+font-family: Arial !important;
+word-break: break-word !important;
+}
+
+ul {
+  list-style-type: square;
+  }
+
+  ul>li>ul {
+  list-style-type: circle;
+  }
+
+  ul>li>ul>li>ul {
+  list-style-type: square;
+  }
+
+  ol li {
+  font-family: Arial;
+  }

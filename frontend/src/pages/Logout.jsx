@@ -50,6 +50,6 @@ export default function Logout() {
     }
 
     return (
-        <a className="nav-group-element" onClick={handleClick}>Logout</a>
+        <span onClick={handleClick}>Logout</span>
     )
 }
