@@ -73,7 +73,7 @@ function App() {
             element={<Friends/>}
           />
           <Route
-            path="pending-friend-reqeusts"
+            path="pending-friend-requests"
             element={<FriendRequests/>} FriendSearch
           />
           <Route
