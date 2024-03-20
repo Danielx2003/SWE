@@ -3,6 +3,7 @@
   /* margin of the jumbotron */
   --navbar-height: 5rem;
   --standardised-container-width: 85%;
+  --the-green: #003b3c80;
 }
 
 @font-face {
@@ -46,6 +47,7 @@ a {
   background-color: #003b3c !important;
 
   box-shadow: 0 0 15px black;
+  z-index: 8;
 }
 
 .nav-container {
@@ -403,11 +405,26 @@ table {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50vw;
+  width: auto;
   background-color: white;
   border: 2px solid #000;
   box-shadow: 24;
   padding: 2rem;
+}
+
+.admin-navbar {
+  height: 5rem;
+  justify-self: center;
+
+  box-shadow: 0 2px 5px black;
+
+  background-color: white;
+  z-index: 0;
+}
+
+.admin-navbar-buttons {
+  color: black !important;
+  font-size: 200% !important;
 }
 
 /* 
@@ -416,6 +433,10 @@ of the warcrimes Mui has committed on this table
 */
 .admin-table-container {
   background-color: white !important;
+}
+
+.admin-table-header > th {
+  padding-left: 1.25rem !important;
 }
 
 .admin-table-btn {
