@@ -94,9 +94,13 @@ export default function RegisterComp(props) {
         setpasswordChk(e.target.value);
     }
 
+    const preventLabelCheck = (e) => {
+        e.preventDefault()
+    }
+
     return (
-        <form className="" action="POST">
-            <div className="mb-3">
+        <form className="d-flex justify-content-around flex-column" action="POST">
+            <div className="mb-2">
                 <label for="uname">Username</label>
                 <input 
                     className="form-control" 
@@ -107,7 +111,7 @@ export default function RegisterComp(props) {
                     placeholder="Enter username here..." />
             </div>
 
-            <div className="mb-3">
+            <div className="mb-2">
                 <label for="email">Email</label>
                 <input 
                 className="form-control" 
@@ -119,7 +123,7 @@ export default function RegisterComp(props) {
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group mb-3">
                 <label for="password">Password</label>
                 <input 
                 className="form-control" 
@@ -146,7 +150,10 @@ export default function RegisterComp(props) {
                     id="remember"
                     value={accepted}
                     onChange={flipAccepted} />
-                <label className="d-flex flex-row flex-wrap form-check-label pl-2 mb-3" for="remember">
+                <label 
+                    className="d-flex flex-row flex-wrap form-check-label pl-2 mb-3" for="remember"
+                    onClick={preventLabelCheck}
+                    >
                     I certify that I have both read and accept the&nbsp;<TermsModal />&nbsp;and&nbsp;<PrivacyModal />.
                 </label>
             </div>

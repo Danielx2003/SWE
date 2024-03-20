@@ -68,7 +68,7 @@ export default function LoginComp(props) {
     }
 
     return (
-        <form className="" action="POST">
+        <form className="d-flex justify-content-around flex-column" action="POST">
             <div className="form-group">
                 <label for="uname">Username</label>
                 <input
