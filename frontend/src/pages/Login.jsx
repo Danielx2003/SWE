@@ -1,4 +1,5 @@
 import {React, useState} from 'react';
+import CookieConsent, { Cookies } from "react-cookie-consent";
 import LoginComp from '../components/LoginComp';
 import RegisterComp from '../components/RegisterComp';
 
@@ -26,6 +27,11 @@ export default function Login(props) {
                     {!authState ? <LoginComp redirectQR={props.redirectQR}/> : <RegisterComp redirectQR={props.redirectQR}/>}
                 </section>
             </div>
+
+            <CookieConsent>
+                By proceeding with your registration on our website, you are consenting to the use of cookies to enhance your browsing experience. 
+                You may manage your cookie preferences in your browser settings.
+            </CookieConsent>
         </div>
     )
 }
