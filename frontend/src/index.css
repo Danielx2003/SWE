@@ -43,7 +43,7 @@ a {
 
   height: var(--navbar-height);
   width: 100%;
-  z-index: 11;
+  z-index: 12;
 
   background-color: #003b3c !important;
 
@@ -550,20 +550,20 @@ of the warcrimes Mui has committed on this table
 
 .plant-img {
   position: relative;
-  z-index: 100;
+  z-index: 3;
   width: 8rem;
 }
 
 .plant-img-selected {
   position: relative;
-  z-index: 100;
+  z-index: 3;
   width: 8rem;
   background-color: lightgray;
 }
 
 .plant-img-unowned {
   position: relative;
-  z-index: 100;
+  z-index: 3;
   width: 8rem;
   filter: grayscale(1)
 }
@@ -593,7 +593,7 @@ of the warcrimes Mui has committed on this table
   top: 52%;
   left: 0%;
   width: 13rem;
-  z-index: 10;
+  z-index: 3;
 }
 
 #plant-2 {
@@ -601,7 +601,7 @@ of the warcrimes Mui has committed on this table
   top: 52%;
   left: 35%;
   width: 13rem;
-  z-index: 10;
+  z-index: 3;
 }
 
 #plant-3 {
@@ -609,7 +609,7 @@ of the warcrimes Mui has committed on this table
   top: 52%;
   left: 70%;
   width: 13rem;
-  z-index: 10;
+  z-index: 3;
 }
 
 /* Termly imports */
