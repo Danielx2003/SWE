@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
-import Challenges from "../components/Challenges"
 import Profile from "../components/Profile"
 import PlantSelector from "../components/PlantSelector"
 
@@ -9,6 +8,7 @@ import axios from 'axios';
 
 import GetWeatherBackground from '../components/GetWeatherBackground';
 import { IPContext } from "../App.js"
+import ChallengeModal from '../components/ChallengeModal.jsx';
 
 
 export default function Main() {
@@ -17,7 +17,6 @@ export default function Main() {
     const [authState, setAuthState] = useState(false);
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
-    const [open, setOpen] = useState(false)
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
@@ -65,11 +64,13 @@ export default function Main() {
                     </div>
                     <hr className="mt-0 mb-4"></hr>
                     <section id="auth">
-                        {authState=="Challenges" ? challenges.map((challenge) => <Challenges key={challenge.id} 
-                                                                                            info={challenge}
-                                                                                            open={open}
-                                                                                            setOpen={setOpen}
-                                                                                            />)
+                        {authState=="Challenges" ? 
+                        challenges.map((challenge) => 
+                            <ChallengeModal 
+                                key={challenge.id} 
+                                info={challenge} 
+                            />
+                        )
                         : authState=="Profile" ? <Profile userData={userData}/> : <PlantSelector/>}
                     </section>
                 </div>

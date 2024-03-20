@@ -17,6 +17,9 @@ export default function QRCreate() {
   const [count, setCount] = useState(0)
   let navigate = useNavigate()
 
+  const POINTS_CAP = 50
+  const XP_CAP = 50
+
   const IP = useContext(IPContext)
 
   useEffect(() => {
@@ -62,31 +65,12 @@ export default function QRCreate() {
     setBtnPressed(prev => !prev)
   } 
 
-  function handleNameChange(e) {
-    setName(e.target.value)
-    console.log("Name changed: " + e.target.value)
-  }
-
-  function handleXPChange(e) {
-    setXp(e.target.value)
-    console.log("XP changed: " + e.target.value)
-  }
-
-  function handlePointsChange(e) {
-    setPoints(e.target.value)
-    console.log("Points changed: " + e.target.value)
-  }
-
-  function handleTypeChange(e) {
-    setType(e.target.value)
-    console.log("Type changed: " + e.target.value)
-  }
-
-  function handleDateChange(e) {
-    setDate(e.target.value)
-    console.log("Date changed: " + e.target.value)
-  }
-
+  const handleNameChange = (e) => setName(e.target.value)
+  const handleXPChange = (e) => (e.target.value <= XP_CAP) ? setXp(e.target.value) : setXp(POINTS_CAP)
+  const handlePointsChange = (e) => (e.target.value <= XP_CAP) ? setPoints(e.target.value) : setPoints(POINTS_CAP) 
+  const handleTypeChange = (e) => setType(e.target.value)
+  const handleDateChange = (e) => setDate(e.target.value)
+  
   return (
     <>
       <div class="login-container">
@@ -104,7 +88,8 @@ export default function QRCreate() {
           <label for="points">Points Gained</label>
           <input 
           class="form-control" 
-          type="text" 
+          type="number" 
+          min='0'
           value={points}
           onChange={handlePointsChange} />
         </div>
@@ -112,7 +97,8 @@ export default function QRCreate() {
           <label for="xp">XP Gained</label>
           <input 
             class="form-control" 
-            type="text" 
+            type="number" 
+            min='0'
             value={xp}
             onChange={handleXPChange} />
         </div>
