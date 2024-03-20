@@ -5,8 +5,9 @@ import CheckForAdmin from '../components/CheckForAdmin'
 import AdminUserGroups from '../components/AdminUserGroups.jsx'
 import { IPContext } from "../App.js"
 import AdminQRCodes from '../components/AdminQRCodes.jsx'
+import AdminChallenges from '../components/AdminChallenges.jsx'
 import { Button } from '@mui/material'
-import { FaQrcode, FaUser } from 'react-icons/fa'
+import { FaQrcode, FaUser, FaEnvelope } from 'react-icons/fa'
 
 export default function Admin() {
   const [group, setGroup] = useState([])
@@ -33,6 +34,7 @@ export default function Admin() {
 
   const handleQRChange = () => setPage(0)
   const handleUserChange = () => setPage(1)
+  const handleChallengeChange = () => setPage(2)
 
   return (
     <>
@@ -44,14 +46,20 @@ export default function Admin() {
           onClick={handleQRChange}>
           <FaQrcode />
         </Button>
+        <Button 
+          className='admin-navbar-buttons'
+          onClick={handleChallengeChange}>
+          <FaEnvelope />
+        </Button>
         {
           (group.includes('admin') &&
-            <Button 
-              className='admin-navbar-buttons'
-              disabled={!group.includes('admin')}
-              onClick={handleUserChange}>
-              <FaUser />
-            </Button>
+            <>
+              <Button 
+                className='admin-navbar-buttons'
+                onClick={handleUserChange}>
+                <FaUser />
+              </Button>
+            </>
           )
         }
       </div>
@@ -62,6 +70,8 @@ export default function Admin() {
             <AdminUserGroups currentUserPerms={group} />
           ) || (page == 0 &&
             <AdminQRCodes />
+          ) || (page == 2 &&
+            <AdminChallenges />  
           )
         }
       </div>
