@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .permissions import IsAdmin
 from .serializers import RegistrationSerializer, LoginSerializer, UserGeneralSerializer, UserDetailSerializer, AddUserToGroupSerializer
@@ -153,3 +154,24 @@ class ChangeUserGroupsView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class DeleteAccountView(LoginRequiredMixin, APIView):
+    """
+    View to delete the current user's account.
+
+    Requires the user to be authenticated.
+    method: POST
+    request body: None
+    successful response: None
+    code: 200
+    """
+
+    def post(self, request):
+        """
+        Handle POST request to delete the current user's account.
+        """
+        user = request.user
+        # Delete user account
+        user.delete()
+        return Response({'message': 'Account deleted successfully'})

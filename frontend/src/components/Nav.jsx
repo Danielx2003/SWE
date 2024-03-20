@@ -8,6 +8,7 @@ import Logout from '../pages/Logout';
 
 import { IPContext } from "../App.js"
 import { ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from '@mui/material';
+import SettingsModal from './SettingsModal.jsx';
 
 export default function Nav() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -142,13 +143,13 @@ export default function Nav() {
                                                 aria-labelledby="composition-button"
                                                 onKeyDown={handleListKeyDown}
                                             >
-                                                <MenuItem component={Link} to="/main" onClick={handleClose}>Profile</MenuItem>
-                                                <MenuItem component={Link} to="/friends" onClick={handleClose}>Friends</MenuItem>
-                                                <MenuItem component={Link} to="/pending-friend-requests" onClick={handleClose}>Pending Friend Requests</MenuItem>
+                                                <MenuItem className='user-dropdown-link' component={Link} to="/main" onClick={handleClose}>Profile</MenuItem>
+                                                <MenuItem className='user-dropdown-link' component={Link} to="/friends" onClick={handleClose}>Friends</MenuItem>
+                                                <MenuItem className='user-dropdown-link' component={Link} to="/pending-friend-requests" onClick={handleClose}>Pending Friend Requests</MenuItem>
                                                 <hr></hr>
-                                                <MenuItem component={Link} to="/" onClick={handleClose}>Settings</MenuItem>
-                                                {(group.includes('admin') || group.includes('game_master')) &&
-                                                    <MenuItem component={Link} to="/admin" onClick={handleClose}>Admin</MenuItem>
+                                                <MenuItem className='user-dropdown-link'><SettingsModal user={Cookies.get('username')}/></MenuItem>
+                                                {group && (group.includes('admin') || group.includes('game_master')) &&
+                                                    <MenuItem className='user-dropdown-link' component={Link} to="/admin" onClick={handleClose}>Admin</MenuItem>
                                                 }
                                                 <MenuItem><Logout/></MenuItem>
                                             </MenuList>

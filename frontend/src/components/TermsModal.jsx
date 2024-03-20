@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Modal from '@mui/material/Modal';
 
-export default function ChallengeModal() {
+export default function TermsModal() {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);

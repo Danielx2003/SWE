@@ -130,9 +130,7 @@ a {
 
 .form-container {
   display: flex;
-  flex-flow: column nowrap;
-
-  justify-content: space-between;  
+  flex-flow: column nowrap; 
 
   background-color: white;
   padding: 4rem;
@@ -453,6 +451,53 @@ table {
   height: 40vh;
 
   overflow: scroll;
+}
+
+.user-dropdown-link:hover {
+  color: black !important;
+}
+
+.settings-box {
+  display: flex;
+  position: absolute;
+
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: auto;
+  height: auto;
+  
+  min-height: 30vh;
+  background-color: white;
+
+  box-shadow: 24;
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
+.settings-box > * {
+  margin-bottom: 1rem;
+}
+
+.settings-box > button {
+  width: 50%;
+}
+
+.settings-button-delete {
+  background-color: #d11a2a !important;
+  border: #d11a2a !important;
+
+  color: white !important;
+}
+
+.settings-button-delete:hover {
+  background-color: #a3101d !important;
+  border: #a3101d !important;
 }
 
 /* 

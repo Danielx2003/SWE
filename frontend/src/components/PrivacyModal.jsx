@@ -3,7 +3,7 @@ import { IPContext } from "../App.js"
 
 import Modal from '@mui/material/Modal';
 
-export default function ChallengeModal() {
+export default function PrivacyModal() {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
