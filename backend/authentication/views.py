@@ -54,7 +54,6 @@ class LoginView(APIView):
     """
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
-
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -73,14 +72,13 @@ class LogoutView(APIView):
         'message': 'Logout successful'
     } => code: 200
     """
-
     def post(self, request):
         if request.user.is_authenticated:
             logout(request)
             return Response({'message': 'Logout successful'})
         else:
             return Response({'error': 'User is not authenticated'}, status=400)
-
+        
 
 class UserDetailsView(generics.RetrieveAPIView):
     """
@@ -98,7 +96,7 @@ class UserDetailsView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
-
+    
     def get_object(self):
         return self.request.user
 

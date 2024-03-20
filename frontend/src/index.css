@@ -11,7 +11,8 @@
 }
 
 body {
-  background-color: #003b3c !important; 
+  background: linear-gradient(137.28deg, #438285 -5.33%, #003b3c 33.62%);
+  background-attachment: fixed;
   font-family: 'Outfit', sans-serif !important;
   font-size: 18px;
 }
@@ -34,6 +35,8 @@ a {
 }
 
 .navbar {
+  background: linear-gradient(137.28deg, #438285 -5.33%, #003b3c 33.62%);
+  background-attachment: fixed;
   position: fixed !important;
   justify-content: center !important;
 
@@ -206,16 +209,13 @@ a {
   align-items: center;
   justify-content: center;
 
-  margin-top: var(--navbar-height);
-  
-
   background-color: white;
   padding: 4rem;
   border-radius: 2rem;
 
   height: 35rem;
   width: 25rem;
-  margin-top: 8em;
+  margin-top: 3em;
 }
 
 .congrats--container {
@@ -248,7 +248,14 @@ a {
 }
 
 
-.garden--img {
+.garden--imgdiv {
+  position:relative;
+  height: 16rem;
+  width: 35rem;
+  z-index: -1
+}
+
+.garden--img{
   height: 16rem;
   width: 35rem;
 }
@@ -257,6 +264,15 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.garden--locdiv{
+  position: absolute;
+  top: 50%; /* Align the text to the vertical center */
+  left: 30%; /* Align the text to the horizontal center */
+  transform: translate(-50%, -50%); /* Center the text exactly in the middle */
+  text-align: center; /* Center-align the text */
+  color: white; /* Set the text color */
 }
 
 /* Leaderboard css */
@@ -319,33 +335,85 @@ table {
   margin-top: 1rem;
 }
 
-.friend-element {
+#friends--element {  
   display: flex;
-  justify-content: space-evenly;  
-
+  align-items: center;
   background-color: white;
-  padding: 2rem;
-  border-radius: 2rem;
-
-  width: 35rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  height: 4rem;
+  width: 30rem;
+  margin-top: 1em;
 }
 
-.friend-group {
+#friends--element > button {
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+
+#friends--element > h1 {
+  margin: 0 0 0 0.8rem;
+
+}
+#friend-btn-container {
+    margin: 0 0.8rem 0 0;
+    margin-left: auto;
+}
+#friend-btn-container > button{
+  margin-left: 0.5rem;
+}
+
+#friends--container {
   display: flex;
+  flex-flow: column nowrap;
   align-items: center;
+}
+
+#friend-search-box {
+  margin-top: 1rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
-  flex-flow: row nowrap;
-
 }
 
-.friend-group > *{
-  display: flex;
-  flex-flow: row nowrap;
+#no-friends-txt {
+  font-size: 1.5rem;
+}
+
+#add-friends-txt {
+  background-color: transparent;
   align-items: center;
-  margin: 0 4rem 0 0;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
-.friend-container {
+#add-friends-btn {
+  align-items: center;
+  margin: 0;
+}
+
+#add-friends-container {
+  position: fixed;
+  bottom: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile{
+  width: 400px;
+  display: block;
+}
+
+.profile-info {
+  display: flex;
+}
+
+.profile-info >h2{ 
+  margin-left: auto;
+}
+
+#loading-text {
+  background-color: transparent;
 }
