@@ -29,6 +29,7 @@ export default function Main() {
     const [authState, setAuthState] = useState("Profile");
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
+    const [open, setOpen] = useState(false)
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
@@ -90,7 +91,7 @@ export default function Main() {
                     </div>
                     <hr className="mt-0 mb-4"></hr>
                     <section id="auth">
-                        {authState=="Challenges" ? challenges.map((challenge) => <Challenges key={challenge.id} 
+                        {authState=="Challenges" ? challenges.map((challenge) => <ChallengeModal key={challenge.id} 
                                                                                             info={challenge}
                                                                                             open={open}
                                                                                             setOpen={setOpen}
