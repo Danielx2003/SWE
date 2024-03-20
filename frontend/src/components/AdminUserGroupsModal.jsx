@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios'
 import { IPContext } from "../App.js"
 import Cookies from 'js-cookie'
@@ -74,6 +74,11 @@ export default function AdminUserGroupsModal({ row, perms, page, pageFunc }) {
       }
     )
     .catch((err) => alert("Error: " + err))
+
+    setUserChecked(userChecked)
+    setAdminChecked(adminChecked)
+    setGMChecked(gmChecked)
+    setOpen(false) 
   }
 
   return (

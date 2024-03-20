@@ -22,6 +22,17 @@ export default function AdminQRCodes() {
         getQRCodes()
     }, [`http://${IP}:8000/qrcodes/`])
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+      
+        return `${day}-${month}-${year} ${hours}:${minutes}`;
+    }
+
     return (
         <div>
             <div className="admin-table-header d-flex flex-row w-100 justify-content-between pt-4 pb-4 bg-white">
@@ -63,8 +74,8 @@ export default function AdminQRCodes() {
                             <button className="btn btn-info p-3"></button>
                         </a>
                         </td>
-                        <td>{val.creation_date}</td>
-                        <td>{val.expiration_date}</td>
+                        <td>{formatDate(val.creation_date)}</td>
+                        <td>{formatDate(val.expiration_date)}</td>
                     </tr>
                     )
                 })
