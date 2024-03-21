@@ -191,11 +191,11 @@ class GardenLayoutUpdateView(APIView):
         user = self.request.user
         current_garden_data = GardenLayout.objects.get(user=user)
 
-        current_garden_data.plant1 = Plant.objects.get(plant_type=request.data.get('plant1'))
-        current_garden_data.plant2 = Plant.objects.get(plant_type=request.data.get('plant2'))
-        current_garden_data.plant3 = Plant.objects.get(plant_type=request.data.get('plant3'))
-        current_garden_data.decoration1 = Item.objects.get(item_type=request.data.get('decoration1'))
-        current_garden_data.decoration2 = Item.objects.get(item_type=request.data.get('decoration2'))
+        current_garden_data.plant1 = Plant.objects.get(plant_type=request.data.get('plant1')) if request.data.get('plant1') else None
+        current_garden_data.plant2 = Plant.objects.get(plant_type=request.data.get('plant2')) if request.data.get('plant2') else None
+        current_garden_data.plant3 = Plant.objects.get(plant_type=request.data.get('plant3')) if request.data.get('plant3') else None
+        current_garden_data.decoration1 = Item.objects.get(item_type=request.data.get('decoration1')) if request.data.get('decoration1') else None
+        current_garden_data.decoration2 = Item.objects.get(item_type=request.data.get('decoration2')) if request.data.get('decoration2') else None
         current_garden_data.save()
 
         return Response(GardenLayoutSerializer(current_garden_data).data)
