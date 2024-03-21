@@ -38,11 +38,7 @@ class GardenDataDetail(generics.RetrieveAPIView):
     successful response: {
         "id": "id",
         "garden": "garden",
-<<<<<<< HEAD
         "plants": ["plants"...],
-=======
-        "plants": "plants",
->>>>>>> origin/main
         "coins": "coins",
         "points": "points"
         "garden_layout": {
