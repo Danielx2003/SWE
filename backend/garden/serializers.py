@@ -48,4 +48,4 @@ class GardenLayoutSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GardenData
-        fields = ['garden_layout', 'points', 'user']
+        fields = ['garden_layout', 'points', 'user', 'plants']
