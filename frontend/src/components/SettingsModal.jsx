@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal';
 
 export default function SettingsModal({ user }) {
   const [open, setOpen] = useState(false);
+  const [newUser, setNewUser] = useState(user);
   const [isOpen, setIsOpen] = useState(false);
   const Navigate = useNavigate()
   const IP = useContext(IPContext)
@@ -37,6 +38,29 @@ export default function SettingsModal({ user }) {
     handleClose()
   }
 
+  const handleInputChange = (e) => setNewUser(e.target.value)
+
+  const handleEditSubmit = async () => {
+    const response = await axios.post(
+      `http://${IP}:8000/authentication/edit-username/`,
+      {
+        'new_username': newUser
+      },
+      {
+          'withCredentials': true,
+          headers: {
+              'X-CSRFToken': Cookies.get('csrftoken')
+          }
+      }
+    )
+
+    alert('You have successfully changed your name from ' + user + ' to ' + newUser)
+
+    Cookies.set('username', newUser)
+    Navigate('/')
+    handleClose()
+  }
+
   return (
     <div className='w-100 h-100'>
       <div
@@ -54,6 +78,21 @@ export default function SettingsModal({ user }) {
       >
         <div className='settings-box'>
             <h3>You are currently signed in as <strong>{user}</strong>.</h3>
+            <div className='d-flex w-100 flex-column align-items-center justify-content-around'>
+              <h5 className=''>Edit Username</h5>
+              <input
+                defaultValue={user}
+                value={newUser}
+                onChange={handleInputChange}
+                className='w-100 mb-2'
+              />
+              <button 
+                className='btn w-100'
+                onClick={handleEditSubmit}
+                >
+                  Submit
+              </button>
+            </div>
             <button
                 className='btn settings-button-delete'
                 onClick={handleAccountDelete}
