@@ -176,7 +176,7 @@ class GardenLayoutUpdateView(APIView):
     """
     API endpoint that allows garden layout of authenticated user to be updated.
     method: POST
-    url: garden/garden-data/update/
+    url: garden/update-layout/
     request body: {
         plant1: "plant1",
         plant2: "plant2",
