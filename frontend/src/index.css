@@ -500,6 +500,30 @@ table {
   border: #a3101d !important;
 }
 
+.store-container {
+  min-height: 91.9vh;
+}
+
+.store-jumbotron {
+  height: 10rem;
+  width: 100%;
+}
+
+.store-jumbotron-element {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1/1;
+
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.store-jumbotron-element:hover {
+  background-color: #d3d3d3;
+  cursor: pointer;
+  transition: 0.5s background-color;
+}
+
 /* 
 Some hacky workarounds for the admin table. Basically reverting all
 of the warcrimes Mui has committed on this table
