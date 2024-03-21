@@ -38,8 +38,6 @@ import ChallengeModal from '../components/ChallengeModal.jsx';
 
 export default function Main() {
     axios.defaults.withCredentials = true;
-
-<<<<<<< HEAD
     const dict = {
         'BB_Deep': BB_Deep,
         'BB_Lilac' : BB_Lilac,
@@ -52,28 +50,17 @@ export default function Main() {
         'Tulip_Red': Tulip_Red,
         'Tulip_Yellow': Tulip_Yellow
     }
-
-=======
->>>>>>> origin/main
     const [authState, setAuthState] = useState("Profile");
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
     const [open, setOpen] = useState(false)
-<<<<<<< HEAD
-    const [plantList, setPlantList] = useState([])
-    const [userPlants, setUserPlants] = useState([])
-=======
->>>>>>> origin/main
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
-
-    const userPlants = ['Bluebell Deep', 'Marigold_Red', 'Sunflower', 'BB_Lilac']
     const [plantList, setPlantList] = useState([])
 
 
     useEffect(() => {
-<<<<<<< HEAD
         if (!Cookies.get('username')) {
             navigate('/login')
         }
@@ -83,9 +70,7 @@ export default function Main() {
             {
                 'withCredentials': true,
             }
-            )
-=======
-        // If user is not currently logged in, send them to the login page
+            )        // If user is not currently logged in, send them to the login page
         if (!Cookies.get('sessionid')) {
             navigate('/login')
         }
@@ -93,7 +78,6 @@ export default function Main() {
         // Get garden data of currently authenticated user
         const getUserData = async() => {
             axios.get(`http://${IP}:8000/garden/garden-data/`)
->>>>>>> origin/main
             .then(response => {
                 setUserData(response.data.garden_info)
                 setUserPlants(response.data.garden_info.plants)
@@ -102,8 +86,6 @@ export default function Main() {
                 console.log("Errror getting user data.")
               });
               return;
-
-
         }
         // Get challenge data from API
         const getChallengeData = async() => {
@@ -124,7 +106,6 @@ export default function Main() {
         getUserData()
         getChallengeData()
     }, [])
-<<<<<<< HEAD
 
 
     //maybe change src={plantList[0]} to become the route
@@ -151,18 +132,12 @@ export default function Main() {
             return false
         }
     }
-=======
-    
-    console.log(plantList)
->>>>>>> origin/main
-
     //maybe change src={plantList[0]} to become the route
     //i.e. src=`../res/${plantList[0]}.png ?
     return (
         <>
         <CheckNotForAdmin />
         <div className="main--container">
-<<<<<<< HEAD
         <div className="parent">
             <div className="plants">
                 <img id={plant1ID() == Sunflower ? "sunflower-img-1" : "plant-1"} src={plant1ID()} alt={plant1ID()}></img>
@@ -171,7 +146,7 @@ export default function Main() {
               </div>
             <GetWeatherBackground id="background-img"/>
         </div>
-=======
+
         {/* Background jumbotron generator using weather API */}
         <div className="parent">
             <div className="plants">
@@ -183,7 +158,6 @@ export default function Main() {
         </div>
 
         {/* Container for game actions i.e. challenges, stats */}
->>>>>>> origin/main
             <div className="garden--container">
                 <div className="choice--container">
                     <div id="auth-buttons" className="auth-button-controller d-flex w-100 flex-row">

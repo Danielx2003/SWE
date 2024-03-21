@@ -12,11 +12,7 @@ class GardenDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GardenData
-<<<<<<< HEAD
         fields = ['user', 'points', 'coins', 'plants']
-=======
-        fields = ['id', 'points', 'coins', 'num_plants']
->>>>>>> origin/main
 
 
 class GardenLeaderboardSerializer(serializers.ModelSerializer):

@@ -51,11 +51,9 @@ export default function AdminQRCodes() {
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
                     <th scope="col">Points</th>
-<<<<<<< HEAD
                     <th scope="col">Coins</th>
-=======
                     <th scope="col"><FaCoins/></th>
->>>>>>> origin/main
+
                     <th scope="col">Download</th>
                     <th scope="col">Create Date</th>
                     <th scope="col">Expiry Date</th>
