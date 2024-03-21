@@ -13,6 +13,8 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const conversionMatrix = { "user": 1, "admin": 2, "game_master": 3}
 
+// A modal component for displaying more detailed data about a selected user
+// from the UserGroups table.
 export default function AdminUserGroupsModal({ row, perms, page, pageFunc }) {
   const [open, setOpen] = useState(false);
 
@@ -52,13 +54,12 @@ export default function AdminUserGroupsModal({ row, perms, page, pageFunc }) {
   async function handleSaveButton(event) {
     let buff = []
 
+    // Generate the check buffer
     if (userChecked) buff.push('1')
     if (adminChecked) buff.push('2')
     if (gmChecked) buff.push('3')
 
-    console.log("ID: " + row.id)
-    console.log("Groups: " + buff)
-
+    // Send check buffer to API
     const response = await axios.patch(
       `http://${IP}:8000/authentication/change-user-groups/`, 
       {
@@ -75,6 +76,7 @@ export default function AdminUserGroupsModal({ row, perms, page, pageFunc }) {
     )
     .catch((err) => alert("Error: " + err))
 
+    // If successful, set checkboxes to chosen value and close modal
     setUserChecked(userChecked)
     setAdminChecked(adminChecked)
     setGMChecked(gmChecked)
@@ -90,6 +92,7 @@ export default function AdminUserGroupsModal({ row, perms, page, pageFunc }) {
         </div>
       </Button>
       
+      {/* A distinct modal to display permissions data on this user */}
       <Modal
         open={open}
         onClose={handleClose}

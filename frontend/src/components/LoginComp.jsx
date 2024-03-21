@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { IPContext } from "../App.js"
 
-
+// A component to allow users to log in to the website.
 export default function LoginComp(props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -18,6 +18,7 @@ export default function LoginComp(props) {
     }
 
     useEffect(() => {
+        // Login request to API
         const makeReq = async () => {
             const response = await fetch(`http://${IP}:8000/authentication/login/`, {
                 method: "POST",
@@ -52,10 +53,10 @@ export default function LoginComp(props) {
         } else {
             setCount(prev => prev+1);
         }
-    }, [btnPressed])    
+    }, [btnPressed]) // Login whenever button is pressed
 
     function handleClick(e) {
-        e.preventDefault()
+        e.preventDefault() // To override typical click behaviour
         setBtnPressed(prev => !prev)
     }
 

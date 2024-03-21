@@ -3,6 +3,7 @@ import { IPContext } from "../App.js"
 
 import Modal from '@mui/material/Modal';
 
+// A modal to display the Privacy Policy.
 export default function PrivacyModal() {
   const [open, setOpen] = useState(false);
 

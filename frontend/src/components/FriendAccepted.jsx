@@ -3,6 +3,7 @@ import { IPContext } from "../App.js"
 import Cookies from 'js-cookie';
 import axios from 'axios'
 
+// A component to handle when a friend is accepted by another user
 export default function FriendComp(props) {
     const IP = useContext(IPContext)
     const [btnText, setBtnText] = useState("ADD")

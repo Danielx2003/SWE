@@ -9,6 +9,7 @@ export default function Shop() {
     const [coins, setCoins] = useState(0)
     const IP = useContext(IPContext)
 
+    // A useEffect to get the user's coin balance upon render.
     useEffect(() => {
         const getUserCoins = async () => {
             const response = await axios.get(

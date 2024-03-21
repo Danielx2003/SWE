@@ -7,7 +7,7 @@ import PrivacyModal from '../components/PrivacyModal.jsx'
 
 import { IPContext } from "../App.js"
 
-
+// A component to allow users to register an account on the system.
 export default function RegisterComp(props) {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -50,6 +50,7 @@ export default function RegisterComp(props) {
                 alert(errorMsg)
             }
         }
+        // Login if the register was successful
         const loginReq = async () => {
             const response = await fetch(`http://${IP}:8000/authentication/login/`, {
                 method: "POST",
@@ -95,7 +96,8 @@ export default function RegisterComp(props) {
     }
 
     const preventLabelCheck = (e) => {
-        e.preventDefault()
+        e.preventDefault() 
+        // Stop the checkbox being checked even if we're just clicking the label
     }
 
     return (

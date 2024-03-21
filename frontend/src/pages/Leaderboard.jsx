@@ -14,6 +14,7 @@ const Leaderboard = () => {
   const username = Cookies.get('username');
 
   useEffect(() => {
+    // Get leaderboard data for ALL users
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://${IP}:8000/garden/leaderboard/?page=1&page_size=10`);
@@ -23,6 +24,8 @@ const Leaderboard = () => {
         console.error('Error fetching data:', error);
       }
     };
+
+    // Get garden data for only authenticated user
     const getUserData = async() => {
       axios.get(`http://${IP}:8000/garden/garden-rank/${username}/`)
       .then(response => {
@@ -44,78 +47,77 @@ const Leaderboard = () => {
             return true;
         }
     }
-    return false;}
+    return false;
+  }
 
     let top10 = isObjectInArray(leaderboardData, userData)
-    console.log(top10);
-    ;
 
-
-  if(top10){
-    return (
-      <>
-      <CheckNotForAdmin />
-      <div className="leaderboard-wrapper">
-        <div className="leaderboard">
-          <table>
-            <thead id="header">
-              <tr>
-                <th className="headerTable">Place</th>
-                <th className="headerTable">Username</th>
-                <th className="headerTable">Points</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              {leaderboardData.map((item, index) => (
-                <tr key={index} className={item.username === userData.username ? 'userRow' : ''}>
-                  <td className="tableRowText">{item.rank}</td>
-                  <td className="tableRowText">{item.username}</td>
-                  <td className="tableRowText">{item.points}</td>
+    // If the user is in the top 10, render here, else below
+    if(top10){
+      return (
+        <>
+        <CheckNotForAdmin />
+        <div className="leaderboard-wrapper">
+          <div className="leaderboard">
+            <table>
+              <thead id="header">
+                <tr>
+                  <th className="headerTable">Place</th>
+                  <th className="headerTable">Username</th>
+                  <th className="headerTable">Points</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody id="tableBody">
+                {leaderboardData.map((item, index) => (
+                  <tr key={index} className={item.username === userData.username ? 'userRow' : ''}>
+                    <td className="tableRowText">{item.rank}</td>
+                    <td className="tableRowText">{item.username}</td>
+                    <td className="tableRowText">{item.points}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      </>
-    );
-  }
-  
-  else{
-    return (
-      <>
-      <CheckNotForAdmin />
-      <div className="leaderboard-wrapper">
-        <div className="leaderboard">
-          <table>
-            <thead id="header">
-              <tr>
-                <th className="headerTable">Place</th>
-                <th className="headerTable">Username</th>
-                <th className="headerTable">Points</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              {leaderboardData.map((item, index) => (
-                <tr key={index}>
-                  <td className="tableRowText">{item.rank}</td>
-                  <td className="tableRowText">{item.username}</td>
-                  <td className="tableRowText">{item.points}</td>
+        </>
+      );
+    }
+    
+    else{
+      return (
+        <>
+        <CheckNotForAdmin />
+        <div className="leaderboard-wrapper">
+          <div className="leaderboard">
+            <table>
+              <thead id="header">
+                <tr>
+                  <th className="headerTable">Place</th>
+                  <th className="headerTable">Username</th>
+                  <th className="headerTable">Points</th>
                 </tr>
-              ))}
-              <tr className='userRow'>
-                  <td className="tableRowText">{userData.rank}</td>
-                  <td className="tableRowText">{userData.username}</td>
-                  <td className="tableRowText">{userData.points}</td>
-                </tr>
-  
-            </tbody>
-          </table>
+              </thead>
+              <tbody id="tableBody">
+                {leaderboardData.map((item, index) => (
+                  <tr key={index}>
+                    <td className="tableRowText">{item.rank}</td>
+                    <td className="tableRowText">{item.username}</td>
+                    <td className="tableRowText">{item.points}</td>
+                  </tr>
+                ))}
+                <tr className='userRow'>
+                    <td className="tableRowText">{userData.rank}</td>
+                    <td className="tableRowText">{userData.username}</td>
+                    <td className="tableRowText">{userData.points}</td>
+                  </tr>
+    
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      </>
-    );
-  }
+        </>
+      );
+    }
   };
 
 export default Leaderboard;
