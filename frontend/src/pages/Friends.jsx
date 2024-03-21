@@ -4,6 +4,7 @@ import { IPContext } from "../App.js"
 import FriendAccepted from "../components/FriendAccepted.jsx"
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import CheckNotForAdmin from '../components/CheckNotForAdmin.jsx';
 
 
 export default function FriendsList() {
@@ -52,6 +53,7 @@ export default function FriendsList() {
 
     return (
         <>
+        <CheckNotForAdmin />
         <div id="friends--container">
             <form> 
                     <input onChange={handleTyping}

@@ -104,7 +104,9 @@ export default function Nav() {
                     :
                     <>
                         <div className="nav-group">
-                            <a className="nav-group-element" href="/leaderboard" style={{fontWeight : location.pathname == "/leaderboard" ? "bold" : "normal"}}>Leaderboard</a>
+                            {group && !(group.includes('admin') && !group.includes('game_master')) &&
+                                <a className="nav-group-element" href="/leaderboard" style={{fontWeight : location.pathname == "/leaderboard" ? "bold" : "normal"}}>Leaderboard</a>
+                            }   
                             {(location.pathname == "/main" &&
                                     <a className="nav-group-element" href="/shop"><FaStore /></a>
                             )}
@@ -142,7 +144,7 @@ export default function Nav() {
                                         }}
                                         >
                                         <Paper>
-                                            {(Cookies.get('username') && <h5 style={{textAlign: 'center', paddingTop: '1rem'}}>{Cookies.get('username')}</h5>)}
+                                            {(Cookies.get('username') && <h5 style={{textAlign: 'center', paddingTop: '1rem', paddingRight: '2rem', paddingLeft: '2rem'}}>{Cookies.get('username')}</h5>)}
                                             <ClickAwayListener onClickAway={handleClose}>
                                             <MenuList
                                                 autoFocusItem={open}
@@ -150,9 +152,15 @@ export default function Nav() {
                                                 aria-labelledby="composition-button"
                                                 onKeyDown={handleListKeyDown}
                                             >
-                                                <MenuItem className='user-dropdown-link' component={Link} to="/main" onClick={handleClose}>Profile</MenuItem>
-                                                <MenuItem className='user-dropdown-link' component={Link} to="/friends" onClick={handleClose}>Friends</MenuItem>
+                                                {group && !(group.includes('admin') && !group.includes('game_master')) &&
+                                                    <MenuItem className='user-dropdown-link' component={Link} to="/main" onClick={handleClose}>Profile</MenuItem>
+                                                }       
+                                                {group && !(group.includes('admin') && !group.includes('game_master')) &&
+                                                    <MenuItem className='user-dropdown-link' component={Link} to="/friends" onClick={handleClose}>Friends</MenuItem>
+                                                }
+                                                {group && !(group.includes('admin') && !group.includes('game_master')) &&
                                                 <MenuItem className='user-dropdown-link' component={Link} to="/pending-friend-requests" onClick={handleClose}>Pending Friend Requests</MenuItem>
+                                                }
                                                 <hr></hr>
                                                 <MenuItem className='user-dropdown-link'><SettingsModal user={Cookies.get('username')}/></MenuItem>
                                                 {group && (group.includes('admin') || group.includes('game_master')) &&

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import FriendPending from "../components/FriendPending.jsx"
 import axios from 'axios'
 import Cookies from 'js-cookie';
+import CheckNotForAdmin from '../components/CheckNotForAdmin.jsx';
 
 export default function FriendsList() {
     const [pendingList, setPendingList] = useState([])
@@ -29,6 +30,7 @@ export default function FriendsList() {
 
     return (
         <>
+        <CheckNotForAdmin />
         <div id="friends--container">
             {pendingList.length != 0 ? pendingList.map((friend) => <FriendPending key={friend.id} id={friend.id} username={friend.from_user.username == Cookies.get('username') ? friend.to_user.username : friend.from_user.username}/>) : <p className="no-friends-txt">You have no friend requests</p>}
             <div id="add-friends-container">
