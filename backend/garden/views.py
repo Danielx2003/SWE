@@ -1,15 +1,20 @@
 import requests
+from django.contrib.auth.models import User
+from django.db import transaction
 from django.http import JsonResponse
 from django.views import View
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import GardenData, UserInventory
+from .models import GardenData, UserInventory, GardenLayout, Plant
+from .permisions import IsCurrentUserOrFriend
 from .serializers import GardenDataSerializer, GardenLeaderboardSerializer, GardenRankSerializer, \
-    UserInventorySerializer
+    UserInventorySerializer, GardenLayoutSerializer
+from store.models import Item
 
 
 class WeatherView(View):
@@ -33,18 +38,31 @@ class GardenDataDetail(generics.RetrieveAPIView):
     successful response: {
         "id": "id",
         "garden": "garden",
+<<<<<<< HEAD
+        "plants": ["plants"...],
+=======
         "plants": "plants",
+>>>>>>> origin/main
         "coins": "coins",
         "points": "points"
+        "garden_layout": {
+            "plants": ["plants"...],
+            "decorations": ["decorations"...]
+        }
     }
     """
     queryset = GardenData.objects.all()
     serializer_class = GardenDataSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         user_id = self.request.user.id
         return self.queryset.get(user__id=user_id)
+
+    def get(self, request, *args, **kwargs):
+        garden_dict = GardenDataSerializer(self.get_object()).data
+        garden_layout = GardenLayoutSerializer(GardenLayout.objects.get(user=self.request.user)).data
+        return Response({"garden_info": garden_dict, "garden_layout": garden_layout})
 
 
 class CustomPagination(PageNumberPagination):
@@ -70,7 +88,7 @@ class GardenLeaderboardView(generics.ListAPIView):
     """
     serializer_class = GardenLeaderboardSerializer
     pagination_class = CustomPagination
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return GardenData.objects.order_by('-points')
@@ -123,3 +141,66 @@ class UserEquipmentAPIView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return UserInventory.objects.filter(user=user)
+
+
+class GardenDataDetailByUsernameView(generics.RetrieveAPIView):
+    """
+    API endpoint that allows garden data of a user to be viewed.
+    method: GET
+    url: garden/garden-data/<str:username>/
+    successful response: {
+        "user": "username",
+        "points": "points"
+        "garden_layout": {
+            "plants": ["plants"...],
+            "decorations": ["decorations"...]
+        }
+    }
+    """
+    serializer_class = GardenLayoutSerializer
+    permission_classes = [IsAuthenticated, IsCurrentUserOrFriend]
+
+    def get_object(self):
+        # Get the username from the URL parameter
+        username = self.kwargs.get('username')
+        # Get the user object by username
+        if not User.objects.filter(username=username).exists():
+            return JsonResponse({'error': 'User not found'}, status=404)
+        user = User.objects.get(username=username)
+        # Get the garden data for the user
+        garden_data = GardenData.objects.get(user=user)
+        return garden_data
+
+    def get(self, request, *args, **kwargs):
+        garden_layout = GardenLayoutSerializer(GardenLayout.objects.get(user=self.get_object().user)).data
+        return Response({"garden_info": GardenDataSerializer(self.get_object()).data, "garden_layout": garden_layout})
+
+
+class GardenLayoutUpdateView(APIView):
+    """
+    API endpoint that allows garden layout of authenticated user to be updated.
+    method: POST
+    url: garden/update-layout/
+    request body: {
+        plant1: "plant1",
+        plant2: "plant2",
+        plant3: "plant3",
+        decoration1: "decoration1",
+        decoration2: "decoration2"
+    }
+    """
+    permission_classes = [IsAuthenticated]
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        current_garden_data = GardenLayout.objects.get(user=user)
+
+        current_garden_data.plant1 = Plant.objects.get(plant_type=request.data.get('plant1')) if request.data.get('plant1') else None
+        current_garden_data.plant2 = Plant.objects.get(plant_type=request.data.get('plant2')) if request.data.get('plant2') else None
+        current_garden_data.plant3 = Plant.objects.get(plant_type=request.data.get('plant3')) if request.data.get('plant3') else None
+        current_garden_data.decoration1 = Item.objects.get(item_type=request.data.get('decoration1')) if request.data.get('decoration1') else None
+        current_garden_data.decoration2 = Item.objects.get(item_type=request.data.get('decoration2')) if request.data.get('decoration2') else None
+        current_garden_data.save()
+
+        return Response(GardenLayoutSerializer(current_garden_data).data)
+

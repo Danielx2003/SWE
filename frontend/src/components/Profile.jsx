@@ -18,10 +18,6 @@ export default function Profile(props) {
                 <h1>Points: </h1>
                 <h2>{props.userData.points}</h2>
             </div>
-            <div className="profile-info">
-                <h1>Plants: </h1>
-                <h2>{props.userData.num_plants}</h2>
-            </div>
         </div>
     )
 

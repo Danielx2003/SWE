@@ -6,11 +6,11 @@ from django.utils import timezone
 class QRCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = QRCode
-        fields = ['id', 'code', 'creator', 'creation_date', 'name', 'xp', 'points', 'qr_type', 'expiration_date']
+        fields = ['id', 'code', 'creator', 'creation_date', 'name', 'coins', 'points', 'qr_type', 'expiration_date']
         read_only_fields = ['id', 'code', 'creator', 'creation_date']
 
     POINTS_CAP = 50
-    XP_CAP = 50
+    COINS_CAP = 50
 
     def validate_name(self, value):
         # Check that the name is not empty
@@ -21,9 +21,9 @@ class QRCodeSerializer(serializers.ModelSerializer):
     def validate_xp(self, value):
         # Check that the xp is not negative or above XP_CAP
         if value < 0:
-            raise serializers.ValidationError("XP cannot be negative")
-        elif value > self.XP_CAP:
-            raise serializers.ValidationError("XP cannot be above " + self.XP_CAP)
+            raise serializers.ValidationError("Coins cannot be negative")
+        elif value > self.COINS_CAP:
+            raise serializers.ValidationError("Coins cannot be above " + self.COINS_CAP)
         return value
 
     def validate_points(self, value):
@@ -31,7 +31,7 @@ class QRCodeSerializer(serializers.ModelSerializer):
         if value < 0:
             raise serializers.ValidationError("Points cannot be negative")
         elif value > self.POINTS_CAP:
-            raise serializers.ValidationError("XP cannot be above " + self.POINTS_CAP)
+            raise serializers.ValidationError("Coins cannot be above " + self.POINTS_CAP)
         return value
 
     def validate_qr_type(self, value):
@@ -55,4 +55,4 @@ class QRCodeSerializer(serializers.ModelSerializer):
 class ChallengeSerializer(serializers.ModelSerializer):
     class Meta:
         model = QRCode
-        fields = ['name', 'xp', 'points', 'qr_type']
+        fields = ['name', 'coins', 'points', 'qr_type']

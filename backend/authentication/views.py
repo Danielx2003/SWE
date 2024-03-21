@@ -13,6 +13,8 @@ from .serializers import RegistrationSerializer, LoginSerializer, UserGeneralSer
     AddUserToGroupSerializer, ChangeUsernameSerializer
 from garden.models import GardenData
 
+from garden.models import GardenLayout
+
 
 class RegistrationView(APIView):
     """
@@ -39,6 +41,7 @@ class RegistrationView(APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         GardenData.objects.create(user=user)
+        GardenLayout.objects.create(user=user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

@@ -1,4 +1,5 @@
 import io
+import random
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
@@ -17,7 +18,7 @@ from .serializers import QRCodeSerializer, ChallengeSerializer
 
 from .permisions import IsAdminOrGameMaster
 
-from garden.models import GardenData
+from garden.models import GardenData, Plant
 
 from garden.serializers import GardenDataSerializer
 
@@ -31,7 +32,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
         {
             "id": "id",
             "name": "name",
-            "xp": "xp",
+            "coins": "coins",
             "points": "points",
             "qr_type": "qr_type",
             "expiration_date": "expiration_date",
@@ -46,7 +47,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
     url: /qrCodes/
     request body: {
         "name": "name",
-        "xp": "xp",
+        "coins": "coins",
         "points": "points",
         "qr_type": "qr_type",
         "expiration_date": "expiration_date"
@@ -55,7 +56,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
     successful response: {
         "id": "id",
         "name": "name",
-        "xp": "xp",
+        "coins": "coins",
         "points": "points",
         "qr_type": "qr_type",
         "expiration_date": "expiration_date",
@@ -99,7 +100,7 @@ class ChallengeListView(generics.ListAPIView):
     successful response: [
         {
             "name": "name",
-            "xp": "xp",
+            "coins": "coins",
             "points": "points",
             "qr_type": "qr_type"
         },
@@ -127,13 +128,13 @@ class QRCodeScannedView(APIView):
             "id": "id",
             "user": "user",
             "points": "points",
-            "xp": "xp",
+            "coins": "coins",
             "num_plants": "num_plants"
         },
         qrcode: {
             "id": "id",
             "name": "name",
-            "xp": "xp",
+            "coins": "coins",
             "points": "points",
             "qr_type": "qr_type",
             "expiration_date": "expiration_date",
@@ -141,11 +142,11 @@ class QRCodeScannedView(APIView):
             "code": "code",
             "creator": "creator"
         }
+        plant: "plant" or None
     }
     """
     permission_classes = [permissions.IsAuthenticated]
     @transaction.atomic()
-    # TODO should be a post request
     def post(self, request, code):
         try:
             qr_code = QRCode.objects.all().filter(expiration_date__gt=timezone.now()).get(code=code)
@@ -154,11 +155,14 @@ class QRCodeScannedView(APIView):
             user_id = request.user.id
             garden = GardenData.objects.get(user__id=user_id)
             garden.points += qr_code.points
-            garden.xp += qr_code.xp
+            garden.coins += qr_code.coins
+            random_plant = None
             if qr_code.qr_type == 1:
-                garden.num_plants += 1
+                if len(set(Plant.objects.all()) - set(garden.plants.all())) > 0:
+                    random_plant = random.choice(list(set(Plant.objects.all()) - set(garden.plants.all())))
+                    garden.plants.add(random_plant)
             garden.save()
             qr_code.scanned_by_users.add(request.user)
-            return Response({"garden": GardenDataSerializer(garden).data, "qrcode": QRCodeSerializer(qr_code).data}, status=200)
+            return Response({"garden": GardenDataSerializer(garden).data, "qrcode": QRCodeSerializer(qr_code).data, "plant": (random_plant.plant_type if random_plant else None)}, status=200)
         except ObjectDoesNotExist:
             return Response({"detail": "QR code or user's garden not found"}, status=404)

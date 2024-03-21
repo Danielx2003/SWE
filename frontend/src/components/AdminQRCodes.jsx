@@ -51,7 +51,11 @@ export default function AdminQRCodes() {
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
                     <th scope="col">Points</th>
+<<<<<<< HEAD
+                    <th scope="col">Coins</th>
+=======
                     <th scope="col"><FaCoins/></th>
+>>>>>>> origin/main
                     <th scope="col">Download</th>
                     <th scope="col">Create Date</th>
                     <th scope="col">Expiry Date</th>
@@ -71,7 +75,7 @@ export default function AdminQRCodes() {
                         <td>{val.name}</td>
                         <td>{val.qr_type}</td>
                         <td>{val.points}</td>
-                        <td>{val.xp}</td>
+                        <td>{val.coins}</td>
                         <td>
                         <a href={`http://${IP}:8000/qrcodes/${val.id}/image/`} download>
                             <button className="btn btn-info p-3"></button>

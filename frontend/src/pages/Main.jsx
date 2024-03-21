@@ -17,6 +17,18 @@ import Tulip_Red from "../res/Tulip_Red.png"
 import Tulip_Yellow from "../res/Tulip_Yellow.png"
 import Sunflower from "../res/Sunflower.png"
 
+import BB_Deep from "../res/Bluebell Deep.png"
+import BB_Lilac from "../res/Bluebell Lilac.png"
+import BB_Pale from "../res/Bluebell Pale.png"
+import Marigold_Orange from "../res/Marigold Orange.png"
+import Marigold_Red from "../res/Marigold Red.png"
+import Marigold_Yellow from "../res/Marigold Yellow.png"
+import Tulip_Orange from "../res/Tulip_Orange.png"
+import Tulip_Pink from "../res/Tulip_Pink.png"
+import Tulip_Red from "../res/Tulip_Red.png"
+import Tulip_Yellow from "../res/Tulip_Yellow.png"
+import Sunflower from "../res/Sunflower Cropped3.png"
+
 import axios from 'axios';
 
 import GetWeatherBackground from '../components/GetWeatherBackground';
@@ -27,10 +39,31 @@ import ChallengeModal from '../components/ChallengeModal.jsx';
 export default function Main() {
     axios.defaults.withCredentials = true;
 
+<<<<<<< HEAD
+    const dict = {
+        'BB_Deep': BB_Deep,
+        'BB_Lilac' : BB_Lilac,
+        'BB_Pale': BB_Pale,
+        'Marigold_Orange': Marigold_Orange,
+        'Marigold_Red': Marigold_Red,
+        'Marigold_Yellow': Marigold_Yellow,
+        'Tulip_Orange': Tulip_Orange,
+        'Tulip_Pink': Tulip_Pink,
+        'Tulip_Red': Tulip_Red,
+        'Tulip_Yellow': Tulip_Yellow
+    }
+
+=======
+>>>>>>> origin/main
     const [authState, setAuthState] = useState("Profile");
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
     const [open, setOpen] = useState(false)
+<<<<<<< HEAD
+    const [plantList, setPlantList] = useState([])
+    const [userPlants, setUserPlants] = useState([])
+=======
+>>>>>>> origin/main
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
@@ -40,6 +73,18 @@ export default function Main() {
 
 
     useEffect(() => {
+<<<<<<< HEAD
+        if (!Cookies.get('username')) {
+            navigate('/login')
+        }
+
+        const getUserData = async() => {           
+            axios.get(`http://${IP}:8000/garden/garden-data/`,
+            {
+                'withCredentials': true,
+            }
+            )
+=======
         // If user is not currently logged in, send them to the login page
         if (!Cookies.get('sessionid')) {
             navigate('/login')
@@ -48,29 +93,68 @@ export default function Main() {
         // Get garden data of currently authenticated user
         const getUserData = async() => {
             axios.get(`http://${IP}:8000/garden/garden-data/`)
+>>>>>>> origin/main
             .then(response => {
-                setUserData(response.data)
-              })
-            .catch(error => {
+                setUserData(response.data.garden_info)
+                setUserPlants(response.data.garden_info.plants)
+                setPlantList(response.data.garden_layout)
+            }).catch(error => {
                 console.log("Errror getting user data.")
               });
+              return;
+
 
         }
         // Get challenge data from API
         const getChallengeData = async() => {
-            axios.get(`http://${IP}:8000/qrcodes/challenges`)
+            axios.get(`http://${IP}:8000/qrcodes/challenges`,
+            {
+                'withCredentials': true,
+            }
+            )
             .then(response => {
                 setChallenges(response.data)
+                
             })
             .catch(error => {
                 console.log(error)
             })
+            return;
         }
         getUserData()
         getChallengeData()
     }, [])
+<<<<<<< HEAD
+
+
+    //maybe change src={plantList[0]} to become the route
+    //i.e. src=`../res/${plantList[0]}.png ?
+    function plant1ID() {
+        try {
+            return dict[plantList.plant1]
+        } catch(e) {
+            return false
+        }
+    }
+    function plant2ID() {
+        try {
+            return dict[plantList.plant3]
+        } catch(e) {
+            return false
+        }
+    }
+    function plant3ID() {
+        console.log("in plant1id")
+        try {
+            return dict[plantList.plant3]
+        } catch(e) {
+            return false
+        }
+    }
+=======
     
     console.log(plantList)
+>>>>>>> origin/main
 
     //maybe change src={plantList[0]} to become the route
     //i.e. src=`../res/${plantList[0]}.png ?
@@ -78,6 +162,16 @@ export default function Main() {
         <>
         <CheckNotForAdmin />
         <div className="main--container">
+<<<<<<< HEAD
+        <div className="parent">
+            <div className="plants">
+                <img id={plant1ID() == Sunflower ? "sunflower-img-1" : "plant-1"} src={plant1ID()} alt={plant1ID()}></img>
+                <img id={plant2ID() == Sunflower ? "sunflower-img-2" : "plant-2"} src={plant2ID()} alt={plant2ID()}></img>
+                <img id={plant3ID() == Sunflower ? "sunflower-img-3" : "plant-3"} src={plant3ID()} alt={plant3ID()}></img>
+              </div>
+            <GetWeatherBackground id="background-img"/>
+        </div>
+=======
         {/* Background jumbotron generator using weather API */}
         <div className="parent">
             <div className="plants">
@@ -89,6 +183,7 @@ export default function Main() {
         </div>
 
         {/* Container for game actions i.e. challenges, stats */}
+>>>>>>> origin/main
             <div className="garden--container">
                 <div className="choice--container">
                     <div id="auth-buttons" className="auth-button-controller d-flex w-100 flex-row">
