@@ -5,7 +5,7 @@ from .models import GardenData, UserInventory
 class GardenDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = GardenData
-        fields = ['id', 'points', 'xp', 'num_plants']
+        fields = ['id', 'points', 'coins', 'num_plants']
 
 
 class GardenLeaderboardSerializer(serializers.ModelSerializer):

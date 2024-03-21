@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt, FaStore, FaGamepad } from 'react-icons/fa';
 
 import Logout from '../pages/Logout';
 
@@ -105,6 +105,12 @@ export default function Nav() {
                     <>
                         <div className="nav-group">
                             <a className="nav-group-element" href="/leaderboard" style={{fontWeight : location.pathname == "/leaderboard" ? "bold" : "normal"}}>Leaderboard</a>
+                            {(location.pathname == "/main" &&
+                                    <a className="nav-group-element" href="/shop"><FaStore /></a>
+                            )}
+                            {(location.pathname == "/shop" &&
+                                    <a className="nav-group-element" href="/main"><FaGamepad /></a>
+                            )}
                             
                             <div>
                                 <a 
@@ -114,6 +120,7 @@ export default function Nav() {
                                     aria-controls={open ? 'composition-menu' : undefined}
                                     aria-expanded={open ? 'true' : undefined}
                                     aria-haspopup="true"
+                                    style={{fontWeight : location.pathname == "/leaderboard" ? "bold" : "normal"}}
                                     onClick={handleToggle}
                                     >
                                     <FaUserAlt/>

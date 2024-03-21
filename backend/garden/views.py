@@ -34,7 +34,7 @@ class GardenDataDetail(generics.RetrieveAPIView):
         "id": "id",
         "garden": "garden",
         "plants": "plants",
-        "xp": "xp",
+        "coins": "coins",
         "points": "points"
     }
     """
