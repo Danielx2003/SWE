@@ -90,8 +90,8 @@ a {
   justify-content: center;
   align-items: center;
 
-  background: url(./res/plant.webp);
-
+  background: url(./res/Photo_of_tree.avif);
+  background-position:center;
   background-repeat: no-repeat;
   background-size: 100% auto;
   object-fit: fill;

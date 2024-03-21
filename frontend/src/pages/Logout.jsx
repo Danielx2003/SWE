@@ -2,7 +2,7 @@ import {React, useEffect, useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-
+import { MenuItem } from '@mui/material'
 import { IPContext } from "../App.js"
 
 
@@ -50,6 +50,6 @@ export default function Logout() {
     }
 
     return (
-        <span onClick={handleClick}>Logout</span>
+        <MenuItem className='user-dropdown-link' onClick={handleClick}>Logout</MenuItem>
     )
 }

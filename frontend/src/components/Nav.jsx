@@ -90,7 +90,7 @@ export default function Nav() {
         <nav className="navbar navbar-fixed-top">
             <div className="nav-container">
                 <div className="nav-group">
-                    <a className="navbar-text-logo" href="/">Garden App</a>
+                    <a className="navbar-text-logo" href="/">ExeGarden</a>
                 </div>
                 {
                     // Wait until name has been loaded before rendering this
@@ -166,7 +166,7 @@ export default function Nav() {
                                                 {group && (group.includes('admin') || group.includes('game_master')) &&
                                                     <MenuItem className='user-dropdown-link' component={Link} to="/admin" onClick={handleClose}>Admin</MenuItem>
                                                 }
-                                                <MenuItem><Logout/></MenuItem>
+                                                <Logout/>
                                             </MenuList>
                                             </ClickAwayListener>
                                         </Paper>
