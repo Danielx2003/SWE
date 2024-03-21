@@ -64,3 +64,7 @@ class AddUserToGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'groups')
+
+
+class ChangeUsernameSerializer(serializers.Serializer):
+    new_username = serializers.CharField(max_length=150)
