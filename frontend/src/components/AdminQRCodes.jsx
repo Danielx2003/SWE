@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { IPContext } from "../App.js"
 import {useLocation} from 'react-router-dom'
 import axios from 'axios'
+import { FaCoins } from 'react-icons/fa'
 
 export default function AdminQRCodes() {
     const [data, setData] = useState([])
@@ -48,7 +49,7 @@ export default function AdminQRCodes() {
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
                     <th scope="col">Points</th>
-                    <th scope="col">XP</th>
+                    <th scope="col"><FaCoins/></th>
                     <th scope="col">Download</th>
                     <th scope="col">Create Date</th>
                     <th scope="col">Expiry Date</th>

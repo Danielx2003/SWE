@@ -8,7 +8,7 @@ import CheckForAdmin from '../components/CheckForAdmin.jsx'
 
 export default function QRCreate() {
   const [name, setName] = useState("")
-  const [xp, setXp] = useState("")
+  const [coins, setCoins] = useState("")
   const [points, setPoints] = useState("")
   const [type, setType] = useState("1")
   const [date, setDate] = useState("")
@@ -18,7 +18,7 @@ export default function QRCreate() {
   let navigate = useNavigate()
 
   const POINTS_CAP = 50
-  const XP_CAP = 50
+  const COINS_CAP = 50
 
   const IP = useContext(IPContext)
 
@@ -27,7 +27,7 @@ export default function QRCreate() {
       const response = await axios.post(
         `http://${IP}:8000/qrcodes/`, {
           'name': name,
-          'xp': xp,
+          'xp': coins,
           'points': points,
           'qr_type': type,
           'expiration_date': date + ":00Z",
@@ -66,8 +66,8 @@ export default function QRCreate() {
   } 
 
   const handleNameChange = (e) => setName(e.target.value)
-  const handleXPChange = (e) => (e.target.value <= XP_CAP) ? setXp(e.target.value) : setXp(POINTS_CAP)
-  const handlePointsChange = (e) => (e.target.value <= XP_CAP) ? setPoints(e.target.value) : setPoints(POINTS_CAP) 
+  const handleCoinsChange = (e) => (e.target.value <= COINS_CAP) ? setCoins(e.target.value) : setCoins(POINTS_CAP)
+  const handlePointsChange = (e) => (e.target.value <= COINS_CAP) ? setPoints(e.target.value) : setPoints(POINTS_CAP) 
   const handleTypeChange = (e) => setType(e.target.value)
   const handleDateChange = (e) => setDate(e.target.value)
   
@@ -94,13 +94,13 @@ export default function QRCreate() {
           onChange={handlePointsChange} />
         </div>
         <div class="form-group">
-          <label for="xp">XP Gained</label>
+          <label for="xp">Coins Gained</label>
           <input 
             class="form-control" 
             type="number" 
             min='0'
-            value={xp}
-            onChange={handleXPChange} />
+            value={coins}
+            onChange={handleCoinsChange} />
         </div>
         <div class="form-group">
           <label for="type">QR Type</label>
