@@ -21,6 +21,7 @@ export default function SettingsModal({ user }) {
   // Handling account deletion confirmation
   const handleAccountDelete = () => setIsOpen(true);
   const handleConfirm = async () => {
+    // Delete account via API
     const response = await axios.post(
         `http://${IP}:8000/authentication/delete-account/`,
         {},
@@ -32,10 +33,12 @@ export default function SettingsModal({ user }) {
         }
     )
 
+    // Purge local cookies to reset account 
     Cookies.remove('username')
     Cookies.remove('csrftoken')
     Cookies.remove('sessionid')
 
+    // Navigate to main and close modal
     Navigate('/')
     handleClose()
   }
@@ -43,6 +46,7 @@ export default function SettingsModal({ user }) {
   const handleInputChange = (e) => setNewUser(e.target.value)
 
   const handleEditSubmit = async () => {
+    // Edit username via API
     const response = await axios.post(
       `http://${IP}:8000/authentication/edit-username/`,
       {
@@ -58,7 +62,10 @@ export default function SettingsModal({ user }) {
 
     alert('You have successfully changed your name from ' + user + ' to ' + newUser)
 
+    // Set username cookie to new username if successful
     Cookies.set('username', newUser)
+
+    // Navigate to main (to avoid issues with Main page) and close modal
     Navigate('/')
     handleClose()
   }
