@@ -19,13 +19,18 @@ import { IPContext } from "../App.js"
 export default function PlantSelector(props) {
     let plantList = []
     let userPlants = []
+
     try {
-        props.plantList.map((plant) => plantList.push(plant))
+        props.plantList.map((plant) => {
+            plantList.push(plant)
+        })
     } catch(e) {
         console.log("no plants in garden rn")
     }
     try {
-        props.userPlants.map((plant) => userPlants.push(plant))
+        props.userPlants.map((plant) => {
+            console.log(plant)
+            userPlants.push(plant.plant_type)})
     } catch(e) {
         console.log("user owns no plants")
     }
@@ -60,7 +65,9 @@ export default function PlantSelector(props) {
         if (BB_D_P_D) {
             const index = plantList.findIndex(item => item === 'BB_Deep')
             const updatedList = [...plantList]
+            console.log(updatedList, "list 1")
             updatedList.splice(index, 1);
+            console.log(updatedList, "List2")
             let json = {
                 plant1: updatedList[0],
                 plant2: updatedList[1],
@@ -87,17 +94,21 @@ export default function PlantSelector(props) {
         if (BB_L_P_D) {
             const index = plantList.findIndex(item => item === 'BB_Lilac')
             const updatedList = [...plantList]
+            console.log(updatedList, "list 1")
             updatedList.splice(index, 1);
+            console.log(updatedList, "List2")
             let json = {
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
             }
+            debugger;
             props.setPlantList(json)
             setBB_L_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
         } else {
+            console.log(plantList, "is plant list")
             setBB_L_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('BB_Lilac')
@@ -106,6 +117,7 @@ export default function PlantSelector(props) {
                 plant2: updatedList[1],
                 plant3: updatedList[2]
             }
+            debugger;
             props.setPlantList(json)
         }
     }
@@ -133,7 +145,11 @@ export default function PlantSelector(props) {
                 plant2: updatedList[1],
                 plant3: updatedList[2]
             }
+            debugger;
+
             props.setPlantList(json)
+            debugger;
+
         }
     }
 
@@ -214,7 +230,11 @@ export default function PlantSelector(props) {
                 plant2: updatedList[1],
                 plant3: updatedList[2]
             }
+            debugger;
+
             props.setPlantList(json)
+            debugger;
+
         }
     }
 

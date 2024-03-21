@@ -34,6 +34,7 @@ SECURE_REFERRER_POLICY = 'no-referrer'
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 ALLOWED_HOSTS = ["*"]
+FRONTEND_URL = f'http://{IP}:3000'
 
 # Application definition
 

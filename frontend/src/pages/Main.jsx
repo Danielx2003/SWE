@@ -26,17 +26,28 @@ import ChallengeModal from '../components/ChallengeModal.jsx';
 export default function Main() {
     axios.defaults.withCredentials = true;
 
+    const dict = {
+        'BB_Deep': BB_Deep,
+        'BB_Lilac' : BB_Lilac,
+        'BB_Pale': BB_Pale,
+        'Marigold_Orange': Marigold_Orange,
+        'Marigold_Red': Marigold_Red,
+        'Marigold_Yellow': Marigold_Yellow,
+        'Tulip_Orange': Tulip_Orange,
+        'Tulip_Pink': Tulip_Pink,
+        'Tulip_Red': Tulip_Red,
+        'Tulip_Yellow': Tulip_Yellow
+    }
+
     const [authState, setAuthState] = useState("Profile");
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
     const [open, setOpen] = useState(false)
+    const [plantList, setPlantList] = useState([])
+    const [userPlants, setUserPlants] = useState([])
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
-
-    //delete after its just template
-    const [userPlants, setUserPlants] = useState([])
-    const [plantList, setPlantList] = useState([])
 
 
     useEffect(() => {
@@ -44,23 +55,21 @@ export default function Main() {
             navigate('/login')
         }
 
-        const getUserData = async() => {
+        const getUserData = async() => {           
             axios.get(`http://${IP}:8000/garden/garden-data/`,
             {
                 'withCredentials': true,
             }
             )
             .then(response => {
-                console.log(response, "Is resp")
                 setUserData(response.data.garden_info)
-                // setUserPlants(response.data.garden_info.plants)
-                setUserPlants(['BB_Deep','Sunflower'])
-                // setPlantList(response.data.garden_layout)
-                setPlantList([Sunflower])
-              })
-            .catch(error => {
+                setUserPlants(response.data.garden_info.plants)
+                setPlantList(response.data.garden_layout)
+            }).catch(error => {
                 console.log("Errror getting user data.")
               });
+              return;
+
 
         }
         const getChallengeData = async() => {
@@ -71,38 +80,50 @@ export default function Main() {
             )
             .then(response => {
                 setChallenges(response.data)
+                
             })
             .catch(error => {
                 console.log(error)
             })
+            return;
         }
         getUserData()
         getChallengeData()
     }, [])
-    
-    function hideImg3() {
-        document.getElementById("sunflower-img-3").style.display = "none";
-        document.getElementById("plant-3").style.display = "none";
-    }
 
-    function hideImg2() {
-        document.getElementById("sunflower-img-2").style.display = "none";
-        document.getElementById("plant-2").style.display = "none";
-    }
 
-    function hideImg1() {
-        document.getElementById("sunflower-img-1").style.display = "none";
-        document.getElementById("plant-1").style.display = "none";
-    }
     //maybe change src={plantList[0]} to become the route
     //i.e. src=`../res/${plantList[0]}.png ?
+    function plant1ID() {
+        try {
+            return dict[plantList.plant1]
+        } catch(e) {
+            return false
+        }
+    }
+    function plant2ID() {
+        try {
+            return dict[plantList.plant3]
+        } catch(e) {
+            return false
+        }
+    }
+    function plant3ID() {
+        console.log("in plant1id")
+        try {
+            return dict[plantList.plant3]
+        } catch(e) {
+            return false
+        }
+    }
+
     return (
         <div className="main--container">
         <div className="parent">
             <div className="plants">
-                <img id={plantList[0] == Sunflower ? "sunflower-img-1" : "plant-1"} onError={hideImg1} src={plantList[0]} alt={plantList[0]}></img>
-                <img id={plantList[1] == "Sunflower" ? "sunflower-img-2" : "plant-2"} onError={hideImg2} src={plantList[1]} alt={plantList[1]}></img>
-                <img id={plantList[2] == "Sunflower" ? "sunflower-img-3" : "plant-3"} onError={hideImg3} src={plantList[2]} alt={plantList[2]}></img>
+                <img id={plant1ID() == Sunflower ? "sunflower-img-1" : "plant-1"} src={plant1ID()} alt={plant1ID()}></img>
+                <img id={plant2ID() == Sunflower ? "sunflower-img-2" : "plant-2"} src={plant2ID()} alt={plant2ID()}></img>
+                <img id={plant3ID() == Sunflower ? "sunflower-img-3" : "plant-3"} src={plant3ID()} alt={plant3ID()}></img>
               </div>
             <GetWeatherBackground id="background-img"/>
         </div>

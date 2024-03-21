@@ -7,7 +7,8 @@ import { IPContext } from "../App.js"
 export default function Congrats(props) {
     const [prize, setPrize] = useState(0)
     const [image, setImage] = useState("https://img.freepik.com/premium-vector/plant-pixel-art-style_475147-1478.jpg?w=996")
-    
+    const [plant, setPlant] = useState("")
+
     const navigate = useNavigate();
     let location = useLocation();
     const IP = useContext(IPContext)

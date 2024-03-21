@@ -2,11 +2,17 @@ from rest_framework import serializers
 from .models import GardenData, UserInventory, Plant, GardenLayout
 from store.models import Item
 
+class PlantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plant
+        fields = ['plant_type']
 
 class GardenDataSerializer(serializers.ModelSerializer):
+    plants = PlantSerializer(many=True, read_only=True)
+
     class Meta:
         model = GardenData
-        fields = ['id', 'points', 'coins', 'plants']
+        fields = ['user', 'points', 'coins', 'plants']
 
 
 class GardenLeaderboardSerializer(serializers.ModelSerializer):
@@ -35,12 +41,6 @@ class UserInventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserInventory
         fields = ['item', 'quantity']
-
-
-class PlantSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Plant
-        fields = ['plant_type']
 
 
 class ItemSerializer(serializers.ModelSerializer):

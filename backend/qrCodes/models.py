@@ -7,12 +7,12 @@ from .qrCodeUtil import generate_random_qr_string
 class QRCode(models.Model):
     QR_TYPES = (
         (1, 'Plant'),
-        (2, 'XP')
+        (2, 'Coins')
     )
 
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=255, unique=True)
-    xp = models.IntegerField()
+    coins = models.IntegerField()
     points = models.IntegerField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     expiration_date = models.DateTimeField()

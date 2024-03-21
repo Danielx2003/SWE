@@ -32,7 +32,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
         {
             "id": "id",
             "name": "name",
-            "xp": "xp",
+            "coins": "coins",
             "points": "points",
             "qr_type": "qr_type",
             "expiration_date": "expiration_date",
@@ -47,7 +47,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
     url: /qrCodes/
     request body: {
         "name": "name",
-        "xp": "xp",
+        "coins": "coins",
         "points": "points",
         "qr_type": "qr_type",
         "expiration_date": "expiration_date"
@@ -56,7 +56,7 @@ class QRCodeListCreateView(generics.ListCreateAPIView):
     successful response: {
         "id": "id",
         "name": "name",
-        "xp": "xp",
+        "coins": "coins",
         "points": "points",
         "qr_type": "qr_type",
         "expiration_date": "expiration_date",
@@ -100,7 +100,7 @@ class ChallengeListView(generics.ListAPIView):
     successful response: [
         {
             "name": "name",
-            "xp": "xp",
+            "coins": "coins",
             "points": "points",
             "qr_type": "qr_type"
         },
@@ -128,13 +128,13 @@ class QRCodeScannedView(APIView):
             "id": "id",
             "user": "user",
             "points": "points",
-            "xp": "xp",
+            "coins": "coins",
             "num_plants": "num_plants"
         },
         qrcode: {
             "id": "id",
             "name": "name",
-            "xp": "xp",
+            "coins": "coins",
             "points": "points",
             "qr_type": "qr_type",
             "expiration_date": "expiration_date",
@@ -155,7 +155,7 @@ class QRCodeScannedView(APIView):
             user_id = request.user.id
             garden = GardenData.objects.get(user__id=user_id)
             garden.points += qr_code.points
-            garden.xp += qr_code.xp
+            garden.coins += qr_code.coins
             random_plant = None
             if qr_code.qr_type == 1:
                 if len(set(Plant.objects.all()) - set(garden.plants.all())) > 0:

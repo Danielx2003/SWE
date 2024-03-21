@@ -22,17 +22,17 @@ class UserInventory(models.Model):
 
 class Plant(models.Model):
     class PlantTypeEnum(models.TextChoices):
-        BLUEBELL_DEEP = 'bluebell deep'
-        BLUEBELL_LILAC = 'bluebell lilac'
-        BLUEBELL_PALE = 'bluebell pale'
-        MARIGOLD_ORANGE = 'marigold orange'
-        MARIGOLD_RED = 'marigold red'
-        MARIGOLD_YELLOW = 'marigold yellow'
-        TULIP_ORANGE = 'tulip orange'
-        TULIP_PINK = 'tulip pink'
-        TULIP_RED = 'tulip red'
-        TULIP_YELLOW = 'tulip yellow'
-        SUNFLOWER = 'sunflower'
+        BLUEBELL_DEEP = 'BB_Deep'
+        BLUEBELL_LILAC = 'BB_Lilac'
+        BLUEBELL_PALE = 'BB_Pale'
+        MARIGOLD_ORANGE = 'Marigold_Orange'
+        MARIGOLD_RED = 'Marigold_Red'
+        MARIGOLD_YELLOW = 'Marigold_Yellow'
+        TULIP_ORANGE = 'Tuplip_Orange'
+        TULIP_PINK = 'Tulip_Pink'
+        TULIP_RED = 'Tulip_Red'
+        TULIP_YELLOW = 'Tulip_Yellow'
+        SUNFLOWER = 'Sunflower'
 
     plant_type = models.CharField(max_length=20, choices=PlantTypeEnum.choices, unique=True)
 
