@@ -1,11 +1,12 @@
 from rest_framework import serializers
-from .models import GardenData, UserInventory, Plant
+from .models import GardenData, UserInventory, Plant, GardenLayout
+from store.models import Item
 
 
 class GardenDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = GardenData
-        fields = ['id', 'points', 'coins', 'garden_layout', 'plants']
+        fields = ['id', 'points', 'coins', 'plants']
 
 
 class GardenLeaderboardSerializer(serializers.ModelSerializer):
@@ -39,13 +40,31 @@ class UserInventorySerializer(serializers.ModelSerializer):
 class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
-        fields = '__all__'
+        fields = ['plant_type']
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['item_type']
 
 
 class GardenLayoutSerializer(serializers.ModelSerializer):
-    plants = PlantSerializer(many=True, read_only=True)
+    plant1 = PlantSerializer()
+    plant2 = PlantSerializer()
+    plant3 = PlantSerializer()
+    decoration1 = ItemSerializer()
+    decoration2 = ItemSerializer()
+
+    class Meta:
+        model = GardenLayout
+        fields = ['id', 'user', 'plant1', 'plant2', 'plant3', 'decoration1', 'decoration2']
+        read_only_fields = ['id', 'user']
+
+
+class FriendGardenSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username')
 
     class Meta:
         model = GardenData
-        fields = ['garden_layout', 'points', 'user', 'plants']
+        fields = ['points', 'user']

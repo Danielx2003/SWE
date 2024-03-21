@@ -1,17 +1,20 @@
 import requests
 from django.contrib.auth.models import User
+from django.db import transaction
 from django.http import JsonResponse
 from django.views import View
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import GardenData, UserInventory
+from .models import GardenData, UserInventory, GardenLayout, Plant
 from .permisions import IsCurrentUserOrFriend
 from .serializers import GardenDataSerializer, GardenLeaderboardSerializer, GardenRankSerializer, \
     UserInventorySerializer, GardenLayoutSerializer
+from store.models import Item
 
 
 class WeatherView(View):
@@ -46,11 +49,16 @@ class GardenDataDetail(generics.RetrieveAPIView):
     """
     queryset = GardenData.objects.all()
     serializer_class = GardenDataSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         user_id = self.request.user.id
         return self.queryset.get(user__id=user_id)
+
+    def get(self, request, *args, **kwargs):
+        garden_dict = GardenDataSerializer(self.get_object()).data
+        garden_layout = GardenLayoutSerializer(GardenLayout.objects.get(user=self.request.user)).data
+        return Response({"garden_info": garden_dict, "garden_layout": garden_layout})
 
 
 class CustomPagination(PageNumberPagination):
@@ -76,7 +84,7 @@ class GardenLeaderboardView(generics.ListAPIView):
     """
     serializer_class = GardenLeaderboardSerializer
     pagination_class = CustomPagination
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return GardenData.objects.order_by('-points')
@@ -146,7 +154,7 @@ class GardenDataDetailByUsernameView(generics.RetrieveAPIView):
     }
     """
     serializer_class = GardenLayoutSerializer
-    permission_classes = [permissions.IsAuthenticated, IsCurrentUserOrFriend]
+    permission_classes = [IsAuthenticated, IsCurrentUserOrFriend]
 
     def get_object(self):
         # Get the username from the URL parameter
@@ -159,44 +167,36 @@ class GardenDataDetailByUsernameView(generics.RetrieveAPIView):
         garden_data = GardenData.objects.get(user=user)
         return garden_data
 
+    def get(self, request, *args, **kwargs):
+        garden_layout = GardenLayoutSerializer(GardenLayout.objects.get(user=self.get_object().user)).data
+        return Response({"garden_info": GardenDataSerializer(self.get_object()).data, "garden_layout": garden_layout})
 
-class GardenLayoutUpdateView(generics.UpdateAPIView):
+
+class GardenLayoutUpdateView(APIView):
     """
     API endpoint that allows garden layout of authenticated user to be updated.
-    method: PUT
+    method: POST
     url: garden/garden-data/update/
     request body: {
-        "garden_layout": {
-            "plants": ["plants"...],
-            "decorations": ["decorations"...]
-        }
+        plant1: "plant1",
+        plant2: "plant2",
+        plant3: "plant3",
+        decoration1: "decoration1",
+        decoration2: "decoration2"
     }
     """
-    queryset = GardenData.objects.all()
-    serializer_class = GardenLayoutSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def perform_update(self, serializer):
-        garden_data = serializer.instance
+    permission_classes = [IsAuthenticated]
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
         user = self.request.user
-        new_garden_layout = self.request.data.get('garden_layout', None)
+        current_garden_data = GardenLayout.objects.get(user=user)
 
-        if new_garden_layout:
-            if new_garden_layout.get('plants', None) is None:
-                return JsonResponse({'error': 'plants key is required'}, status=400)
-            if new_garden_layout.get('decorations', None) is None:
-                return JsonResponse({'error': 'decorations key is required'}, status=400)
+        current_garden_data.plant1 = Plant.objects.get(plant_type=request.data.get('plant1'))
+        current_garden_data.plant2 = Plant.objects.get(plant_type=request.data.get('plant2'))
+        current_garden_data.plant3 = Plant.objects.get(plant_type=request.data.get('plant3'))
+        current_garden_data.decoration1 = Item.objects.get(item_type=request.data.get('decoration1'))
+        current_garden_data.decoration2 = Item.objects.get(item_type=request.data.get('decoration2'))
+        current_garden_data.save()
 
-            if not set(new_garden_layout['plants']).issubset([plant.plant_type for plant in garden_data.plants]):
-                return JsonResponse({'error': 'not all plants are owned by user/exist'}, status=400)
-            if not set(new_garden_layout['decorations']).issubset([inventory_entry.item.item_type for inventory_entry in UserInventory.objects.filter(user=user)]):
-                return JsonResponse({'error': 'not all plants are owned by user/exist'}, status=400)
-            if not len(set(new_garden_layout['plants'])) == len(new_garden_layout['plants']):
-                return JsonResponse({'error': 'plants contains duplicates'}, status=400)
-            if not len(set(new_garden_layout['decorations'])) == len(new_garden_layout['decorations']):
-                return JsonResponse({'error': 'decorations contains duplicates'}, status=400)
-            if not len(set(new_garden_layout['plants'])) <= 3:
-                return JsonResponse({'error': 'max 3 plants allowed'}, status=400)
+        return Response(GardenLayoutSerializer(current_garden_data).data)
 
-            garden_data.garden_layout = {"plants": list(set(new_garden_layout['plants'])), "decorations": list(set(new_garden_layout['decorations']))}
-            garden_data.save()

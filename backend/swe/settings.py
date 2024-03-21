@@ -33,11 +33,7 @@ SESSION_COOKIE_HTTPONLY = False
 SECURE_REFERRER_POLICY = 'no-referrer'
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
-
-
 ALLOWED_HOSTS = ["*"]
-FRONTEND_URL = f"http://{IP}:3000"
-CSRF_TRUSTED_ORIGINS = [FRONTEND_URL]
 
 # Application definition
 
@@ -65,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "swe.middle.DisableCSRFMiddleware"
 ]
 
 ROOT_URLCONF = "swe.urls"
