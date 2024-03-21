@@ -43,6 +43,7 @@ a {
 
   height: var(--navbar-height);
   width: 100%;
+  z-index: 12;
 
   background-color: #003b3c !important;
 
@@ -75,7 +76,7 @@ a {
 }
 
 .nav-group:last-child > * {
-  margin: 0 0 0 4rem;
+  margin: 0 0 0 2rem;
 }
 
 .navbar-text-logo {
@@ -89,8 +90,8 @@ a {
   justify-content: center;
   align-items: center;
 
-  background: url(./res/plant.webp);
-
+  background: url(./res/Photo_of_tree.avif);
+  background-position:center;
   background-repeat: no-repeat;
   background-size: 100% auto;
   object-fit: fill;
@@ -250,9 +251,10 @@ a {
 
 .garden--imgdiv {
   position:relative;
+  top: 0;
+  left: 0;
   height: 16rem;
   width: 35rem;
-  z-index: -1
 }
 
 .garden--img{
@@ -404,6 +406,7 @@ table {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .profile{
@@ -500,6 +503,30 @@ table {
   border: #a3101d !important;
 }
 
+.store-container {
+  min-height: 91.9vh;
+}
+
+.store-jumbotron {
+  height: 10rem;
+  width: 100%;
+}
+
+.store-jumbotron-element {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1/1;
+
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.store-jumbotron-element:hover {
+  background-color: #d3d3d3;
+  cursor: pointer;
+  transition: 0.5s background-color;
+}
+
 /* 
 Some hacky workarounds for the admin table. Basically reverting all
 of the warcrimes Mui has committed on this table
@@ -541,9 +568,98 @@ of the warcrimes Mui has committed on this table
 .admin-table-btn > div:first-child > span {
   padding-right: 2rem !important;
 }
-  
+
 #loading-text {
   background-color: transparent;
+}
+
+.plant-img {
+  position: relative;
+  z-index: 3;
+  width: 8rem;
+}
+
+.plant-img-selected {
+  position: relative;
+  z-index: 3;
+  width: 8rem;
+  background-color: lightgray;
+}
+
+.plant-img-unowned {
+  position: relative;
+  z-index: 3;
+  width: 8rem;
+  filter: grayscale(1)
+}
+
+.plant-img:hover {
+  background-color: rgb(136, 136, 136);
+}
+
+.plant-pick-container {
+  display: flex;
+  flex-flow: column;
+}
+
+.plant-row-1, .plant-row-2, .plant-row-3, .plant-row-4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly
+}
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#plant-1 {
+  position: absolute;
+  top: 52%;
+  left: 0%;
+  width: 13rem;
+  z-index: 3;
+}
+
+#plant-2 {
+  position: absolute;
+  top: 52%;
+  left: 32.5%;
+  width: 13rem;
+  z-index: 3;
+  max-width: 13rem;
+}
+
+#plant-3 {
+  position: absolute;
+  top: 52%;
+  left: 65%;
+  width: 13rem;
+  z-index: 3;
+}
+
+#sunflower-img-1 {
+  position: absolute;
+  top: 60%;
+  left: 12%;
+  width: 8rem;
+  z-index: 3;
+}
+
+#sunflower-img-2 {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  width: 8rem;
+  z-index: 3;
+}
+
+#sunflower-img-3 {
+  position: absolute;
+  top: 60%;
+  left: 65%;
+  width: 8rem;
+  z-index: 3;
 }
 
 /* Termly imports */
@@ -584,3 +700,12 @@ ul {
   ol li {
   font-family: Arial;
   }
+
+.no-friends-txt {
+  background-color: transparent;
+  font-size: 2rem;
+}
+
+#save-garden-btn {
+  margin-top: 1rem;
+}
