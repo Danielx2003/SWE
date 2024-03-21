@@ -3,6 +3,19 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Profile from "../components/Profile"
 import PlantSelector from "../components/PlantSelector"
+import CheckNotForAdmin from '../components/CheckNotForAdmin.jsx';
+
+import BB_Deep from "../res/Bluebell Deep.png"
+import BB_Lilac from "../res/Bluebell Lilac.png"
+import BB_Pale from "../res/Bluebell Pale.png"
+import Marigold_Orange from "../res/Marigold Orange.png"
+import Marigold_Red from "../res/Marigold Red.png"
+import Marigold_Yellow from "../res/Marigold Yellow.png"
+import Tulip_Oragne from "../res/Tulip_Orange.png"
+import Tulip_Pink from "../res/Tulip_Pink.png"
+import Tulip_Red from "../res/Tulip_Red.png"
+import Tulip_Yellow from "../res/Tulip_Yellow.png"
+import Sunflower from "../res/Sunflower.png"
 
 import BB_Deep from "../res/Bluebell Deep.png"
 import BB_Lilac from "../res/Bluebell Lilac.png"
@@ -26,6 +39,7 @@ import ChallengeModal from '../components/ChallengeModal.jsx';
 export default function Main() {
     axios.defaults.withCredentials = true;
 
+<<<<<<< HEAD
     const dict = {
         'BB_Deep': BB_Deep,
         'BB_Lilac' : BB_Lilac,
@@ -39,18 +53,27 @@ export default function Main() {
         'Tulip_Yellow': Tulip_Yellow
     }
 
+=======
+>>>>>>> origin/main
     const [authState, setAuthState] = useState("Profile");
     const [challenges, setChallenges] = useState([])
     const [userData, setUserData] = useState({})
     const [open, setOpen] = useState(false)
+<<<<<<< HEAD
     const [plantList, setPlantList] = useState([])
     const [userPlants, setUserPlants] = useState([])
+=======
+>>>>>>> origin/main
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
 
+    const userPlants = ['Bluebell Deep', 'Marigold_Red', 'Sunflower', 'BB_Lilac']
+    const [plantList, setPlantList] = useState([])
+
 
     useEffect(() => {
+<<<<<<< HEAD
         if (!Cookies.get('username')) {
             navigate('/login')
         }
@@ -61,6 +84,16 @@ export default function Main() {
                 'withCredentials': true,
             }
             )
+=======
+        // If user is not currently logged in, send them to the login page
+        if (!Cookies.get('sessionid')) {
+            navigate('/login')
+        }
+
+        // Get garden data of currently authenticated user
+        const getUserData = async() => {
+            axios.get(`http://${IP}:8000/garden/garden-data/`)
+>>>>>>> origin/main
             .then(response => {
                 setUserData(response.data.garden_info)
                 setUserPlants(response.data.garden_info.plants)
@@ -72,6 +105,7 @@ export default function Main() {
 
 
         }
+        // Get challenge data from API
         const getChallengeData = async() => {
             axios.get(`http://${IP}:8000/qrcodes/challenges`,
             {
@@ -90,6 +124,7 @@ export default function Main() {
         getUserData()
         getChallengeData()
     }, [])
+<<<<<<< HEAD
 
 
     //maybe change src={plantList[0]} to become the route
@@ -116,9 +151,18 @@ export default function Main() {
             return false
         }
     }
+=======
+    
+    console.log(plantList)
+>>>>>>> origin/main
 
+    //maybe change src={plantList[0]} to become the route
+    //i.e. src=`../res/${plantList[0]}.png ?
     return (
+        <>
+        <CheckNotForAdmin />
         <div className="main--container">
+<<<<<<< HEAD
         <div className="parent">
             <div className="plants">
                 <img id={plant1ID() == Sunflower ? "sunflower-img-1" : "plant-1"} src={plant1ID()} alt={plant1ID()}></img>
@@ -127,6 +171,19 @@ export default function Main() {
               </div>
             <GetWeatherBackground id="background-img"/>
         </div>
+=======
+        {/* Background jumbotron generator using weather API */}
+        <div className="parent">
+            <div className="plants">
+                <img id="plant-1" src={plantList[0]} alt={plantList[0]}></img>
+                <img id="plant-2" src={plantList[1]} alt={plantList[1]}></img>
+                <img id="plant-3" src={plantList[2]} alt={plantList[2]}></img>
+            </div>
+            <GetWeatherBackground id="background-img"/>
+        </div>
+
+        {/* Container for game actions i.e. challenges, stats */}
+>>>>>>> origin/main
             <div className="garden--container">
                 <div className="choice--container">
                     <div id="auth-buttons" className="auth-button-controller d-flex w-100 flex-row">
@@ -150,6 +207,6 @@ export default function Main() {
                 </div>
             </div>
         </div>
-
+        </>
     )
 }

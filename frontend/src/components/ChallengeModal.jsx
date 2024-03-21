@@ -3,6 +3,7 @@ import { IPContext } from "../App.js"
 
 import Modal from '@mui/material/Modal';
 
+// Modal component for challenges in Main page
 export default function ChallengeModal({ key, info }) {
   const [open, setOpen] = useState(false);
   const IP = useContext(IPContext)
@@ -18,6 +19,7 @@ export default function ChallengeModal({ key, info }) {
         </div>
       </button>
       
+      {/* Modal for challenge in Main page */}
       <Modal
         open={open}
         onClose={handleClose}

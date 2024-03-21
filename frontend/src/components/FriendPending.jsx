@@ -3,6 +3,8 @@ import { IPContext } from "../App.js"
 import Cookies from 'js-cookie';
 import axios from 'axios'
 
+// A component to handle a pending friend request, and the functionality
+// to reject or accept that request.
 export default function FriendPending(props) {
     axios.defaults.withCredentials = true;
 

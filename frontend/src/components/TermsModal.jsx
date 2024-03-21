@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Modal from '@mui/material/Modal';
 
+// A modal to display the Terms of Use.
 export default function TermsModal() {
   const [open, setOpen] = useState(false);
 

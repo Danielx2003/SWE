@@ -4,6 +4,7 @@ import { IPContext } from "../App.js"
 import FriendAccepted from "../components/FriendAccepted.jsx"
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import CheckNotForAdmin from '../components/CheckNotForAdmin.jsx';
 
 
 export default function FriendsList() {
@@ -52,6 +53,7 @@ export default function FriendsList() {
 
     return (
         <>
+        <CheckNotForAdmin />
         <div id="friends--container">
             <form> 
                     <input onChange={handleTyping}
@@ -64,7 +66,7 @@ export default function FriendsList() {
             
             {(friendsList.length != 0 && input.length==0) ? friendsList.map((friend) => <FriendAccepted key={friend.id} id={friend.id} username={friend.from_user.username == Cookies.get('username') ? friend.to_user.username : friend.from_user.username}/>) 
                 : (friendsList.length != 0 && input.length!=0) ? displayedFriends.map((friend) => <FriendAccepted key={friend.id} id={friend.id} username={friend.username}/>) 
-                : <p>Seems like you have no friends...</p>}
+                : <p className="no-friends-txt">Seems like you have no friends...</p>}
             <div id="add-friends-container">
             <p id="add-friends-txt">Why not try adding more friends?</p> <button className="btn" id="add-friends-btn" onClick={handleRedirect}>Search for friends here</button>
             </div>

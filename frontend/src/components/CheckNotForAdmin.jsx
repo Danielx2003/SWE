@@ -3,9 +3,9 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { IPContext } from "../App.js"
 
-// A component to check for a user's admin privileges. Runs at the top of the
+// A component to check that a user is NOT admin. Runs at the top of the
 // render ideally - gets the user's role status and navigates away if they are
-// not admin or game master.
+// admin or game master.
 export default function CheckForAdmin() {
     const navigate = useNavigate()
     const IP = useContext(IPContext)
@@ -18,8 +18,8 @@ export default function CheckForAdmin() {
             )
             .then((res) => res.data)
             .then((data) => {
-                if (!data.groups.includes("admin") && !data.groups.includes("game_master")) {
-                    navigate("/")
+                if (data.groups.includes("admin") || data.groups.includes("game_master")) {
+                    navigate("/admin")
                 }
             })
             .catch((_) => {

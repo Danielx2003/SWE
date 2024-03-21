@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Cookies from 'js-cookie';
 
+// A modal to display a user's profile on the Main page.
 export default function Profile(props) {
     const [text, setText] = useState("")
 

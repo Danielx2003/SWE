@@ -18,7 +18,11 @@ export default function QRCreate() {
   let navigate = useNavigate()
 
   const POINTS_CAP = 50
+<<<<<<< HEAD
   const COIN_CAP = 50
+=======
+  const COINS_CAP = 50
+>>>>>>> origin/main
 
   const IP = useContext(IPContext)
 
@@ -27,7 +31,11 @@ export default function QRCreate() {
       const response = await axios.post(
         `http://${IP}:8000/qrcodes/`, {
           'name': name,
+<<<<<<< HEAD
           'coins': coins,
+=======
+          'xp': coins,
+>>>>>>> origin/main
           'points': points,
           'qr_type': type,
           'expiration_date': date + ":00Z",
@@ -66,8 +74,13 @@ export default function QRCreate() {
   } 
 
   const handleNameChange = (e) => setName(e.target.value)
+<<<<<<< HEAD
   const handleXPChange = (e) => (e.target.value <= COIN_CAP) ? setCoins(e.target.value) : setCoins(POINTS_CAP)
   const handlePointsChange = (e) => (e.target.value <= COIN_CAP) ? setPoints(e.target.value) : setPoints(POINTS_CAP) 
+=======
+  const handleCoinsChange = (e) => (e.target.value <= COINS_CAP) ? setCoins(e.target.value) : setCoins(POINTS_CAP)
+  const handlePointsChange = (e) => (e.target.value <= COINS_CAP) ? setPoints(e.target.value) : setPoints(POINTS_CAP) 
+>>>>>>> origin/main
   const handleTypeChange = (e) => setType(e.target.value)
   const handleDateChange = (e) => setDate(e.target.value)
   
@@ -94,13 +107,21 @@ export default function QRCreate() {
           onChange={handlePointsChange} />
         </div>
         <div class="form-group">
+<<<<<<< HEAD
           <label for="coins">Coins Gained</label>
+=======
+          <label for="xp">Coins Gained</label>
+>>>>>>> origin/main
           <input 
             class="form-control" 
             type="number" 
             min='0'
             value={coins}
+<<<<<<< HEAD
             onChange={handleXPChange} />
+=======
+            onChange={handleCoinsChange} />
+>>>>>>> origin/main
         </div>
         <div class="form-group">
           <label for="type">QR Type</label>

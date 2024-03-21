@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 //pages
 import Splash from "./pages/Splash.jsx"
 import Login from "./pages/Login.jsx"
+import Shop from "./pages/Shop.jsx"
 import Logout from "./pages/Logout.jsx"
 import Main from "./pages/Main.jsx"
 import Forgot from "./pages/Forgot.jsx"
@@ -79,6 +80,10 @@ function App() {
           <Route
             path="friend-search"
             element={<FriendSearch/>}
+          />
+          <Route 
+            path="shop"
+            element={<Shop />}
           />
         </Routes>
         </IPContext.Provider>

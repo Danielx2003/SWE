@@ -9,7 +9,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .permissions import IsAdmin
-from .serializers import RegistrationSerializer, LoginSerializer, UserGeneralSerializer, UserDetailSerializer, AddUserToGroupSerializer
+from .serializers import RegistrationSerializer, LoginSerializer, UserGeneralSerializer, UserDetailSerializer, \
+    AddUserToGroupSerializer, ChangeUsernameSerializer
 from garden.models import GardenData
 
 from garden.models import GardenLayout
@@ -178,3 +179,30 @@ class DeleteAccountView(LoginRequiredMixin, APIView):
         # Delete user account
         user.delete()
         return Response({'message': 'Account deleted successfully'})
+
+
+class ChangeUsernameView(APIView):
+    """
+    View to change the current user's username.
+    method: POST
+    request body: {
+        "new_username": "new_username"
+    }
+    successful response: {
+        "message": "Username changed successfully"
+    }
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = ChangeUsernameSerializer(data=request.data)
+        if serializer.is_valid():
+            new_username = serializer.validated_data.get('new_username')
+            user = request.user
+            if User.objects.filter(username=new_username).exists():
+                return Response({'message': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+            user.username = new_username
+            user.save()
+            return Response({'message': 'Username changed successfully'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

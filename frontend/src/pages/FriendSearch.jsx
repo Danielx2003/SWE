@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import FriendAdd from "../components/FriendAdd.jsx"
 import { IPContext } from "../App.js"
 import axios from 'axios'
+import CheckNotForAdmin from '../components/CheckNotForAdmin.jsx';
 
 export default function FriendSearch(props) {
     const [input, setInput] = useState("")
@@ -33,6 +34,8 @@ export default function FriendSearch(props) {
     }
 
     return (
+        <>
+        <CheckNotForAdmin />
         <div id="friends--container">
             <form> 
                     <input onChange={handleTyping}
@@ -45,5 +48,6 @@ export default function FriendSearch(props) {
             </form>
         {newFriends.map((friend) => <FriendAdd key={friend.id} id={friend.id} username={friend.username} status={friend.status}/>)}
         </div>
+        </>
     )
 }
