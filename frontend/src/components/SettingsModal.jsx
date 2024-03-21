@@ -38,12 +38,12 @@ export default function SettingsModal({ user }) {
   }
 
   return (
-    <div>
-      <span 
+    <div className='w-100 h-100'>
+      <div
         onClick={handleOpen}
         >
             Settings
-      </span>
+      </div>
       
       <Modal
         open={open}
