@@ -44,7 +44,7 @@ export default function Nav() {
         // const USERNAME_COOKIE_EXISTS = Cookies.get('username') != undefined
         getUsername()
         
-    }, [])
+    }, [location.pathname])
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
