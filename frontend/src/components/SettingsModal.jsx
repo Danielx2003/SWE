@@ -59,15 +59,21 @@ export default function SettingsModal({ user }) {
           }
       }
     )
+    // If username is valid...
+    .then(() => {
+      alert('You have successfully changed your name from ' + user + ' to ' + newUser + '!')
 
-    alert('You have successfully changed your name from ' + user + ' to ' + newUser)
+      // Set username cookie to new username if successful
+      Cookies.set('username', newUser)
 
-    // Set username cookie to new username if successful
-    Cookies.set('username', newUser)
-
-    // Navigate to main (to avoid issues with Main page) and close modal
-    Navigate('/')
-    handleClose()
+      // Navigate to main (to avoid issues with Main page) and close modal
+      Navigate('/')
+      handleClose()
+    })
+    // If username is invalid or another error occurs...
+    .catch((err) => {
+      alert(err.response.data.message)
+    })
   }
 
   return (
