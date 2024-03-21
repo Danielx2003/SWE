@@ -106,7 +106,13 @@ export default function AdminUserGroupsModal({ row, perms, page, pageFunc }) {
               {row.username}
             </Typography>
             <hr></hr>
-            
+            <Typography 
+              className='d-flex justify-content-center' 
+              sx={{ fontFamily: "inherit" }} 
+              variant="h6" 
+              component="h2">
+              USR ADM GMS
+            </Typography>
             <div className='d-flex flex-row justify-content-center'>
               <Checkbox 
                 checked={userChecked}

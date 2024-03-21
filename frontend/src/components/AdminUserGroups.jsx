@@ -52,7 +52,7 @@ export default function AdminUserGroups({ currentUserPerms }) {
       <Table className='admin-table-container table' sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow className='justify-content-between admin-table-header'>
-            <th scope="col" className='p-4'>Name</th>
+            <th scope="col" className='p-4'>ID</th>
           </TableRow>
         </TableHead>
         <TableBody className='admin-table-body'> 

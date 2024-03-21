@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import CheckNotForAdmin from '../components/CheckNotForAdmin.jsx';
 
 import { IPContext } from "../App.js"
 
@@ -52,6 +53,8 @@ const Leaderboard = () => {
 
   if(top10){
     return (
+      <>
+      <CheckNotForAdmin />
       <div className="leaderboard-wrapper">
         <div className="leaderboard">
           <table>
@@ -74,10 +77,14 @@ const Leaderboard = () => {
           </table>
         </div>
       </div>
+      </>
     );
   }
+  
   else{
     return (
+      <>
+      <CheckNotForAdmin />
       <div className="leaderboard-wrapper">
         <div className="leaderboard">
           <table>
@@ -106,6 +113,7 @@ const Leaderboard = () => {
           </table>
         </div>
       </div>
+      </>
     );
   }
   };

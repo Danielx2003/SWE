@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Profile from "../components/Profile"
 import PlantSelector from "../components/PlantSelector"
+import CheckNotForAdmin from '../components/CheckNotForAdmin.jsx';
 
 import BB_Deep from "../res/Bluebell Deep.png"
 import BB_Lilac from "../res/Bluebell Lilac.png"
@@ -72,6 +73,8 @@ export default function Main() {
     //maybe change src={plantList[0]} to become the route
     //i.e. src=`../res/${plantList[0]}.png ?
     return (
+        <>
+        <CheckNotForAdmin />
         <div className="main--container">
         <div className="parent">
             <div className="plants">
@@ -104,6 +107,6 @@ export default function Main() {
                 </div>
             </div>
         </div>
-
+        </>
     )
 }
