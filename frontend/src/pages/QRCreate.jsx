@@ -106,7 +106,7 @@ export default function QRCreate() {
           <label for="type">QR Type</label>
           <select class="form-control" value={type} onChange={handleTypeChange}>
             <option value="1">Plant</option>
-            <option value="2">XP</option>
+            <option value="2">Coins</option>
           </select>
         </div>
         <div class="form-group">
