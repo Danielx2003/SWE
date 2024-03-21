@@ -197,6 +197,8 @@ class ChangeUsernameView(APIView):
         if serializer.is_valid():
             new_username = serializer.validated_data.get('new_username')
             user = request.user
+            if User.objects.filter(username=new_username).exists():
+                return Response({'message': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
             user.username = new_username
             user.save()
             return Response({'message': 'Username changed successfully'}, status=status.HTTP_200_OK)
