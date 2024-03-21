@@ -3,6 +3,8 @@ import { IPContext } from "../App.js"
 import {useLocation} from 'react-router-dom'
 import axios from 'axios'
 
+// Component for displaying a table of QR codes currently registered
+// to the website
 export default function AdminQRCodes() {
     const [data, setData] = useState([])
     const IP = useContext(IPContext)

@@ -16,6 +16,7 @@ export default function ShopItemModal({ item, coins, coinsFunc }) {
   const handleClose = () => setOpen(false);
 
   const handlePurchaseItem = async () => {
+    // Send a request to the API, asking to purchase this item.
     const response = await axios.post(
         `http://${IP}:8000/store/purchase/`, 
         {
@@ -31,11 +32,13 @@ export default function ShopItemModal({ item, coins, coinsFunc }) {
     ).then((res) => res.data)
     .catch((err) => err.response.data)
 
-    console.log(response)
+    
     if (response.message == "Insufficient coins") {
+        // User does not have enough money, so display error and return
         setUserBroke(true)
         return
     } else if (response.message == "Purchase successful") {
+        // Otherwise, purchase and subtract from existing count
         alert("Successfully purchased item " + item.item_type.replace("_", " ") + ".")
         coinsFunc(coins - item.price)
     }
@@ -50,6 +53,7 @@ export default function ShopItemModal({ item, coins, coinsFunc }) {
             <span>{item.price} <FaCoins /> </span>
         </div>
       
+        {/* Modal to be displayed when user clicks on a shop item. */}
         <Modal
             open={open}
             onClose={handleClose}

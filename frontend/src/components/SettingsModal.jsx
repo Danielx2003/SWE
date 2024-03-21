@@ -6,6 +6,8 @@ import axios from 'axios'
 
 import Modal from '@mui/material/Modal';
 
+// A modal to handle user settings and actions on their account, such
+// as the deletion or editing of said account, in accordance with GDPR.
 export default function SettingsModal({ user }) {
   const [open, setOpen] = useState(false);
   const [newUser, setNewUser] = useState(user);

@@ -10,12 +10,15 @@ import Rainy from '../res/Background Raining.png'
 import SnowyNight from '../res/Background Snowing Night.png'
 import Snowy from '../res/Background Snowing.png'
 
+// A component to display the correct background corresponding to
+// the current weather forecast.
 export default function GetWeatherBackground(props) {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
+    // Get weather from local API
     const fetchWeather = async (latitude, longitude) => {
       try {
         const response = await axios.get(`http://localhost:8000/garden/weather/${latitude}/${longitude}/`);
@@ -25,6 +28,7 @@ export default function GetWeatherBackground(props) {
       }
     };
 
+    // Get location from user (with permission via browser)
     const getLocation = () => {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -50,6 +54,7 @@ export default function GetWeatherBackground(props) {
     </div>
   )}
 
+  // If weather data has not been obtained yet, display a loading page
   if (!weatherData) {
     // Render loading state
     return <p id="loading-text">Loading...</p>;

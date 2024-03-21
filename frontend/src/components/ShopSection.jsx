@@ -7,6 +7,7 @@ import { IPContext } from "../App.js"
 
 import ShopItemModal from './ShopItemModal.jsx'
 
+// A component for a section in the shop.
 export default function ShopSection(props) {
     const [items, setItems] = useState([])
     const [page, setPage] = useState(0)
@@ -16,6 +17,8 @@ export default function ShopSection(props) {
     const IP = useContext(IPContext)
 
     useEffect(() => {
+        // Method that gets all possible store items related to the shopRef
+        // given as part of the ShopSection props
         const getStoreItems = async () => {
             const response = await axios.get(
                 `http://${IP}:8000/store/get-store/${props.shopRef}/`,
@@ -38,6 +41,7 @@ export default function ShopSection(props) {
             <div className='d-flex flex-row flex-nowrap justify-content-between align-items-center mt-3 h-auto'>
                 <h2 className='mb-0 ms-2'>{props.name}</h2>
                 <div className='d-flex flex-row h-100 align-items-center'>
+                    {/* Pagination options for shop */}
                     <IconButton
                         aria-label="previous page"
                         disabled={page <= 0}
@@ -55,6 +59,7 @@ export default function ShopSection(props) {
                 </div>
             </div>
 
+            {/* Create a set of store items relating to the number of items per page */}
             <div className='store-jumbotron d-flex flex-row justify-content-around'>
                 {
                     (itemsPerPage > 0 ? items.slice(page * itemsPerPage, itemsPerPage + page * itemsPerPage)

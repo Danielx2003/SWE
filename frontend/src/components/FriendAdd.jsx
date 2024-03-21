@@ -3,6 +3,7 @@ import { IPContext } from "../App.js"
 import Cookies from 'js-cookie';
 import axios from 'axios'
 
+// A component to facilitate the adding of friends
 export default function FriendAdd(props) {
     const IP = useContext(IPContext)
     const [btnText, setBtnText] = useState("ADD")

@@ -5,7 +5,7 @@ import axios from 'axios'
 import { MenuItem } from '@mui/material'
 import { IPContext } from "../App.js"
 
-
+// A component to add a button that logs you out of the app
 export default function Logout() {
     const [renderCount, setCount] = useState(0)
     const [btnPressed, setBtnPressed] = useState(false)

@@ -35,16 +35,17 @@ export default function Main() {
     const navigate = useNavigate();
     const IP = useContext(IPContext)
 
-    //delete after its just template
     const userPlants = ['Bluebell Deep', 'Marigold_Red', 'Sunflower', 'BB_Lilac']
     const [plantList, setPlantList] = useState([])
 
 
     useEffect(() => {
+        // If user is not currently logged in, send them to the login page
         if (!Cookies.get('sessionid')) {
             navigate('/login')
         }
 
+        // Get garden data of currently authenticated user
         const getUserData = async() => {
             axios.get(`http://${IP}:8000/garden/garden-data/`)
             .then(response => {
@@ -55,6 +56,7 @@ export default function Main() {
               });
 
         }
+        // Get challenge data from API
         const getChallengeData = async() => {
             axios.get(`http://${IP}:8000/qrcodes/challenges`)
             .then(response => {
@@ -76,6 +78,7 @@ export default function Main() {
         <>
         <CheckNotForAdmin />
         <div className="main--container">
+        {/* Background jumbotron generator using weather API */}
         <div className="parent">
             <div className="plants">
                 <img id="plant-1" src={plantList[0]} alt={plantList[0]}></img>
@@ -84,6 +87,8 @@ export default function Main() {
             </div>
             <GetWeatherBackground id="background-img"/>
         </div>
+
+        {/* Container for game actions i.e. challenges, stats */}
             <div className="garden--container">
                 <div className="choice--container">
                     <div id="auth-buttons" className="auth-button-controller d-flex w-100 flex-row">

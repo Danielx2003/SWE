@@ -115,6 +115,7 @@ export default function Nav() {
                             )}
                             
                             <div>
+                                {/* User profile icon that leads to a dropdown */}
                                 <a 
                                     className="nav-group-element pb-1"
                                     ref={anchorRef}
@@ -127,6 +128,7 @@ export default function Nav() {
                                     >
                                     <FaUserAlt/>
                                 </a>
+                                {/* User dropdown */}
                                 <Popper
                                     open={open}
                                     anchorEl={anchorRef.current}
@@ -152,6 +154,7 @@ export default function Nav() {
                                                 aria-labelledby="composition-button"
                                                 onKeyDown={handleListKeyDown}
                                             >
+                                                {/* Display this group if the user is not an admin or game master */}
                                                 {group && !(group.includes('admin') && !group.includes('game_master')) &&
                                                     <MenuItem className='user-dropdown-link' component={Link} to="/main" onClick={handleClose}>Profile</MenuItem>
                                                 }       
@@ -161,7 +164,7 @@ export default function Nav() {
                                                 {group && !(group.includes('admin') && !group.includes('game_master')) &&
                                                 <MenuItem className='user-dropdown-link' component={Link} to="/pending-friend-requests" onClick={handleClose}>Pending Friend Requests</MenuItem>
                                                 }
-                                                <hr></hr>
+                                                <hr></hr> {/* To separate profile actions from game actions */}
                                                 <MenuItem className='user-dropdown-link'><SettingsModal user={Cookies.get('username')}/></MenuItem>
                                                 {group && (group.includes('admin') || group.includes('game_master')) &&
                                                     <MenuItem className='user-dropdown-link' component={Link} to="/admin" onClick={handleClose}>Admin</MenuItem>

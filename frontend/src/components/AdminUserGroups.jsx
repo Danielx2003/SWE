@@ -16,6 +16,8 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import AdminUserGroupsModal from './AdminUserGroupsModal'
 import { FormControl, InputLabel, MenuItem, Select, TableHead } from '@mui/material';
 
+// Component for displaying the Users currently registered to the website,
+// and for changing their permissions.
 export default function AdminUserGroups({ currentUserPerms }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -23,11 +25,12 @@ export default function AdminUserGroups({ currentUserPerms }) {
   const IP = useContext(IPContext)
 
   useEffect(() => {
+    // Get a user list (with pagination)
     const getUserRows = async () => {
         const response = await axios.get(
             `http://${IP}:8000/authentication/user-search/?page=${page + 1}&page_size=${rowsPerPage}`,
-            {withCredentials: true}
-        )
+            { withCredentials: true }
+        ) 
         .then((res) => {
           setRows(res.data.results)
         })
@@ -40,7 +43,8 @@ export default function AdminUserGroups({ currentUserPerms }) {
     }
 
     getUserRows()
-  }, [rowsPerPage, page])
+  }, [rowsPerPage, page]) // Dependency array to ensure the page updates whenever
+                          // rows per page or page number is changed
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
