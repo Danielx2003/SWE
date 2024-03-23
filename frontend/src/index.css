@@ -624,31 +624,20 @@ of the warcrimes Mui has committed on this table
 #plant-2 {
   position: absolute;
   top: 52%;
-<<<<<<< HEAD
   left: 32.5%;
   width: 13rem;
   z-index: 3;
   max-width: 13rem;
-=======
-  left: 35%;
-  width: 13rem;
-  z-index: 3;
->>>>>>> origin/main
 }
 
 #plant-3 {
   position: absolute;
   top: 52%;
-<<<<<<< HEAD
   left: 65%;
-=======
-  left: 70%;
->>>>>>> origin/main
   width: 13rem;
   z-index: 3;
 }
 
-<<<<<<< HEAD
 #sunflower-img-1 {
   position: absolute;
   top: 60%;
@@ -673,8 +662,6 @@ of the warcrimes Mui has committed on this table
   z-index: 3;
 }
 
-=======
->>>>>>> origin/main
 /* Termly imports */
 [data-custom-class='body'],[data-custom-class='body'] *{background: transparent !important;
 }[data-custom-class='title'],[data-custom-class='title'] *{font-family: Arial !important;
@@ -717,11 +704,8 @@ ul {
 .no-friends-txt {
   background-color: transparent;
   font-size: 2rem;
-<<<<<<< HEAD
 }
 
 #save-garden-btn {
   margin-top: 1rem;
-=======
->>>>>>> origin/main
 }

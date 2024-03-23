@@ -11,18 +11,6 @@ import BB_Pale from "../res/Bluebell Pale.png"
 import Marigold_Orange from "../res/Marigold Orange.png"
 import Marigold_Red from "../res/Marigold Red.png"
 import Marigold_Yellow from "../res/Marigold Yellow.png"
-import Tulip_Oragne from "../res/Tulip_Orange.png"
-import Tulip_Pink from "../res/Tulip_Pink.png"
-import Tulip_Red from "../res/Tulip_Red.png"
-import Tulip_Yellow from "../res/Tulip_Yellow.png"
-import Sunflower from "../res/Sunflower.png"
-
-import BB_Deep from "../res/Bluebell Deep.png"
-import BB_Lilac from "../res/Bluebell Lilac.png"
-import BB_Pale from "../res/Bluebell Pale.png"
-import Marigold_Orange from "../res/Marigold Orange.png"
-import Marigold_Red from "../res/Marigold Red.png"
-import Marigold_Yellow from "../res/Marigold Yellow.png"
 import Tulip_Orange from "../res/Tulip_Orange.png"
 import Tulip_Pink from "../res/Tulip_Pink.png"
 import Tulip_Red from "../res/Tulip_Red.png"
@@ -57,55 +45,50 @@ export default function Main() {
 
     const navigate = useNavigate();
     const IP = useContext(IPContext)
+    const [userPlants, setUserPlants] = useState([])
     const [plantList, setPlantList] = useState([])
-
 
     useEffect(() => {
         if (!Cookies.get('username')) {
-            navigate('/login')
+            navigate('/login');
         }
-
-        const getUserData = async() => {           
-            axios.get(`http://${IP}:8000/garden/garden-data/`,
-            {
-                'withCredentials': true,
-            }
-            )        // If user is not currently logged in, send them to the login page
-        if (!Cookies.get('sessionid')) {
-            navigate('/login')
-        }
-
+    
         // Get garden data of currently authenticated user
-        const getUserData = async() => {
-            axios.get(`http://${IP}:8000/garden/garden-data/`)
-            .then(response => {
-                setUserData(response.data.garden_info)
-                setUserPlants(response.data.garden_info.plants)
-                setPlantList(response.data.garden_layout)
-            }).catch(error => {
-                console.log("Errror getting user data.")
-              });
-              return;
-        }
-        // Get challenge data from API
-        const getChallengeData = async() => {
-            axios.get(`http://${IP}:8000/qrcodes/challenges`,
-            {
+        const getUserData = async () => {
+            axios.get(`http://${IP}:8000/garden/garden-data/`, {
                 'withCredentials': true,
-            }
-            )
+            })
             .then(response => {
-                setChallenges(response.data)
-                
+                setUserData(response.data.garden_info);
+                setUserPlants(response.data.garden_info.plants);
+                setPlantList(response.data.garden_layout);
             })
             .catch(error => {
-                console.log(error)
-            })
-            return;
+                console.log("Error getting user data.");
+            });
+        };
+    
+        // If user is not currently logged in, send them to the login page
+        if (!Cookies.get('sessionid')) {
+            navigate('/login');
         }
-        getUserData()
-        getChallengeData()
-    }, [])
+    
+        // Get challenge data from API
+        const getChallengeData = async () => {
+            axios.get(`http://${IP}:8000/qrcodes/challenges`, {
+                'withCredentials': true,
+            })
+            .then(response => {
+                setChallenges(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        };
+    
+        getUserData();
+        getChallengeData();
+    }, []);
 
 
     //maybe change src={plantList[0]} to become the route
@@ -119,13 +102,12 @@ export default function Main() {
     }
     function plant2ID() {
         try {
-            return dict[plantList.plant3]
+            return dict[plantList.plant2]
         } catch(e) {
             return false
         }
     }
     function plant3ID() {
-        console.log("in plant1id")
         try {
             return dict[plantList.plant3]
         } catch(e) {
@@ -138,22 +120,13 @@ export default function Main() {
         <>
         <CheckNotForAdmin />
         <div className="main--container">
+        {/* Background jumbotron generator using weather API */}
         <div className="parent">
             <div className="plants">
                 <img id={plant1ID() == Sunflower ? "sunflower-img-1" : "plant-1"} src={plant1ID()} alt={plant1ID()}></img>
                 <img id={plant2ID() == Sunflower ? "sunflower-img-2" : "plant-2"} src={plant2ID()} alt={plant2ID()}></img>
                 <img id={plant3ID() == Sunflower ? "sunflower-img-3" : "plant-3"} src={plant3ID()} alt={plant3ID()}></img>
               </div>
-            <GetWeatherBackground id="background-img"/>
-        </div>
-
-        {/* Background jumbotron generator using weather API */}
-        <div className="parent">
-            <div className="plants">
-                <img id="plant-1" src={plantList[0]} alt={plantList[0]}></img>
-                <img id="plant-2" src={plantList[1]} alt={plantList[1]}></img>
-                <img id="plant-3" src={plantList[2]} alt={plantList[2]}></img>
-            </div>
             <GetWeatherBackground id="background-img"/>
         </div>
 

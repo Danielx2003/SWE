@@ -30,13 +30,11 @@ export default function Nav() {
             )
             .then((res) => res.data)
             .then((data) => {
-                console.log(data)
                 
                 Cookies.set('username', data.username)
                 flipLoggedIn(true)
 
                 setGroup(data.groups)
-                console.log(data.groups)
             })
             .catch((e) => console.log("User not authenticated."))
         }

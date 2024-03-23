@@ -1,4 +1,5 @@
 import React, {useState, useContext} from 'react';
+import Cookies from 'js-cookie'
 
 import BB_Deep from "../res/Bluebell Deep.png"
 import BB_Lilac from "../res/Bluebell Lilac.png"
@@ -19,20 +20,27 @@ import { IPContext } from "../App.js"
 export default function PlantSelector(props) {
     let plantList = []
     let userPlants = []
+    axios.defaults.withCredentials = true;
 
     try {
-        props.plantList.map((plant) => {
-            plantList.push(plant)
-        })
+        if (props.plantList.plant1) {
+            plantList.push(props.plantList.plant1)
+        }
+        if (props.plantList.plant2) {
+            plantList.push(props.plantList.plant2)
+        }
+        if (props.plantList.plant3) {
+            plantList.push(props.plantList.plant3)
+        }
+
     } catch(e) {
-        console.log("no plants in garden rn")
+        console.log("")
     }
     try {
         props.userPlants.map((plant) => {
-            console.log(plant)
             userPlants.push(plant.plant_type)})
     } catch(e) {
-        console.log("user owns no plants")
+        console.log("")
     }
 
     const BB_D_P = userPlants.includes('BB_Deep') ? true : false
@@ -65,60 +73,55 @@ export default function PlantSelector(props) {
         if (BB_D_P_D) {
             const index = plantList.findIndex(item => item === 'BB_Deep')
             const updatedList = [...plantList]
-            console.log(updatedList, "list 1")
-            updatedList.splice(index, 1);
-            console.log(updatedList, "List2")
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setBB_D_P_D(false)
-        } else if (props.plantList.length == 3) {
+        } else if (plantList.length == 3) {
             console.log("Plant list full")
         } else {
             setBB_D_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('BB_Deep')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
     function addBB_Lilac() {
         if (BB_L_P_D) {
+            console.log("bb_lilac currently displyed")
             const index = plantList.findIndex(item => item === 'BB_Lilac')
             const updatedList = [...plantList]
-            console.log(updatedList, "list 1")
-            updatedList.splice(index, 1);
-            console.log(updatedList, "List2")
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            debugger;
-            props.setPlantList(json)
+            }))
             setBB_L_P_D(false)
-        } else if (props.plantList.length == 3) {
+        } else if (plantList.length == 3) {
             console.log("Plant list full")
         } else {
-            console.log(plantList, "is plant list")
+            console.log("UPDATED:",plantList)
             setBB_L_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('BB_Lilac')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            debugger;
-            props.setPlantList(json)
+            }))
         }
     }
 
@@ -126,13 +129,13 @@ export default function PlantSelector(props) {
         if (BB_P_P_D) {
             const index = plantList.findIndex(item => item === 'BB_Pale')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setBB_P_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -140,15 +143,12 @@ export default function PlantSelector(props) {
             setBB_P_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('BB_Pale')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            debugger;
-
-            props.setPlantList(json)
-            debugger;
+            }))
 
         }
     }
@@ -157,13 +157,13 @@ export default function PlantSelector(props) {
         if (MG_O_P_D) {
             const index = plantList.findIndex(item => item === 'Marigold_Orange')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setMG_O_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -171,12 +171,12 @@ export default function PlantSelector(props) {
             setMG_O_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Marigold_Orange')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
@@ -184,13 +184,13 @@ export default function PlantSelector(props) {
         if (MG_R_P_D) {
             const index = plantList.findIndex(item => item === 'Marigold_Red')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setMG_R_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -198,26 +198,27 @@ export default function PlantSelector(props) {
             setMG_R_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Marigold_Red')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
     function addMarigold_Yellow() {
         if (MG_Y_P_D) {
+            console.log("MG_Y currently displayed")
             const index = plantList.findIndex(item => item === 'Marigold_Yellow')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setMG_Y_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -225,16 +226,12 @@ export default function PlantSelector(props) {
             setMG_Y_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Marigold_Yellow')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            debugger;
-
-            props.setPlantList(json)
-            debugger;
-
+            }))
         }
     }
 
@@ -242,13 +239,13 @@ export default function PlantSelector(props) {
         if (T_O_P_D) {
             const index = plantList.findIndex(item => item === 'Tulip_Orange')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setT_O_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -256,12 +253,12 @@ export default function PlantSelector(props) {
             setT_O_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Tulip_Orange')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
@@ -269,13 +266,13 @@ export default function PlantSelector(props) {
         if (T_P_P_D) {
             const index = plantList.findIndex(item => item === 'Tulip Pink')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setT_P_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -283,12 +280,12 @@ export default function PlantSelector(props) {
             setT_P_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Tulip_Pink')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
@@ -296,13 +293,13 @@ export default function PlantSelector(props) {
         if (T_R_P_D) {
             const index = plantList.findIndex(item => item === 'Tulip_Red')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setT_R_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -310,12 +307,12 @@ export default function PlantSelector(props) {
             setT_R_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Tulip_Red')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
@@ -323,13 +320,13 @@ export default function PlantSelector(props) {
         if (T_Y_P_D) {
             const index = plantList.findIndex(item => item === 'Tulip_Yellow')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setT_Y_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -337,12 +334,12 @@ export default function PlantSelector(props) {
             setT_Y_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Tulip_Yellow')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
@@ -350,13 +347,13 @@ export default function PlantSelector(props) {
         if (S_P_D) {
             const index = plantList.findIndex(item => item === 'Sunflower')
             const updatedList = [...plantList]
-            updatedList.splice(index, 1);
-            let json = {
+            updatedList[index] = null;
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
             setS_P_D(false)
         } else if (props.plantList.length == 3) {
             console.log("Plant list full")
@@ -364,25 +361,33 @@ export default function PlantSelector(props) {
             setS_P_D(true)
             const updatedList = [...plantList]
             updatedList.push('Sunflower')
-            let json = {
+            props.setPlantList(prev => ({
+                ...prev,
                 plant1: updatedList[0],
                 plant2: updatedList[1],
                 plant3: updatedList[2]
-            }
-            props.setPlantList(json)
+            }))
         }
     }
 
     function nothing() {
     }
 
-    function saveGarden() {
-        axios.post(`http://${IP}:8000/garden/garden-data/update/`, {
-            body: {"garden_layout": {
-                plant1: plantList[0],
-                plant2: plantList[1],
-                plant3: plantList[2],
-            }}
+    const saveGarden = async() => {
+        axios.post(`http://${IP}:8000/garden/garden-data/update/`, {}, {
+            method: "POST",
+            credentials: "include",
+            withCredentials: true,
+            headers: {
+                "Content-type": "application/json",
+                "X-CSRFToken": Cookies.get('csrftoken')
+
+            },
+            body: JSON.stringify({
+                    plant1: plantList[0],
+                    plant2: plantList[1],
+                    plant3: plantList[2]
+          })
         })
     }
 
