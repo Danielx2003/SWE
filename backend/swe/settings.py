@@ -29,10 +29,10 @@ DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-SESSION_COOKIE_HTTPONLY = False
-SECURE_REFERRER_POLICY = 'no-referrer'
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_HTTPONLY = False
+# SECURE_REFERRER_POLICY = 'no-referrer'
+# SESSION_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SECURE = True
 ALLOWED_HOSTS = ["*"]
 FRONTEND_URL = f'http://{IP}:3000'
 
@@ -54,15 +54,17 @@ INSTALLED_APPS = [
     "store"
 ]
 
+# "swe.middle.DisableCSRFMiddleware"
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "swe.middle.DisableCSRFMiddleware"
 ]
 
 ROOT_URLCONF = "swe.urls"
