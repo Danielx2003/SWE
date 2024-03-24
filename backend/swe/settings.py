@@ -18,9 +18,6 @@ IP = 'localhost'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_SECONDS = 518400 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -35,8 +32,6 @@ CORS_ALLOW_CREDENTIALS = True
 # SESSION_COOKIE_HTTPONLY = False
 # SECURE_REFERRER_POLICY = 'no-referrer'
 # SESSION_COOKIE_SAMESITE = 'None'
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_PRELOAD = True
 SESSION_COOKIE_SECURE = True
 ALLOWED_HOSTS = ["*"]
 FRONTEND_URL = f'http://{IP}:3000'
@@ -61,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 #    "django.middleware.csrf.CsrfViewMiddleware",
+    # "django.contrib.auth.middleware.AuthenticationMiddleware",
 
 
 MIDDLEWARE = [
@@ -68,7 +64,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
