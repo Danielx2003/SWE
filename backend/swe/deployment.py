@@ -2,10 +2,16 @@ import os
 from .settings import *
 from .settings import BASE_DIR
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
-CSRF_TRUSTED_ORIGINS = ['https://exe-garden.azurewebsites.net']
 DEBUG = False
 SECRET_KEY= os.environ['MY_SECRET_KEY']
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_PRELOAD = True
+SESSION_COOKIE_SECURE = True
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
+# CSRF_TRUSTED_ORIGINS = ['https://exe-garden.azurewebsites.net']
 
 
 MIDDLEWARE = [
