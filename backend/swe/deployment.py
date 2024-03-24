@@ -27,8 +27,6 @@ STORAGES = {
     }
 }
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-
 CONNECTION = os.environ(['AZURE_POSTGRESQL_CONNECTIONSTRING'])
 
 CONNECTION_STR = {
