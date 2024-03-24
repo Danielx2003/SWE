@@ -15,7 +15,6 @@ from garden.models import GardenData
 
 from garden.models import GardenLayout
 
-
 class RegistrationView(APIView):
     """
     View for registering a new user.
