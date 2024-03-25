@@ -9,7 +9,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SECURE = True
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
-# CSRF_TRUSTED_ORIGINS = ['https://exe-garden.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://'+os.environ['WEBSITE_HOSTNAME']]
 
 
 MIDDLEWARE = [
