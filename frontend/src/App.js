@@ -17,7 +17,6 @@ import Friends from "./pages/Friends.jsx"
 import FriendRequests from "./pages/FriendRequests.jsx"
 import FriendSearch from "./pages/FriendSearch.jsx"
 
-
 //components
 import Nav from "./components/Nav.jsx"
 
@@ -25,6 +24,8 @@ export const IPContext = createContext()
 
 function App() {
   const [redirectQR, setRedirectQR] = useState({qr:false, route:"/main"})
+  const REACT_APP_API_BASE_URL_LOCAL = 'http://localhost:8000/'
+  const REACT_APP_API_BASE_URL = 'https://exe-garden.azurewebsites.net/'
 
   return (
     <div className="site-wrapper">

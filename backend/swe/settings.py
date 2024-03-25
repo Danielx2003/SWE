@@ -32,11 +32,13 @@ CORS_ALLOW_CREDENTIALS = True
 # SESSION_COOKIE_HTTPONLY = False
 # SECURE_REFERRER_POLICY = 'no-referrer'
 # SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-ALLOWED_HOSTS = ["*"]
-FRONTEND_URL = f'http://{IP}:3000'
-# CSRF_TRUSTED_ORIGINS = ['https://'+os.environ['WEBSITE_HOSTNAME']]
+# SESSION_COOKIE_SECURE = True
+# ALLOWED_HOSTS = ["*"]
+# FRONTEND_URL = f'http://{IP}:3000'
+# CSRF_TRUSTED_ORIGINS = [FRONTEND_URL, 'https://localhost:3000']
 
+ALLOWED_HOSTS = ['http://localhost:3000/']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000/']
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,15 +57,14 @@ INSTALLED_APPS = [
     "store"
 ]
 
-#    "django.middleware.csrf.CsrfViewMiddleware",
-    # "django.contrib.auth.middleware.AuthenticationMiddleware",
-
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -133,8 +134,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = "static/"
 
