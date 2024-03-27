@@ -18,15 +18,11 @@ export default function Congrats(props) {
     const code = queryParams.get('code');
 
     useEffect(() => {
-        if (!Cookies.get('sessionid')) {
+        if (!Cookies.get('username')) {
             props.setRedirectQR({qr: true, path:`/qr${location.search}`})
             navigate('/login')
         }
         const getDetails = async () => {
-            //now use the code variable to make a request to the backend.
-            //then can display what the user has won
-            //are we going to store all the qr codes the user has scanned?
-            //do i need to pass the username to check this?
             if (!code) {
                 alert('Invalid code used!')
                 navigate('/main')

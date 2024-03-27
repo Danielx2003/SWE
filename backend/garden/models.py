@@ -28,7 +28,7 @@ class Plant(models.Model):
         MARIGOLD_ORANGE = 'Marigold_Orange'
         MARIGOLD_RED = 'Marigold_Red'
         MARIGOLD_YELLOW = 'Marigold_Yellow'
-        TULIP_ORANGE = 'Tuplip_Orange'
+        TULIP_ORANGE = 'Tulip_Orange'
         TULIP_PINK = 'Tulip_Pink'
         TULIP_RED = 'Tulip_Red'
         TULIP_YELLOW = 'Tulip_Yellow'

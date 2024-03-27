@@ -69,7 +69,7 @@ export default function Main() {
         };
     
         // If user is not currently logged in, send them to the login page
-        if (!Cookies.get('sessionid')) {
+        if (!Cookies.get('username')) {
             navigate('/login');
         }
     
