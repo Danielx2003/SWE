@@ -11,21 +11,21 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 IP = 'localhost'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-3q%-9t+q2f7s)i%7-_!^9st0)rqmake7*th+e*h8%v15)=ff@+"
+SECRET_KEY = "CmPxu6M])*i94jzAjci&d.wv|:vM!FzuTWhp,)/nW;_1'|*G7p^KkIg}@[?H?EM"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
@@ -33,9 +33,12 @@ CORS_ALLOW_CREDENTIALS = True
 # SECURE_REFERRER_POLICY = 'no-referrer'
 # SESSION_COOKIE_SAMESITE = 'None'
 # SESSION_COOKIE_SECURE = True
-ALLOWED_HOSTS = ["*"]
-FRONTEND_URL = f'http://{IP}:3000'
+# ALLOWED_HOSTS = ["*"]
+# FRONTEND_URL = f'http://{IP}:3000'
+# CSRF_TRUSTED_ORIGINS = [FRONTEND_URL, 'https://localhost:3000']
 
+ALLOWED_HOSTS = ['http://localhost:3000/']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000/']
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,15 +57,16 @@ INSTALLED_APPS = [
     "store"
 ]
 
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "swe.middle.DisableCSRFMiddleware"
 ]
 
 ROOT_URLCONF = "swe.urls"
